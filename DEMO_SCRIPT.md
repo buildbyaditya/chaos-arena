@@ -82,7 +82,6 @@
 │ Concludes with full-screen view of nominal        │ Switch bridges agents directly into collaborative │
 │ dashboard and GitHub repository URL               │ team channels with selective addressing, blast-   │
 │ (https://github.com/buildbyaditya/chaos-arena).   │ radius containment, and strict governance.        │
-│                                                   │ radius containment, and strict governance.        │
 │                                                   │                                                   │
 │                                                   │ ChaosArena powered by Switch: The future of       │
 │                                                   │ microservices isn't unmonitored; it's             │
