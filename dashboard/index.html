@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChaosArena — Live SRE War-Room Monitor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-mono p-6">
+  <div class="max-w-6xl mx-auto space-y-6">
+    <!-- Top Header -->
+    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-3">
+          <span>⚡ ChaosArena</span>
+          <span class="text-xs px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 border border-indigo-700">Switch Multi-Agent War Room</span>
+        </h1>
+        <p class="text-sm text-slate-400 mt-1">Real-Time Telemetry for <code class="text-slate-200">target-service (port 4000)</code> — Polled every 1s</p>
+      </div>
+      <button onclick="sendTestOrder()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-sm font-semibold transition">
+        🚀 Fire Test Checkout Request
+      </button>
+    </div>
+
+    <!-- Big Status Banner -->
+    <div id="status-banner" class="rounded-xl p-6 border-2 transition-all duration-300 bg-emerald-950/60 border-emerald-500 flex items-center justify-between">
+      <div>
+        <div class="text-xs uppercase tracking-widest text-emerald-300 font-bold" id="status-subtitle">Live Production Status</div>
+        <div class="text-3xl font-extrabold text-white mt-1" id="status-title">✅ SYSTEM HEALTHY — ALL SERVICES OPERATIONAL</div>
+      </div>
+      <div class="text-right">
+        <span id="status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-slate-950">HTTP 200 OK</span>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div class="text-xs text-slate-400 uppercase">P99 Latency (Checkout API)</div>
+        <div id="metric-latency" class="text-4xl font-black text-emerald-400 mt-2">12 ms</div>
+        <div class="text-xs text-slate-500 mt-1">SLO Threshold: &lt; 250 ms</div>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div class="text-xs text-slate-400 uppercase">5xx Error Rate (Rolling Window)</div>
+        <div id="metric-errors" class="text-4xl font-black text-emerald-400 mt-2">0%</div>
+        <div class="text-xs text-slate-500 mt-1">Alert Threshold: &gt; 5%</div>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div class="text-xs text-slate-400 uppercase">Total Monitored Requests</div>
+        <div id="metric-total" class="text-4xl font-black text-sky-400 mt-2">0</div>
+        <div class="text-xs text-slate-500 mt-1">Active Room: #chaos-gameday</div>
+      </div>
+    </div>
+
+    <!-- Live HTTP Feed & Error Stack Stream -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <h2 class="text-sm font-bold uppercase text-slate-300 mb-3 border-b border-slate-800 pb-2">Recent HTTP Probes</h2>
+        <div id="events-list" class="space-y-2 text-xs max-h-80 overflow-y-auto"></div>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <h2 class="text-sm font-bold uppercase text-slate-300 mb-3 border-b border-slate-800 pb-2">Live Application Log Stream (logs/app.log)</h2>
+        <div id="logs-list" class="space-y-2 text-xs max-h-80 overflow-y-auto"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function sendTestOrder() {
+      try {
+        await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: [{ sku: 'SW-ENT-01', qty: 2, price: 49 }] })
+        });
+        await refreshMetrics();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function refreshMetrics() {
+      try {
+        const res = await fetch('/metrics');
+        const data = await res.json();
+
+        const banner = document.getElementById('status-banner');
+        const title = document.getElementById('status-title');
+        const badge = document.getElementById('status-badge');
+        const latencyEl = document.getElementById('metric-latency');
+        const errorsEl = document.getElementById('metric-errors');
+        const totalEl = document.getElementById('metric-total');
+
+        latencyEl.textContent = `${data.p99_latency_ms} ms`;
+        errorsEl.textContent = `${data.error_rate_percent}%`;
+        totalEl.textContent = data.total_requests;
+
+        if (data.status === 'CRITICAL_OUTAGE') {
+          banner.className = 'rounded-xl p-6 border-2 transition-all duration-300 bg-rose-950/80 border-rose-500 animate-pulse flex items-center justify-between';
+          title.textContent = '🚨 CRITICAL OUTAGE — CHECKOUT SERVICE FAILING';
+          badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-500 text-white';
+          badge.textContent = 'INCIDENT ACTIVE';
+          latencyEl.className = 'text-4xl font-black text-rose-400 mt-2';
+          errorsEl.className = 'text-4xl font-black text-rose-400 mt-2';
+        } else {
+          banner.className = 'rounded-xl p-6 border-2 transition-all duration-300 bg-emerald-950/60 border-emerald-500 flex items-center justify-between';
+          title.textContent = '✅ SYSTEM HEALTHY — ALL SERVICES OPERATIONAL';
+          badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-slate-950';
+          badge.textContent = 'HTTP 200 OK';
+          latencyEl.className = 'text-4xl font-black text-emerald-400 mt-2';
+          errorsEl.className = 'text-4xl font-black text-emerald-400 mt-2';
+        }
+
+        const eventsHtml = (data.recent_events || []).map(ev => {
+          const isErr = ev.status >= 500 || ev.latency_ms > 1000;
+          const color = isErr ? 'text-rose-400 border-rose-900 bg-rose-950/40' : 'text-emerald-400 border-slate-800 bg-slate-950';
+          return `<div class="p-2 rounded border ${color} flex justify-between">
+            <span><strong>${ev.method}</strong> ${ev.path}</span>
+            <span>HTTP ${ev.status} • ${ev.latency_ms}ms</span>
+          </div>`;
+        }).join('');
+        document.getElementById('events-list').innerHTML = eventsHtml || '<div class="text-slate-500">No requests yet...</div>';
+
+        const logsHtml = (data.recent_logs || []).map(l => {
+          const isErr = l.level === 'ERROR';
+          const color = isErr ? 'text-rose-300 border-rose-800 bg-rose-950/50' : 'text-slate-300 border-slate-800 bg-slate-950';
+          return `<div class="p-2 rounded border ${color}">
+            <div class="font-bold">[${l.level || 'LOG'}] ${l.message || l.raw}</div>
+            ${l.stack ? `<pre class="mt-1 text-[10px] text-rose-400 overflow-x-auto">${l.stack.split('\n').slice(0, 3).join('\n')}</pre>` : ''}
+          </div>`;
+        }).join('');
+        document.getElementById('logs-list').innerHTML = logsHtml || '<div class="text-slate-500">No logs recorded yet...</div>';
+      } catch (err) {
+        console.error('Metrics poll failed', err);
+      }
+    }
+
+    setInterval(refreshMetrics, 1000);
+    refreshMetrics();
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "chaos-arena",
+  "version": "1.0.0",
+  "description": "Autonomous Red-Team vs. Blue-Team Self-Healing GameDays inside Switch",
+  "scripts": {
+    "start": "node --watch target-service/src/server.js",
+    "health": "bash ./scripts/check-health.sh",
+    "logs": "bash ./scripts/tail-logs.sh",
+    "verify": "bash ./scripts/verify-recovery.sh",
+    "chaos:null": "bash ./scripts/chaos-inject.sh null-crash",
+    "chaos:latency": "bash ./scripts/chaos-inject.sh latency-bomb",
+    "chaos:pool": "bash ./scripts/chaos-inject.sh pool-exhaustion",
+    "chaos:reset": "bash ./scripts/chaos-inject.sh reset"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

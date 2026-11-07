@@ -1,0 +1,31 @@
+# Switch Room Template for ChaosArena
+# Import this in Switch Console to create the #chaos-gameday room
+
+name: chaos-gameday
+description: "ChaosArena Red-Team vs Blue-Team Self-Healing GameDay War Room"
+bridge: mattermost
+
+agents:
+  - id: chaos-red
+    role: Red-Team Saboteur
+    description: >
+      Chaos engineering specialist that injects realistic production faults
+      into the target microservice. Only responds to direct human commands.
+    addressing: owner-only
+    instructions_file: agent.md
+    section: "@chaos-red"
+
+  - id: sre-blue
+    role: Blue-Team SRE Responder
+    description: >
+      Senior Site Reliability Engineer that detects, diagnoses, and remediates
+      production incidents. Responds to tags from both humans and @chaos-red.
+    addressing: anyone
+    instructions_file: agent.md
+    section: "@sre-blue"
+
+settings:
+  auto_join: true
+  message_history: 100
+  allow_file_access: true
+  working_directory: "."
