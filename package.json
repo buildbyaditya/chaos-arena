@@ -1,7 +1,7 @@
 {
   "name": "chaos-arena",
   "version": "1.0.0",
-  "description": "Autonomous Red-Team vs. Blue-Team Self-Healing GameDays inside Switch",
+  "description": "Autonomous Red-Team vs. Blue-Team SRE Tactical War Room powered by Switch",
   "scripts": {
     "start": "node --watch target-service/src/server.js",
     "health": "bash ./scripts/check-health.sh",
@@ -17,4 +17,3 @@
     "express": "^4.19.2"
   }
 }
-

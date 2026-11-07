@@ -18,7 +18,7 @@ ChaosArena pits two autonomous AI anime-styled combat squads against each other 
   - `LOG-ANALYZER` (Stack Trace & AST Isolator) - Parses `logs/app.log` JSON frames to pinpoint faulty lines.
   - `AUTO-PATCHER` (Hotpatch & Verification Healer) - Generates surgical diffs, restores baseline, and verifies 5 sequential probes.
 
-A real-time cyberbrutalist war-room dashboard streams telemetry, health probes, P99 latencies, contested fixture monolith statuses, and tactical comms transmissions in real-time. Designed to 100% precision matching industrial cyberbrutalist aesthetics (zero emojis, neon lime accents, hazard stripes, wireframe isometric diagrams, and live animated sprites).
+A real-time cyberbrutalist war-room dashboard streams telemetry, health probes, P99 latencies, contested fixture monolith statuses, and tactical comms transmissions in real-time. Designed to 100% precision matching industrial cyberbrutalist aesthetics: Obsidian black (`#060609`), 2px solid industrial borders, brutalist box-shadows, Neon Red (`#ff003c`), Neon Cyan (`#00f0ff`), Acid Yellow (`#fcee0a`), Emerald Nominal (`#00ff66`), and live animated mecha squads with central SVG tactical vector clash HUD. Strictly zero emojis throughout.
 
 ---
 
