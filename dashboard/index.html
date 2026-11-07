@@ -36,7 +36,7 @@
       background-size: 32px 32px;
     }
 
-    /* Reference poster sharp borders */
+    /* Reference poster sharp cyberbrutalist borders */
     .c-border {
       border: 1px solid #27272a;
     }
@@ -53,7 +53,7 @@
       border: 1px solid var(--cyan-cyber);
     }
 
-    /* Kinetic buttons matching reference */
+    /* Kinetic action buttons matching reference poster */
     .btn-lime {
       background-color: var(--lime);
       color: #000000;
@@ -92,7 +92,7 @@
       background-color: #ffffff;
     }
 
-    /* Hazard warning stripes */
+    /* Hazard warning stripes matching reference poster */
     .hazard-bar {
       background: repeating-linear-gradient(
         -45deg,
@@ -115,15 +115,15 @@
     /* Bot combat movements */
     @keyframes botHover {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-7px); }
     }
     .anim-bot-idle {
-      animation: botHover 2.2s infinite ease-in-out;
+      animation: botHover 2.4s infinite ease-in-out;
     }
 
     @keyframes botChargeRed {
       0% { transform: translateX(0); }
-      50% { transform: translateX(70px) scale(1.06); }
+      50% { transform: translateX(45px) scale(1.08); }
       100% { transform: translateX(0); }
     }
     .anim-bot-attack {
@@ -132,7 +132,7 @@
 
     @keyframes botHealBlue {
       0% { transform: translateX(0); }
-      50% { transform: translateX(-70px) scale(1.06); }
+      50% { transform: translateX(-45px) scale(1.08); }
       100% { transform: translateX(0); }
     }
     .anim-bot-heal {
@@ -150,7 +150,7 @@
       animation: glitchAlert 0.25s infinite linear;
     }
 
-    /* Custom scrollbars */
+    /* Custom cyberbrutalist scrollbars */
     ::-webkit-scrollbar {
       width: 4px;
       height: 4px;
@@ -166,16 +166,16 @@
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-100 p-3 sm:p-5 md:p-8">
-  <div class="max-w-[1360px] mx-auto c-border-thick bg-black relative shadow-2xl">
+<body class="min-h-screen text-slate-100 p-2 sm:p-4 md:p-6 lg:p-8">
+  <div class="max-w-[1440px] mx-auto c-border-thick bg-black relative shadow-2xl">
 
-    <!-- CORNER CROSSHAIR ACCENTS -->
+    <!-- CORNER CROSSHAIR ACCENTS (EXACT REFERENCE POSTER MATCH) -->
     <div class="absolute -top-2.5 -left-2.5 text-zinc-500 font-bold select-none text-sm">+</div>
     <div class="absolute -top-2.5 -right-2.5 text-zinc-500 font-bold select-none text-sm">+</div>
     <div class="absolute -bottom-2.5 -left-2.5 text-zinc-500 font-bold select-none text-sm">+</div>
     <div class="absolute -bottom-2.5 -right-2.5 text-zinc-500 font-bold select-none text-sm">+</div>
 
-    <!-- TOP HEADER (MATCHING REFERENCE POSTER DESIGN) -->
+    <!-- TOP HEADER (MATCHING REFERENCE POSTER DESIGN 100%) -->
     <header class="border-b border-zinc-800 flex flex-wrap items-stretch justify-between text-xs tracking-wider">
       
       <!-- Logo Box in Acid Lime -->
@@ -186,15 +186,17 @@
         </div>
       </div>
 
-      <!-- Navigation Links with '+' separators -->
+      <!-- Navigation Links with '+' separators matching reference poster -->
       <nav class="hidden md:flex items-center gap-3 px-6 text-zinc-400 font-semibold uppercase text-[11px] border-r border-zinc-800">
-        <a href="#arena" class="hover:text-white transition">WAR ROOM</a>
+        <a href="#principles" class="hover:text-white transition">PRINCIPLES</a>
         <span class="text-zinc-600">+</span>
         <a href="#fixtures" class="hover:text-white transition">FIXTURES</a>
         <span class="text-zinc-600">+</span>
-        <a href="#telemetry" class="hover:text-white transition">TELEMETRY</a>
+        <a href="#arena" class="hover:text-white transition">SQUAD ARENA</a>
         <span class="text-zinc-600">+</span>
-        <a href="#logs" class="hover:text-white transition">MATTERMOST</a>
+        <a href="#control" class="hover:text-white transition">STATUS</a>
+        <span class="text-zinc-600">+</span>
+        <a href="#telemetry" class="hover:text-white transition">LOGS</a>
       </nav>
 
       <!-- Live Running UTC Clock & CTA Button -->
@@ -213,7 +215,7 @@
       </div>
     </header>
 
-    <!-- SECTION /01: HERO SECTION (HUMANIZED, NO SLOP, REFERENCE MATCH) -->
+    <!-- SECTION /01: HERO SECTION (HUMANIZED SRE TERMINOLOGY, REFERENCE MATCH) -->
     <section class="border-b border-zinc-800 grid grid-cols-1 lg:grid-cols-12 relative overflow-hidden">
       
       <!-- Left Hero Typography & Description -->
@@ -224,7 +226,7 @@
           <div class="flex items-center gap-3">
             <span class="text-zinc-400 font-mono">2024</span>
             <span class="text-zinc-600">|</span>
-            <span class="tracking-widest">SWITCH AGENT ECOSYSTEM</span>
+            <span class="tracking-widest">SWITCH MULTI-AGENT RUNTIME</span>
             <span class="text-zinc-600">| || |||</span>
           </div>
           <span class="font-mono text-zinc-400">/01</span>
@@ -239,10 +241,10 @@
 
           <div class="mt-6 space-y-2">
             <div class="text-sm font-extrabold text-white tracking-wider uppercase">
-              AUTONOMOUS RED-VS-BLUE SRE GAMEDAYS POWERED BY SWITCH
+              THE FUTURE ISN'T UNMONITORED. IT'S SELF-HEALING.
             </div>
             <p class="text-xs text-zinc-400 max-w-lg leading-relaxed">
-              Solo AI agents can't simulate real-world incident response. ChaosArena pits an autonomous Red-Team Saboteur against a Blue-Team SRE Sentinel inside a shared Mattermost channel to battle-test microservice resilience in real time.
+              Solo AI agents can't stress-test microservice resilience under pressure. ChaosArena orchestrates an autonomous Red-Team Saboteur against a Blue-Team SRE Sentinel inside a shared Switch room bridged to Mattermost. Real AST mutations, real stack traces, real sub-300ms recovery.
             </p>
           </div>
         </div>
@@ -254,8 +256,8 @@
             <span class="font-bold">↗</span>
           </button>
 
-          <button onclick="document.getElementById('fixtures').scrollIntoView({ behavior: 'smooth' })" class="btn-wire px-4 py-2.5 text-xs uppercase flex items-center gap-2">
-            <span>INSPECT FIXTURES</span>
+          <button onclick="document.getElementById('arena').scrollIntoView({ behavior: 'smooth' })" class="btn-wire px-4 py-2.5 text-xs uppercase flex items-center gap-2">
+            <span>ENTER WAR ROOM</span>
             <span class="text-zinc-500">[ ]</span>
           </button>
 
@@ -331,10 +333,142 @@
       </div>
     </section>
 
-    <!-- SECTION /02: THE 3 MICROSERVICE FIXTURES (WHAT THE BOTS FIGHT FOR!) -->
-    <section id="fixtures" class="border-b border-zinc-800 p-6 sm:p-8">
+    <!-- SECTION /02: CORE PRINCIPLES (MATCHING REFERENCE POSTER SECTION /02 100%) -->
+    <section id="principles" class="border-b border-zinc-800 p-6 sm:p-8">
       <div class="flex items-center justify-between text-[11px] mb-6">
         <span class="font-mono text-zinc-400">/02</span>
+        <span class="font-extrabold tracking-widest uppercase text-white">CORE PRINCIPLES</span>
+        <span class="text-xs text-zinc-500 font-mono">[ARCHITECTURE MANIFESTO]</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        
+        <!-- Principle 1: Function Over Form -->
+        <div class="c-border p-4 bg-zinc-950 flex flex-col justify-between">
+          <div>
+            <!-- Wireframe Isometric Cube SVG -->
+            <div class="w-10 h-10 mb-3 text-[#d4ff00]">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" class="w-full h-full">
+                <polygon points="20,4 36,13 20,22 4,13" />
+                <polygon points="4,13 20,22 20,36 4,27" />
+                <polygon points="36,13 20,22 20,36 36,27" />
+              </svg>
+            </div>
+            <div class="text-[11px] font-black uppercase text-white tracking-wider">
+              FUNCTION OVER FORM
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Deterministic shell probes replace manual guesswork. Zero mocked metrics. Everything connects to live Linux sockets.
+            </p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-zinc-900 text-[9px] font-mono text-zinc-500">
+            // RULE_01
+          </div>
+        </div>
+
+        <!-- Principle 2: Systems Thinking -->
+        <div class="c-border p-4 bg-zinc-950 flex flex-col justify-between">
+          <div>
+            <!-- Wireframe 3D Grid Plane SVG -->
+            <div class="w-10 h-10 mb-3 text-white">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" class="w-full h-full">
+                <line x1="4" y1="20" x2="36" y2="20" />
+                <line x1="20" y1="4" x2="20" y2="36" />
+                <line x1="8" y1="8" x2="32" y2="32" />
+                <line x1="8" y1="32" x2="32" y2="8" />
+                <rect x="12" y="12" width="16" height="16" />
+              </svg>
+            </div>
+            <div class="text-[11px] font-black uppercase text-white tracking-wider">
+              SYSTEMS THINKING
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Switch rooms bridge terminal AI agents directly to live microservices. Shared channels provide human-in-the-loop oversight.
+            </p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-zinc-900 text-[9px] font-mono text-zinc-500">
+            // RULE_02
+          </div>
+        </div>
+
+        <!-- Principle 3: Digital Aesthetics -->
+        <div class="c-border p-4 bg-zinc-950 flex flex-col justify-between">
+          <div>
+            <!-- Wireframe Glitch Glyph SVG -->
+            <div class="w-10 h-10 mb-3 text-[#00f0ff]">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" class="w-full h-full">
+                <path d="M8,8 L24,8 C28,8 32,12 32,16 C32,20 28,24 24,24 L8,24 Z" />
+                <path d="M8,24 L26,24 C30,24 34,28 34,32 C34,36 30,36 26,36 L8,36 Z" />
+                <line x1="4" y1="16" x2="16" y2="16" />
+                <line x1="24" y1="12" x2="36" y2="12" />
+              </svg>
+            </div>
+            <div class="text-[11px] font-black uppercase text-white tracking-wider">
+              DIGITAL AESTHETICS
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Cyberbrutalist visual telemetry. Sub-300ms hot-reload loop gives instant visual validation during live chaos strikes.
+            </p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-zinc-900 text-[9px] font-mono text-zinc-500">
+            // RULE_03
+          </div>
+        </div>
+
+        <!-- Principle 4: Bold Contrast -->
+        <div class="c-border p-4 bg-zinc-950 flex flex-col justify-between">
+          <div>
+            <!-- Wireframe Crosshairs SVG -->
+            <div class="w-10 h-10 mb-3 text-[#ff1f3d]">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" class="w-full h-full">
+                <circle cx="20" cy="20" r="14" />
+                <line x1="20" y1="2" x2="20" y2="10" />
+                <line x1="20" y1="30" x2="20" y2="38" />
+                <line x1="2" y1="20" x2="10" y2="20" />
+                <line x1="30" y1="20" x2="38" y2="20" />
+                <circle cx="20" cy="20" r="3" fill="currentColor" />
+              </svg>
+            </div>
+            <div class="text-[11px] font-black uppercase text-white tracking-wider">
+              BOLD CONTRAST
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Autonomous Red-Team saboteurs clash with Blue-Team SRE sentinels. High tension, zero latency ambiguity, rapid MTTR.
+            </p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-zinc-900 text-[9px] font-mono text-zinc-500">
+            // RULE_04
+          </div>
+        </div>
+
+        <!-- Principle 5: Raw & Authentic -->
+        <div class="c-border p-4 bg-zinc-950 flex flex-col justify-between">
+          <div>
+            <!-- Wireframe Star/Rosette SVG -->
+            <div class="w-10 h-10 mb-3 text-[#00ff66]">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" class="w-full h-full">
+                <polygon points="20,2 24,14 36,14 26,22 30,34 20,26 10,34 14,22 4,14 16,14" />
+              </svg>
+            </div>
+            <div class="text-[11px] font-black uppercase text-white tracking-wider">
+              RAW &amp; AUTHENTIC
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Real Node.js process, real AST mutations, real JSON logs written to logs/app.log. No artificial marketing fluff.
+            </p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-zinc-900 text-[9px] font-mono text-zinc-500">
+            // RULE_05
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION /03: THE CONTESTED MICROSERVICE FIXTURES -->
+    <section id="fixtures" class="border-b border-zinc-800 p-6 sm:p-8">
+      <div class="flex items-center justify-between text-[11px] mb-6">
+        <span class="font-mono text-zinc-400">/03</span>
         <span class="font-extrabold tracking-widest uppercase text-white">THE CONTESTED MICROSERVICE FIXTURES</span>
         <span class="text-xs text-zinc-500 font-mono">[TARGET ARCHITECTURE]</span>
       </div>
@@ -425,28 +559,28 @@
       </div>
     </section>
 
-    <!-- SECTION /03: LIVE MULTI-AGENT ARENA // BOTS FIGHTING & FIXING FOR FIXTURES -->
-    <section id="arena" class="border-b border-zinc-800 p-6 sm:p-8 relative">
+    <!-- SECTION /04: LIVE MULTI-AGENT ARENA // BOTS FIGHTING & FIXING FOR FIXTURES -->
+    <section id="arena" class="border-b border-zinc-800 p-4 sm:p-6 lg:p-8 relative">
       <div class="flex items-center justify-between text-[11px] mb-4">
-        <span class="font-mono text-zinc-400">/03</span>
-        <span class="font-extrabold tracking-widest uppercase text-white">LIVE MULTI-AGENT ARENA // REALTIME SQUADS FIGHTING FOR FIXTURES</span>
+        <span class="font-mono text-zinc-400">/04</span>
+        <span class="font-extrabold tracking-widest uppercase text-white">LIVE MULTI-AGENT ARENA // TACTICAL MECHA SQUADS FIGHTING FOR FIXTURES</span>
         <span class="text-xs text-[#d4ff00] font-mono">[SWITCH ENGINE REALTIME]</span>
       </div>
 
       <!-- MAIN RETRO GAME STAGE -->
-      <div class="c-border-thick bg-[#050508] p-5 sm:p-6 relative overflow-hidden">
+      <div class="c-border-thick bg-[#050508] p-4 sm:p-6 relative overflow-hidden">
         
         <!-- Top Game Header Status Bar -->
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-4 mb-6">
           <div class="flex items-center gap-3">
-            <span class="text-[10px] font-mono font-bold bg-red-600 text-black px-2 py-0.5 uppercase">RED ADVERSARY SQUAD</span>
+            <span class="text-[10px] font-mono font-bold bg-red-600 text-black px-2 py-0.5 uppercase">RED ADVERSARY SQUAD [3]</span>
             <span class="text-[10px] font-mono text-zinc-500 font-bold">VS</span>
-            <span class="text-[10px] font-mono font-bold bg-cyan-400 text-black px-2 py-0.5 uppercase">BLUE SENTINEL SQUAD</span>
+            <span class="text-[10px] font-mono font-bold bg-cyan-400 text-black px-2 py-0.5 uppercase">BLUE SENTINEL SQUAD [3]</span>
           </div>
 
           <!-- Central Match Stage Notification -->
           <div id="battle-headline" class="text-xs text-[#d4ff00] font-mono font-bold tracking-wider text-center">
-            [BATTLEGROUND ONLINE] ALL FIXTURES HEALTHY // AGENTS PATROLLING
+            [BATTLEGROUND ONLINE] ALL FIXTURES HEALTHY // SQUADS PATROLLING
           </div>
 
           <!-- Quick Interactive Battle Actions -->
@@ -460,182 +594,248 @@
           </div>
         </div>
 
-        <!-- 2D COMBAT ARENA: RED BOT VS FIXTURE MONOLITH VS BLUE BOT -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center min-h-[420px] relative">
+        <!-- SQUAD ARENA LAYOUT: RED SQUAD (3 BOTS) // CENTER FIXTURE MONOLITH // BLUE SQUAD (3 BOTS) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch relative min-h-[460px]">
           
-          <!-- LEFT FIGHTER: RED TEAM BOT (USING USER'S EXACT UPLOADED BOT GRAPHIC) -->
-          <div class="md:col-span-4 flex flex-col items-center text-center p-4 c-border bg-black/90 relative">
-            
-            <!-- SQUAD ROLE SELECTOR TABS -->
-            <div class="w-full flex justify-between gap-1 mb-3 text-[9px] font-mono">
-              <button onclick="selectRedBotRole('CHAOS_LEAD')" id="tab-red-1" class="flex-1 py-1 bg-red-950 text-red-200 border border-red-600 font-bold">
-                LEAD
-              </button>
-              <button onclick="selectRedBotRole('FAULT_INJECTOR')" id="tab-red-2" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
-                INJECTOR
-              </button>
-              <button onclick="selectRedBotRole('TRAFFIC_FLOODER')" id="tab-red-3" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
-                FLOODER
-              </button>
+          <!-- LEFT FLANK: RED ADVERSARY SQUAD (3 BOTS SIMULTANEOUSLY VISIBLE) -->
+          <div class="lg:col-span-5 flex flex-col justify-between p-3 sm:p-4 c-border bg-black/90 relative">
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3 text-[10px] font-mono">
+              <span class="text-red-400 font-black uppercase">// RED ADVERSARY SQUAD</span>
+              <span id="red-squad-status" class="text-zinc-500 font-bold">PATROLLING</span>
             </div>
 
-            <!-- BOT CONTAINER WITH USER'S EXACT CUT-OUT GRAPHIC -->
-            <div id="red-bot-wrapper" class="relative w-52 h-64 anim-bot-idle transition-all duration-300 flex items-center justify-center">
-              <img id="red-bot-img" src="/dashboard/assets/bot_chaos_red.png" alt="CHAOS-RED Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_15px_rgba(255,31,61,0.25)]" />
+            <!-- 3 BOTS IN SQUAD FORMATION -->
+            <div class="grid grid-cols-3 gap-2 py-2 items-end">
               
-              <!-- Dynamic Live Speech / Action Overlay when active -->
-              <div id="red-action-bubble" class="hidden absolute top-[4%] left-[2%] w-[96%] bg-red-950/95 border-2 border-red-500 p-1.5 text-center z-30 shadow-lg">
-                <span id="red-action-text" class="text-[10px] font-mono font-black text-white tracking-wider uppercase">
-                  INJECTING NULL_CRASH!
-                </span>
+              <!-- Red Bot 1: FAULT INJECTOR -->
+              <div id="bot-card-red-injector" class="flex flex-col items-center text-center p-2 border border-zinc-800 bg-zinc-950/80 hover:border-red-600 transition cursor-pointer" onclick="injectChaosFault('null-crash')">
+                <div id="wrap-red-injector" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
+                  <img src="/dashboard/assets/bot_red_fault_injector.png" alt="FAULT-INJECTOR Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_12px_rgba(255,31,61,0.3)]" />
+                  <!-- Speech action tag -->
+                  <div id="bubble-red-injector" class="hidden absolute top-0 left-0 right-0 bg-red-950/95 border border-red-500 text-[8px] font-mono text-white px-1 py-0.5 z-20 font-bold uppercase animate-pulse">
+                    NULL PTR
+                  </div>
+                </div>
+                <div class="mt-2 text-[9px] font-mono font-bold text-red-400 uppercase">
+                  FAULT-INJECTOR
+                </div>
+                <div class="text-[8px] font-mono text-zinc-500">
+                  NULL_CRASH
+                </div>
               </div>
 
-              <!-- Animated Attack Beam Emitter -->
-              <div id="red-attack-beam" class="hidden absolute top-[52%] left-[82%] w-56 h-3.5 bg-gradient-to-r from-red-600 via-amber-400 to-transparent z-20 animate-pulse pointer-events-none"></div>
+              <!-- Red Bot 2: CHAOS LEAD (CENTER) -->
+              <div id="bot-card-red-lead" class="flex flex-col items-center text-center p-2 border border-red-900 bg-zinc-950 hover:border-red-500 transition cursor-pointer" onclick="injectChaosFault('null-crash')">
+                <div id="wrap-red-lead" class="relative w-full h-40 sm:h-48 anim-bot-idle flex items-center justify-center">
+                  <img src="/dashboard/assets/bot_red_chaos_lead.png" alt="CHAOS-RED Lead Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_16px_rgba(255,31,61,0.4)]" />
+                  <!-- Speech action tag -->
+                  <div id="bubble-red-lead" class="hidden absolute top-0 left-0 right-0 bg-red-950/95 border border-red-500 text-[8px] font-mono text-white px-1 py-0.5 z-20 font-bold uppercase animate-pulse">
+                    CHAOS LEAD
+                  </div>
+                </div>
+                <div class="mt-2 text-[9px] font-mono font-black text-red-300 uppercase">
+                  CHAOS-RED
+                </div>
+                <div class="text-[8px] font-mono text-zinc-400">
+                  SABOTEUR LEAD
+                </div>
+              </div>
+
+              <!-- Red Bot 3: TRAFFIC FLOODER -->
+              <div id="bot-card-red-flooder" class="flex flex-col items-center text-center p-2 border border-zinc-800 bg-zinc-950/80 hover:border-red-600 transition cursor-pointer" onclick="injectChaosFault('latency-bomb')">
+                <div id="wrap-red-flooder" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
+                  <img src="/dashboard/assets/bot_red_traffic_flooder.png" alt="TRAFFIC-FLOODER Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_12px_rgba(255,31,61,0.3)]" />
+                  <!-- Speech action tag -->
+                  <div id="bubble-red-flooder" class="hidden absolute top-0 left-0 right-0 bg-red-950/95 border border-red-500 text-[8px] font-mono text-white px-1 py-0.5 z-20 font-bold uppercase animate-pulse">
+                    BURST TRAFFIC
+                  </div>
+                </div>
+                <div class="mt-2 text-[9px] font-mono font-bold text-amber-400 uppercase">
+                  TRAFFIC-FLOODER
+                </div>
+                <div class="text-[8px] font-mono text-zinc-500">
+                  LATENCY &amp; POOL
+                </div>
+              </div>
+
             </div>
 
-            <!-- LIVE BOT ACTION & FIXING MESSAGE BUBBLE -->
-            <div class="mt-2 w-full bg-zinc-950 border border-zinc-800 p-2.5 text-left">
+            <!-- Red Squad Tactical Dialogue Bubble -->
+            <div class="mt-3 bg-zinc-950 border border-zinc-800 p-2.5 text-left">
               <div class="flex justify-between items-center text-[9px] font-mono text-zinc-500 mb-1">
-                <span>BOT DESIGNATION:</span>
-                <span id="red-bot-status" class="text-red-400 font-bold uppercase">CHAOS-RED // SABOTEUR</span>
+                <span>ACTIVE SABOTEUR:</span>
+                <span id="red-bot-status" class="text-red-400 font-bold uppercase">UNIT-01 // CHAOS-RED</span>
               </div>
               <p id="red-bot-speech" class="text-[10px] font-mono text-zinc-300 leading-snug">
-                Scanning checkout.js AST nodes for unguarded coupon property access.
+                Patrolling microservice surface. Ready to inject AST null mutations into checkout.js.
               </p>
             </div>
 
-            <!-- Interactive Attack Controls -->
+            <!-- Red Squad Quick Attack Buttons -->
             <div class="grid grid-cols-3 gap-1.5 w-full mt-3">
-              <button onclick="injectChaosFault('null-crash')" class="bg-red-950 hover:bg-red-900 border border-red-600 text-red-300 p-1.5 text-[9px] font-mono font-bold">
-                NULL_PTR
+              <button onclick="injectChaosFault('null-crash')" class="bg-red-950 hover:bg-red-900 border border-red-600 text-red-300 p-1.5 text-[9px] font-mono font-bold uppercase">
+                NULL_CRASH ↗
               </button>
-              <button onclick="injectChaosFault('latency-bomb')" class="bg-red-950 hover:bg-red-900 border border-amber-600 text-amber-300 p-1.5 text-[9px] font-mono font-bold">
-                LAT_BOMB
+              <button onclick="injectChaosFault('latency-bomb')" class="bg-red-950 hover:bg-red-900 border border-amber-600 text-amber-300 p-1.5 text-[9px] font-mono font-bold uppercase">
+                LAT_BOMB ↗
               </button>
-              <button onclick="injectChaosFault('pool-exhaustion')" class="bg-red-950 hover:bg-red-900 border border-rose-600 text-rose-300 p-1.5 text-[9px] font-mono font-bold">
-                DB_DRAIN
+              <button onclick="injectChaosFault('pool-exhaustion')" class="bg-red-950 hover:bg-red-900 border border-rose-600 text-rose-300 p-1.5 text-[9px] font-mono font-bold uppercase">
+                POOL_DRAIN ↗
               </button>
             </div>
           </div>
 
           <!-- CENTER STAGE: THE MONOLITH // MICROSERVICE FIXTURE INFRASTRUCTURE -->
-          <div class="md:col-span-4 flex flex-col items-center text-center p-4 relative">
+          <div class="lg:col-span-2 flex flex-col items-center justify-between text-center p-3 sm:p-4 border border-zinc-800 bg-zinc-950/60 relative">
             
-            <div class="text-[10px] font-mono tracking-widest text-zinc-400 mb-2 font-bold uppercase">
-              // ACTIVE BATTLEGROUND FIXTURE
-            </div>
+            <div class="w-full">
+              <div class="text-[9px] font-mono tracking-widest text-zinc-400 mb-2 font-bold uppercase">
+                // TARGET MONOLITH
+              </div>
 
-            <!-- Server Core Integrity Bar -->
-            <div class="w-full bg-zinc-900 border border-zinc-700 h-4 p-0.5 mb-2">
-              <div id="server-health-bar" class="h-full bg-[#00ff66] transition-all duration-300 w-full"></div>
-            </div>
-            
-            <div class="flex justify-between w-full text-[10px] font-mono mb-4 px-1">
-              <span id="server-status-label" class="text-[#00ff66] font-extrabold">SLO: 100% NOMINAL</span>
-              <span id="server-http-code" class="text-zinc-400 font-bold">HTTP 200 OK</span>
+              <!-- Server Core Integrity Bar -->
+              <div class="w-full bg-zinc-900 border border-zinc-700 h-3.5 p-0.5 mb-1">
+                <div id="server-health-bar" class="h-full bg-[#00ff66] transition-all duration-300 w-full"></div>
+              </div>
+              
+              <div class="flex justify-between w-full text-[9px] font-mono mb-3 px-0.5">
+                <span id="server-status-label" class="text-[#00ff66] font-extrabold">SLO: 100%</span>
+                <span id="server-http-code" class="text-zinc-400 font-bold">200 OK</span>
+              </div>
             </div>
 
             <!-- Server Rack Visual Monolith -->
-            <div id="server-rack" class="relative w-36 h-48 bg-zinc-950 border-2 border-zinc-700 p-2.5 flex flex-col justify-between shadow-2xl transition-all duration-300">
+            <div id="server-rack" class="relative w-full h-44 bg-zinc-950 border-2 border-zinc-700 p-2 flex flex-col justify-between shadow-2xl transition-all duration-300">
               
               <!-- Fixture Slot 1: Checkout -->
-              <div id="monolith-slot-1" class="border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between">
-                <div class="flex items-center gap-1.5">
-                  <span id="monolith-led-1" class="w-2 h-2 bg-[#00ff66] rounded-none animate-ping"></span>
-                  <span class="text-[8px] font-mono text-zinc-300">CHECKOUT_API</span>
+              <div id="monolith-slot-1" class="border border-zinc-800 p-1 bg-black/60 flex items-center justify-between">
+                <div class="flex items-center gap-1">
+                  <span id="monolith-led-1" class="w-1.5 h-1.5 bg-[#00ff66] rounded-none animate-ping"></span>
+                  <span class="text-[8px] font-mono text-zinc-300">CHECKOUT</span>
                 </div>
                 <span id="monolith-badge-1" class="text-[8px] font-mono text-zinc-500 font-bold">200 OK</span>
               </div>
 
               <!-- Fixture Slot 2: Inventory -->
-              <div id="monolith-slot-2" class="border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between">
-                <div class="flex items-center gap-1.5">
-                  <span id="monolith-led-2" class="w-2 h-2 bg-[#00ff66] rounded-none"></span>
-                  <span class="text-[8px] font-mono text-zinc-300">INVENTORY_API</span>
+              <div id="monolith-slot-2" class="border border-zinc-800 p-1 bg-black/60 flex items-center justify-between">
+                <div class="flex items-center gap-1">
+                  <span id="monolith-led-2" class="w-1.5 h-1.5 bg-[#00ff66] rounded-none"></span>
+                  <span class="text-[8px] font-mono text-zinc-300">INVENTORY</span>
                 </div>
                 <span id="monolith-badge-2" class="text-[8px] font-mono text-zinc-500 font-bold">200 OK</span>
               </div>
 
               <!-- Fixture Slot 3: DB Pool -->
-              <div id="monolith-slot-3" class="border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between">
-                <div class="flex items-center gap-1.5">
-                  <span id="monolith-led-3" class="w-2 h-2 bg-[#00ff66] rounded-none"></span>
+              <div id="monolith-slot-3" class="border border-zinc-800 p-1 bg-black/60 flex items-center justify-between">
+                <div class="flex items-center gap-1">
+                  <span id="monolith-led-3" class="w-1.5 h-1.5 bg-[#00ff66] rounded-none"></span>
                   <span class="text-[8px] font-mono text-zinc-300">DB_POOL</span>
                 </div>
                 <span id="monolith-badge-3" class="text-[8px] font-mono text-zinc-500 font-bold">25 SLOTS</span>
               </div>
 
               <!-- Central Diagnostic Pulse Screen -->
-              <div id="server-screen" class="border border-zinc-800 bg-zinc-900/90 h-10 flex items-center justify-center font-mono text-[9px] text-[#00ff66] font-bold">
+              <div id="server-screen" class="border border-zinc-800 bg-zinc-900/90 h-8 flex items-center justify-center font-mono text-[8px] text-[#00ff66] font-bold">
                 SYSTEM_NOMINAL
               </div>
 
               <!-- Glitch Explosion Overlay on Server -->
-              <div id="server-sparks" class="hidden absolute -top-4 -left-4 w-44 h-52 pointer-events-none z-30 flex items-center justify-center">
-                <div class="text-2xl font-black text-red-500 glitch-flash bg-black/80 px-2 border border-red-600">BREACHED</div>
+              <div id="server-sparks" class="hidden absolute -top-2 -left-2 -right-2 -bottom-2 pointer-events-none z-30 flex items-center justify-center bg-red-950/60 border border-red-600">
+                <div class="text-lg font-black text-red-500 glitch-flash bg-black px-2 py-0.5 border border-red-600">BREACHED</div>
               </div>
             </div>
 
             <!-- Direct Probe Trigger -->
-            <button onclick="sendDirectProbe()" class="mt-4 btn-wire text-[10px] font-mono px-3 py-1.5 uppercase flex items-center gap-1.5">
-              <span>PROBE /API/CHECKOUT</span>
+            <button onclick="sendDirectProbe()" class="w-full mt-3 btn-wire text-[9px] font-mono py-1.5 uppercase flex items-center justify-center gap-1">
+              <span>PROBE CHECKOUT</span>
               <span class="text-xs">↗</span>
             </button>
           </div>
 
-          <!-- RIGHT FIGHTER: BLUE TEAM BOT (USING USER'S EXACT UPLOADED BOT GRAPHIC) -->
-          <div class="md:col-span-4 flex flex-col items-center text-center p-4 c-border bg-black/90 relative">
-            
-            <!-- SQUAD ROLE SELECTOR TABS -->
-            <div class="w-full flex justify-between gap-1 mb-3 text-[9px] font-mono">
-              <button onclick="selectBlueBotRole('SRE_COMMANDER')" id="tab-blue-1" class="flex-1 py-1 bg-cyan-950 text-cyan-200 border border-cyan-500 font-bold">
-                LEAD
-              </button>
-              <button onclick="selectBlueBotRole('LOG_ANALYZER')" id="tab-blue-2" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
-                ANALYZER
-              </button>
-              <button onclick="selectBlueBotRole('AUTO_PATCHER')" id="tab-blue-3" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
-                PATCHER
-              </button>
+          <!-- RIGHT FLANK: BLUE SENTINEL SQUAD (3 BOTS SIMULTANEOUSLY VISIBLE) -->
+          <div class="lg:col-span-5 flex flex-col justify-between p-3 sm:p-4 c-border bg-black/90 relative">
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3 text-[10px] font-mono">
+              <span class="text-cyan-400 font-black uppercase">// BLUE SENTINEL SQUAD</span>
+              <span id="blue-squad-status" class="text-zinc-500 font-bold">SENTINEL ONLINE</span>
             </div>
 
-            <!-- BOT CONTAINER WITH USER'S EXACT CUT-OUT GRAPHIC -->
-            <div id="blue-bot-wrapper" class="relative w-52 h-64 anim-bot-idle transition-all duration-300 flex items-center justify-center">
-              <img id="blue-bot-img" src="/dashboard/assets/bot_sre_blue.png" alt="@SRE-BLUE Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_15px_rgba(0,240,255,0.25)]" />
+            <!-- 3 BOTS IN SQUAD FORMATION -->
+            <div class="grid grid-cols-3 gap-2 py-2 items-end">
               
-              <!-- Dynamic Live Speech / Action Overlay when active -->
-              <div id="blue-action-bubble" class="hidden absolute top-[4%] left-[2%] w-[96%] bg-cyan-950/95 border-2 border-cyan-400 p-1.5 text-center z-30 shadow-lg">
-                <span id="blue-action-text" class="text-[10px] font-mono font-black text-white tracking-wider uppercase">
-                  DEPLOYING HOTPATCH!
-                </span>
+              <!-- Blue Bot 1: LOG ANALYZER -->
+              <div id="bot-card-blue-analyzer" class="flex flex-col items-center text-center p-2 border border-zinc-800 bg-zinc-950/80 hover:border-cyan-500 transition cursor-pointer" onclick="triggerTriageProbe()">
+                <div id="wrap-blue-analyzer" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
+                  <img src="/dashboard/assets/bot_blue_log_analyzer.png" alt="LOG-ANALYZER Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_12px_rgba(0,240,255,0.3)]" />
+                  <!-- Speech action tag -->
+                  <div id="bubble-blue-analyzer" class="hidden absolute top-0 left-0 right-0 bg-cyan-950/95 border border-cyan-400 text-[8px] font-mono text-white px-1 py-0.5 z-20 font-bold uppercase animate-pulse">
+                    PARSE LOGS
+                  </div>
+                </div>
+                <div class="mt-2 text-[9px] font-mono font-bold text-cyan-300 uppercase">
+                  LOG-ANALYZER
+                </div>
+                <div class="text-[8px] font-mono text-zinc-500">
+                  STACK TRACER
+                </div>
               </div>
 
-              <!-- Animated Repair Beam Emitter -->
-              <div id="blue-repair-beam" class="hidden absolute top-[52%] right-[82%] w-56 h-3.5 bg-gradient-to-l from-cyan-400 via-[#00ff66] to-transparent z-20 animate-pulse pointer-events-none"></div>
+              <!-- Blue Bot 2: SRE COMMANDER (CENTER) -->
+              <div id="bot-card-blue-lead" class="flex flex-col items-center text-center p-2 border border-cyan-900 bg-zinc-950 hover:border-cyan-400 transition cursor-pointer" onclick="triggerTriageProbe()">
+                <div id="wrap-blue-lead" class="relative w-full h-40 sm:h-48 anim-bot-idle flex items-center justify-center">
+                  <img src="/dashboard/assets/bot_blue_sre_commander.png" alt="@SRE-BLUE Commander Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_16px_rgba(0,240,255,0.4)]" />
+                  <!-- Speech action tag -->
+                  <div id="bubble-blue-lead" class="hidden absolute top-0 left-0 right-0 bg-cyan-950/95 border border-cyan-400 text-[8px] font-mono text-white px-1 py-0.5 z-20 font-bold uppercase animate-pulse">
+                    COMMANDER
+                  </div>
+                </div>
+                <div class="mt-2 text-[9px] font-mono font-black text-cyan-200 uppercase">
+                  @SRE-BLUE
+                </div>
+                <div class="text-[8px] font-mono text-zinc-400">
+                  SENTINEL LEAD
+                </div>
+              </div>
+
+              <!-- Blue Bot 3: AUTO PATCHER -->
+              <div id="bot-card-blue-patcher" class="flex flex-col items-center text-center p-2 border border-zinc-800 bg-zinc-950/80 hover:border-emerald-500 transition cursor-pointer" onclick="applyAutoHeal()">
+                <div id="wrap-blue-patcher" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
+                  <img src="/dashboard/assets/bot_blue_auto_patcher.png" alt="AUTO-PATCHER Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_12px_rgba(0,255,102,0.3)]" />
+                  <!-- Speech action tag -->
+                  <div id="bubble-blue-patcher" class="hidden absolute top-0 left-0 right-0 bg-emerald-950/95 border border-emerald-400 text-[8px] font-mono text-white px-1 py-0.5 z-20 font-bold uppercase animate-pulse">
+                    HOTPATCHING
+                  </div>
+                </div>
+                <div class="mt-2 text-[9px] font-mono font-bold text-emerald-400 uppercase">
+                  AUTO-PATCHER
+                </div>
+                <div class="text-[8px] font-mono text-zinc-500">
+                  GIT HEALER
+                </div>
+              </div>
+
             </div>
 
-            <!-- LIVE BOT ACTION & FIXING MESSAGE BUBBLE -->
-            <div class="mt-2 w-full bg-zinc-950 border border-zinc-800 p-2.5 text-left">
+            <!-- Blue Squad Tactical Dialogue Bubble -->
+            <div class="mt-3 bg-zinc-950 border border-zinc-800 p-2.5 text-left">
               <div class="flex justify-between items-center text-[9px] font-mono text-zinc-500 mb-1">
-                <span>BOT DESIGNATION:</span>
-                <span id="blue-bot-status" class="text-cyan-400 font-bold uppercase">@SRE-BLUE // SENTINEL</span>
+                <span>ACTIVE SENTINEL:</span>
+                <span id="blue-bot-status" class="text-cyan-400 font-bold uppercase">UNIT-02 // @SRE-BLUE</span>
               </div>
               <p id="blue-bot-speech" class="text-[10px] font-mono text-zinc-300 leading-snug">
-                Monitoring logs/app.log sink. Ready to parse stack traces and dispatch hot-patch.
+                Monitoring logs/app.log sink. Standing by to triage exceptions and deploy surgical hotpatches.
               </p>
             </div>
 
-            <!-- Interactive Defense Controls -->
+            <!-- Blue Squad Quick Defense Buttons -->
             <div class="grid grid-cols-3 gap-1.5 w-full mt-3">
-              <button onclick="triggerTriageProbe()" class="bg-cyan-950 hover:bg-cyan-900 border border-cyan-500 text-cyan-200 p-1.5 text-[9px] font-mono font-bold">
-                TRIAGE
+              <button onclick="triggerTriageProbe()" class="bg-cyan-950 hover:bg-cyan-900 border border-cyan-500 text-cyan-200 p-1.5 text-[9px] font-mono font-bold uppercase">
+                TRIAGE ↗
               </button>
-              <button onclick="applyAutoHeal()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#d4ff00] text-[#d4ff00] p-1.5 text-[9px] font-mono font-bold">
-                HOTPATCH
+              <button onclick="applyAutoHeal()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#d4ff00] text-[#d4ff00] p-1.5 text-[9px] font-mono font-bold uppercase">
+                HOTPATCH ↗
               </button>
-              <button onclick="verifyRecoverySuite()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#00ff66] text-[#00ff66] p-1.5 text-[9px] font-mono font-bold">
-                VERIFY[5]
+              <button onclick="verifyRecoverySuite()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#00ff66] text-[#00ff66] p-1.5 text-[9px] font-mono font-bold uppercase">
+                VERIFY[5] ↗
               </button>
             </div>
           </div>
@@ -644,14 +844,14 @@
       </div>
     </section>
 
-    <!-- SECTION /04, /05, /06: CONTROL MATRIX, SYSTEM STATUS, COMMS (REFERENCE DESIGN MATCH) -->
-    <section class="border-b border-zinc-800 grid grid-cols-1 md:grid-cols-3">
+    <!-- SECTION /05, /06, /07: CONTROL MATRIX, SYSTEM STATUS, COMMS (REFERENCE DESIGN MATCH) -->
+    <section id="control" class="border-b border-zinc-800 grid grid-cols-1 md:grid-cols-3">
       
-      <!-- /04 INCIDENT CONTROL (Reference Match) -->
+      <!-- /05 INCIDENT CONTROL -->
       <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] mb-4">
-            <span class="font-mono text-zinc-400">/04</span>
+            <span class="font-mono text-zinc-400">/05</span>
             <span class="font-extrabold tracking-widest uppercase text-white">INCIDENT CONTROL</span>
           </div>
 
@@ -680,11 +880,11 @@
         </button>
       </div>
 
-      <!-- /05 SYSTEM STATUS (EXACT 100% REPRODUCTION OF REFERENCE POSTER) -->
+      <!-- /06 SYSTEM STATUS (EXACT 100% REPRODUCTION OF REFERENCE POSTER) -->
       <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] mb-4">
-            <span class="font-mono text-zinc-400">/05</span>
+            <span class="font-mono text-zinc-400">/06</span>
             <span class="font-extrabold tracking-widest uppercase text-white">SYSTEM STATUS</span>
           </div>
 
@@ -740,11 +940,11 @@
         </div>
       </div>
 
-      <!-- /06 SWITCH COMMS STREAM (Reference Match) -->
+      <!-- /07 SWITCH COMMS STREAM (Reference Match) -->
       <div class="p-6 sm:p-8 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] mb-4">
-            <span class="font-mono text-zinc-400">/06</span>
+            <span class="font-mono text-zinc-400">/07</span>
             <span class="font-extrabold tracking-widest uppercase text-white">SWITCH MATTERMOST COMMS</span>
           </div>
 
@@ -769,7 +969,7 @@
       </div>
     </section>
 
-    <!-- SECTION /07: LIVE TELEMETRY & STRUCTURED APPLICATION LOGS -->
+    <!-- SECTION /08: LIVE TELEMETRY & STRUCTURED APPLICATION LOGS -->
     <section id="telemetry" class="border-b border-zinc-800 grid grid-cols-1 md:grid-cols-2">
       
       <!-- HTTP TRANSACTION BUFFER -->
@@ -791,7 +991,7 @@
       </div>
     </section>
 
-    <!-- FOOTER NAV (REFERENCE MATCH) -->
+    <!-- FOOTER NAV (REFERENCE MATCH 100%) -->
     <footer class="p-6 sm:p-8 bg-black grid grid-cols-2 md:grid-cols-5 gap-6 text-xs text-zinc-400 border-b border-zinc-800">
       
       <!-- Brand & Copyright -->
@@ -844,10 +1044,10 @@
       </div>
     </footer>
 
-    <!-- BOTTOM HAZARD TAPE BAR (REFERENCE MATCH) -->
+    <!-- BOTTOM HAZARD TAPE BAR (REFERENCE MATCH 100%) -->
     <div class="p-3 bg-black flex items-center justify-between overflow-hidden text-xs font-mono font-bold">
       <div class="hazard-bar h-4 w-48 sm:w-80"></div>
-      <div class="px-3 text-[#d4ff00] tracking-widest uppercase">
+      <div class="px-3 text-[#d4ff00] tracking-widest uppercase font-black">
         &gt; ACCESS GRANTED_
       </div>
       <div class="hazard-bar h-4 w-48 sm:w-80"></div>
@@ -860,94 +1060,6 @@
     let incidentStartTime = null;
     let incidentInterval = null;
     let isCurrentlyOutage = false;
-
-    // ACTIVE BOT ROLE SELECTION
-    let activeRedRole = 'CHAOS_LEAD';
-    let activeBlueRole = 'SRE_COMMANDER';
-
-    const RED_ROLES = {
-      CHAOS_LEAD: {
-        tag: 'CHAOS-RED',
-        img: '/dashboard/assets/bot_red_chaos_lead.png',
-        speech: 'Orchestrating multi-point chaos attack on target-service checkout fixtures.',
-        status: 'CHAOS-RED // COMMANDER'
-      },
-      FAULT_INJECTOR: {
-        tag: 'FAULT-INJECTOR',
-        img: '/dashboard/assets/bot_red_fault_injector.png',
-        speech: 'Injecting null dereference into checkout.js:11. Forcing uncaught TypeError.',
-        status: 'FAULT-INJECTOR // COURIER'
-      },
-      TRAFFIC_FLOODER: {
-        tag: 'TRAFFIC-FLOODER',
-        img: '/dashboard/assets/bot_red_traffic_flooder.png',
-        speech: 'Simulating concurrent transaction bursts to trip latency timeouts & db leaks.',
-        status: 'TRAFFIC-FLOODER // STRESSOR'
-      }
-    };
-
-    const BLUE_ROLES = {
-      SRE_COMMANDER: {
-        tag: '@SRE-BLUE',
-        img: '/dashboard/assets/bot_blue_sre_commander.png',
-        speech: 'Monitoring live P99 and error telemetry. Ready to coordinate automated hot-patching.',
-        status: '@SRE-BLUE // COMMANDER'
-      },
-      LOG_ANALYZER: {
-        tag: 'LOG-ANALYZER',
-        img: '/dashboard/assets/bot_blue_log_analyzer.png',
-        speech: 'Scanning logs/app.log sink. Isolating stack trace frames and offending AST lines.',
-        status: 'LOG-ANALYZER // HEURISTIC'
-      },
-      AUTO_PATCHER: {
-        tag: 'AUTO-PATCHER',
-        img: '/dashboard/assets/bot_blue_auto_patcher.png',
-        speech: 'Formulating surgical git diff. Restoring baseline code and verifying 5 probes.',
-        status: 'AUTO-PATCHER // OPERATOR'
-      }
-    };
-
-    function selectRedBotRole(role) {
-      activeRedRole = role;
-      const bot = RED_ROLES[role];
-      document.getElementById('red-bot-speech').textContent = bot.speech;
-      document.getElementById('red-bot-status').textContent = bot.status;
-      const redImg = document.getElementById('red-bot-img');
-      if (redImg && bot.img) {
-        redImg.src = bot.img;
-      }
-
-      // Update tabs
-      ['CHAOS_LEAD', 'FAULT_INJECTOR', 'TRAFFIC_FLOODER'].forEach((r, idx) => {
-        const btn = document.getElementById(`tab-red-${idx + 1}`);
-        if (r === role) {
-          btn.className = 'flex-1 py-1 bg-red-950 text-red-200 border border-red-600 font-bold';
-        } else {
-          btn.className = 'flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white';
-        }
-      });
-    }
-
-    function selectBlueBotRole(role) {
-      activeBlueRole = role;
-      const bot = BLUE_ROLES[role];
-      document.getElementById('blue-bot-speech').textContent = bot.speech;
-      document.getElementById('blue-bot-status').textContent = bot.status;
-      const blueImg = document.getElementById('blue-bot-img');
-      if (blueImg && bot.img) {
-        blueImg.src = bot.img;
-      }
-
-      // Update tabs
-      ['SRE_COMMANDER', 'LOG_ANALYZER', 'AUTO_PATCHER'].forEach((r, idx) => {
-        const btn = document.getElementById(`tab-blue-${idx + 1}`);
-        if (r === role) {
-          btn.className = 'flex-1 py-1 bg-cyan-950 text-cyan-200 border border-cyan-500 font-bold';
-        } else {
-          btn.className = 'flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white';
-        }
-      });
-    }
 
     // LIVE RUNNING UTC CLOCK
     function updateClock() {
@@ -1004,19 +1116,22 @@
       const serverSparks = document.getElementById('server-sparks');
       const battleHeadline = document.getElementById('battle-headline');
 
-      // Bot action elements
-      const redActionBubble = document.getElementById('red-action-bubble');
-      const redActionText = document.getElementById('red-action-text');
+      // Bot speech elements
       const redBotSpeech = document.getElementById('red-bot-speech');
       const redBotStatus = document.getElementById('red-bot-status');
-
-      const blueActionBubble = document.getElementById('blue-action-bubble');
-      const blueActionText = document.getElementById('blue-action-text');
       const blueBotSpeech = document.getElementById('blue-bot-speech');
       const blueBotStatus = document.getElementById('blue-bot-status');
+      const redSquadStatus = document.getElementById('red-squad-status');
+      const blueSquadStatus = document.getElementById('blue-squad-status');
 
-      const redBeam = document.getElementById('red-attack-beam');
-      const blueBeam = document.getElementById('blue-repair-beam');
+      // Speech bubble tags over heads
+      const bubbleRedInjector = document.getElementById('bubble-red-injector');
+      const bubbleRedLead = document.getElementById('bubble-red-lead');
+      const bubbleRedFlooder = document.getElementById('bubble-red-flooder');
+
+      const bubbleBlueAnalyzer = document.getElementById('bubble-blue-analyzer');
+      const bubbleBlueLead = document.getElementById('bubble-blue-lead');
+      const bubbleBluePatcher = document.getElementById('bubble-blue-patcher');
 
       // Monolith slot elements
       const monolithSlot1 = document.getElementById('monolith-slot-1');
@@ -1049,33 +1164,40 @@
         serverHttpCode.textContent = 'HTTP 500 ERROR';
         serverHttpCode.className = 'text-red-400 font-bold';
 
-        serverScreen.className = 'border border-red-600 bg-red-950/90 h-10 flex items-center justify-center font-mono text-[9px] text-red-400 font-bold';
+        serverScreen.className = 'border border-red-600 bg-red-950/90 h-8 flex items-center justify-center font-mono text-[8px] text-red-400 font-bold';
         serverScreen.textContent = `FATAL: ${(data.active_fault || combat.activeFault || 'CRASH').toUpperCase()}`;
         serverSparks.classList.remove('hidden');
 
-        monolithSlot1.className = 'border border-red-600 p-1.5 bg-red-950/80 flex items-center justify-between animate-pulse';
+        monolithSlot1.className = 'border border-red-600 p-1 bg-red-950/80 flex items-center justify-between animate-pulse';
         monolithBadge1.textContent = 'HTTP 500';
         monolithBadge1.className = 'text-[8px] font-mono text-red-400 font-black';
-        monolithLed1.className = 'w-2 h-2 bg-red-500 rounded-none animate-ping';
+        monolithLed1.className = 'w-1.5 h-1.5 bg-red-500 rounded-none animate-ping';
         fixStatus1.className = 'text-[9px] px-1.5 py-0.5 bg-red-950 text-red-400 border border-red-600 font-mono font-bold animate-pulse';
         fixStatus1.textContent = '500 ERROR';
 
         battleHeadline.className = 'text-xs text-red-500 font-mono font-bold tracking-wider text-center animate-pulse';
         battleHeadline.textContent = `[PHASE_01: RED_STRIKE] >> CHAOS-RED CORRUPTED FIXTURE // ${(data.active_fault || combat.activeFault || 'CHAOS').toUpperCase()}`;
 
-        redActionBubble.classList.remove('hidden');
-        redActionText.textContent = `INJECTING ${(data.active_fault || combat.activeFault || 'FAULT').toUpperCase()}!`;
-        redBotStatus.textContent = 'CHAOS-RED // ATTACKING';
+        redSquadStatus.textContent = 'ATTACK ACTIVE';
+        redSquadStatus.className = 'text-red-500 font-black animate-pulse';
+        redBotStatus.textContent = 'FAULT-INJECTOR // BREACHING';
         redBotStatus.className = 'text-red-500 font-black animate-pulse';
         redBotSpeech.textContent = `Target breached! Injected ${(data.active_fault || combat.activeFault || 'fault')} into checkout.js. Customers receiving 500 errors!`;
-        redBeam.classList.remove('hidden');
 
-        blueActionBubble.classList.remove('hidden');
-        blueActionText.textContent = 'TRIAGING EXCEPTION!';
-        blueBotStatus.textContent = '@SRE-BLUE // TRIAGING';
+        bubbleRedInjector.classList.remove('hidden');
+        bubbleRedLead.classList.remove('hidden');
+        bubbleRedFlooder.classList.add('hidden');
+
+        blueSquadStatus.textContent = 'TRIAGING';
+        blueSquadStatus.className = 'text-amber-400 font-bold animate-pulse';
+        blueBotStatus.textContent = 'LOG-ANALYZER // TRIAGING';
         blueBotStatus.className = 'text-amber-400 font-bold animate-pulse';
         blueBotSpeech.textContent = 'Exception detected. Parsing stack trace at checkout.js:11. Formulating surgical hot-patch.';
-        blueBeam.classList.add('hidden');
+
+        bubbleBlueAnalyzer.classList.remove('hidden');
+        bubbleBlueLead.classList.add('hidden');
+        bubbleBluePatcher.classList.add('hidden');
+
       } else if (phase === 'PHASE_02_BLUE_SCANNING') {
         bannerOperational.className = 'mt-6 border border-cyan-500 bg-cyan-950/60 p-3 text-center text-xs font-black tracking-widest text-cyan-300 uppercase animate-pulse';
         bannerOperational.textContent = '[PHASE_02: BLUE_SCANNING] DIAGNOSTIC SWEEP ACTIVE';
@@ -1083,12 +1205,19 @@
         battleHeadline.className = 'text-xs text-cyan-400 font-mono font-bold tracking-wider text-center';
         battleHeadline.textContent = '[PHASE_02: BLUE_SCANNING] @SRE-BLUE PROBING INVENTORY & CHECKOUT ENDPOINTS';
 
-        redBeam.classList.add('hidden');
-        blueActionBubble.classList.remove('hidden');
-        blueActionText.textContent = 'PROBING ENDPOINTS!';
+        bubbleRedInjector.classList.add('hidden');
+        bubbleRedLead.classList.add('hidden');
+
+        blueSquadStatus.textContent = 'SCANNING';
+        blueSquadStatus.className = 'text-cyan-400 font-bold';
         blueBotStatus.textContent = '@SRE-BLUE // SCANNING';
         blueBotStatus.className = 'text-cyan-400 font-bold';
         blueBotSpeech.textContent = 'Executing ./scripts/check-health.sh. Measuring round-trip latencies and isolating failing routes.';
+
+        bubbleBlueAnalyzer.classList.remove('hidden');
+        bubbleBlueLead.classList.remove('hidden');
+        bubbleBluePatcher.classList.add('hidden');
+
       } else if (phase === 'PHASE_03_AUTH_REQUIRED') {
         bannerOperational.className = 'mt-6 border border-amber-500 bg-amber-950/80 p-3 text-center text-xs font-black tracking-widest text-amber-300 uppercase animate-pulse';
         bannerOperational.textContent = '[PHASE_03: AUTH_REQUIRED] DIFF READY // AWAITING OPERATOR CONFIRMATION';
@@ -1096,12 +1225,19 @@
         battleHeadline.className = 'text-xs text-amber-400 font-mono font-bold tracking-wider text-center animate-pulse';
         battleHeadline.textContent = '[PHASE_03: AUTH_REQUIRED] ROOT CAUSE IDENTIFIED AT checkout.js:11 // REPLY "@sre-blue heal"';
 
-        redBeam.classList.add('hidden');
-        blueActionBubble.classList.remove('hidden');
-        blueActionText.textContent = 'AWAITING SIGN-OFF!';
+        bubbleRedInjector.classList.add('hidden');
+        bubbleRedLead.classList.add('hidden');
+
+        blueSquadStatus.textContent = 'AUTH REQUIRED';
+        blueSquadStatus.className = 'text-amber-300 font-bold animate-pulse';
         blueBotStatus.textContent = '@SRE-BLUE // DIFF READY';
         blueBotStatus.className = 'text-amber-300 font-bold';
         blueBotSpeech.textContent = 'Stack trace verified. Surgical diff formulated. Awaiting human operator sign-off: "@sre-blue heal".';
+
+        bubbleBlueAnalyzer.classList.add('hidden');
+        bubbleBlueLead.classList.remove('hidden');
+        bubbleBluePatcher.classList.remove('hidden');
+
       } else {
         // PHASE_00_STANDBY or PHASE_04_HEAL_VERIFIED
         if (isCurrentlyOutage) {
@@ -1129,38 +1265,39 @@
         serverHttpCode.textContent = 'HTTP 200 OK';
         serverHttpCode.className = 'text-zinc-400 font-bold';
 
-        serverScreen.className = 'border border-zinc-800 bg-zinc-900/90 h-10 flex items-center justify-center font-mono text-[9px] text-[#00ff66] font-bold';
+        serverScreen.className = 'border border-zinc-800 bg-zinc-900/90 h-8 flex items-center justify-center font-mono text-[8px] text-[#00ff66] font-bold';
         serverScreen.textContent = 'SYSTEM_NOMINAL';
         serverSparks.classList.add('hidden');
 
-        monolithSlot1.className = 'border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between';
+        monolithSlot1.className = 'border border-zinc-800 p-1 bg-black/60 flex items-center justify-between';
         monolithBadge1.textContent = '200 OK';
         monolithBadge1.className = 'text-[8px] font-mono text-zinc-500 font-bold';
-        monolithLed1.className = 'w-2 h-2 bg-[#00ff66] rounded-none animate-ping';
+        monolithLed1.className = 'w-1.5 h-1.5 bg-[#00ff66] rounded-none animate-ping';
         fixStatus1.className = 'text-[9px] px-1.5 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-600 font-mono font-bold';
         fixStatus1.textContent = '200 OK';
 
         battleHeadline.className = 'text-xs text-[#d4ff00] font-mono font-bold tracking-wider text-center';
-        battleHeadline.textContent = mttrScore ? `[PHASE_04: HEAL_VERIFIED] 5/5 PROBES PASSED // MTTR: ${mttrScore}` : '[PHASE_00: STANDBY] ALL FIXTURES HEALTHY // AGENTS PATROLLING';
+        battleHeadline.textContent = mttrScore ? `[PHASE_04: HEAL_VERIFIED] 5/5 PROBES PASSED // MTTR: ${mttrScore}` : '[PHASE_00: STANDBY] ALL FIXTURES HEALTHY // SQUADS PATROLLING';
 
-        redActionBubble.classList.add('hidden');
-        redBotStatus.textContent = RED_ROLES[activeRedRole].status;
+        redSquadStatus.textContent = 'PATROLLING';
+        redSquadStatus.className = 'text-zinc-500 font-bold';
+        redBotStatus.textContent = 'UNIT-01 // CHAOS-RED';
         redBotStatus.className = 'text-red-400 font-bold uppercase';
-        redBotSpeech.textContent = RED_ROLES[activeRedRole].speech;
-        redBeam.classList.add('hidden');
+        redBotSpeech.textContent = 'Patrolling microservice surface. Ready to inject AST null mutations into checkout.js.';
 
-        blueActionBubble.classList.add('hidden');
-        blueBotStatus.textContent = BLUE_ROLES[activeBlueRole].status;
+        blueSquadStatus.textContent = 'SENTINEL ONLINE';
+        blueSquadStatus.className = 'text-zinc-500 font-bold';
+        blueBotStatus.textContent = 'UNIT-02 // @SRE-BLUE';
         blueBotStatus.className = 'text-cyan-400 font-bold uppercase';
-        blueBotSpeech.textContent = BLUE_ROLES[activeBlueRole].speech;
-        blueBeam.classList.add('hidden');
-      }
+        blueBotSpeech.textContent = 'Monitoring logs/app.log sink. Standing by to triage exceptions and deploy surgical hotpatches.';
 
-        blueActionBubble.classList.add('hidden');
-        blueBotStatus.textContent = BLUE_ROLES[activeBlueRole].status;
-        blueBotStatus.className = 'text-cyan-400 font-bold uppercase';
-        blueBotSpeech.textContent = BLUE_ROLES[activeBlueRole].speech;
-        blueBeam.classList.add('hidden');
+        bubbleRedInjector.classList.add('hidden');
+        bubbleRedLead.classList.add('hidden');
+        bubbleRedFlooder.classList.add('hidden');
+
+        bubbleBlueAnalyzer.classList.add('hidden');
+        bubbleBlueLead.classList.add('hidden');
+        bubbleBluePatcher.classList.add('hidden');
       }
 
       // Render Comms Feed (Tactical Dialogue)
@@ -1214,24 +1351,22 @@
 
     // ACTIONS: INJECT CHAOS (RED TEAM)
     async function injectChaosFault(mode) {
-      if (mode === 'null-crash') {
-        selectRedBotRole('FAULT_INJECTOR');
-      } else if (mode === 'latency-bomb' || mode === 'pool-exhaustion') {
-        selectRedBotRole('TRAFFIC_FLOODER');
+      let targetWrap = document.getElementById('wrap-red-injector');
+      if (mode === 'latency-bomb' || mode === 'pool-exhaustion') {
+        targetWrap = document.getElementById('wrap-red-flooder');
+      } else {
+        targetWrap = document.getElementById('wrap-red-lead');
       }
 
-      const redWrapper = document.getElementById('red-bot-wrapper');
-      const redBeam = document.getElementById('red-attack-beam');
-      
       // Animate bot forward movement toward fixture
-      redWrapper.classList.remove('anim-bot-idle');
-      redWrapper.classList.add('anim-bot-attack');
-      redBeam.classList.remove('hidden');
-
-      setTimeout(() => {
-        redWrapper.classList.remove('anim-bot-attack');
-        redWrapper.classList.add('anim-bot-idle');
-      }, 850);
+      if (targetWrap) {
+        targetWrap.classList.remove('anim-bot-idle');
+        targetWrap.classList.add('anim-bot-attack');
+        setTimeout(() => {
+          targetWrap.classList.remove('anim-bot-attack');
+          targetWrap.classList.add('anim-bot-idle');
+        }, 850);
+      }
 
       try {
         await fetch('/api/arena/inject', {
@@ -1247,20 +1382,15 @@
 
     // ACTIONS: AUTO-HEAL (BLUE TEAM)
     async function applyAutoHeal() {
-      selectBlueBotRole('AUTO_PATCHER');
-
-      const blueWrapper = document.getElementById('blue-bot-wrapper');
-      const blueBeam = document.getElementById('blue-repair-beam');
-
-      // Animate bot forward movement toward fixture
-      blueWrapper.classList.remove('anim-bot-idle');
-      blueWrapper.classList.add('anim-bot-heal');
-      blueBeam.classList.remove('hidden');
-
-      setTimeout(() => {
-        blueWrapper.classList.remove('anim-bot-heal');
-        blueWrapper.classList.add('anim-bot-idle');
-      }, 850);
+      const patcherWrap = document.getElementById('wrap-blue-patcher');
+      if (patcherWrap) {
+        patcherWrap.classList.remove('anim-bot-idle');
+        patcherWrap.classList.add('anim-bot-heal');
+        setTimeout(() => {
+          patcherWrap.classList.remove('anim-bot-heal');
+          patcherWrap.classList.add('anim-bot-idle');
+        }, 850);
+      }
 
       try {
         await fetch('/api/arena/heal', {
@@ -1274,7 +1404,15 @@
     }
 
     async function triggerTriageProbe() {
-      selectBlueBotRole('LOG_ANALYZER');
+      const analyzerWrap = document.getElementById('wrap-blue-analyzer');
+      if (analyzerWrap) {
+        analyzerWrap.classList.remove('anim-bot-idle');
+        analyzerWrap.classList.add('anim-bot-heal');
+        setTimeout(() => {
+          analyzerWrap.classList.remove('anim-bot-heal');
+          analyzerWrap.classList.add('anim-bot-idle');
+        }, 850);
+      }
       await sendDirectProbe();
       await refreshArenaStatus();
     }
@@ -1300,8 +1438,6 @@
     async function resetArena() {
       try {
         await fetch('/api/arena/reset', { method: 'POST' });
-        selectRedBotRole('CHAOS_LEAD');
-        selectBlueBotRole('SRE_COMMANDER');
         resetIncidentTimer();
         await refreshArenaStatus();
       } catch (e) {
@@ -1317,7 +1453,6 @@
 
       // Step 2: Phase 02 - Blue detects outage and runs diagnostic probe after 1.8s
       setTimeout(async () => {
-        selectBlueBotRole('LOG_ANALYZER');
         try {
           await fetch('/api/combat-event', {
             method: 'POST',
