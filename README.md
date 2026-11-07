@@ -9,8 +9,8 @@
 
 ChaosArena pits two autonomous AI anime-styled combat agents against each other in a shared Mattermost war room powered by Switch:
 
-- **UNIT-01: AKIRA-CHAOS (@chaos-red)** - Red-Team Saboteur Mecha that injects realistic production faults into live microservices.
-- **UNIT-02: AEGIS-SRE (@sre-blue)** - Blue-Team SRE Sentinel Mecha that autonomously detects outages, traces AST exceptions, formulates surgical diffs, and requests human sign-off before hot-patching.
+- **CHAOS-RED (@chaos-red)** - Red-Team Saboteur Mecha that injects realistic production faults into live microservices.
+- **@SRE-BLUE (@sre-blue)** - Blue-Team SRE Sentinel Mecha that autonomously detects outages, traces AST exceptions, formulates surgical diffs, and requests human sign-off before hot-patching.
 
 A real-time cyberbrutalist war-room dashboard streams telemetry, health probes, P99 latencies, and tactical comms transmissions in real-time.
 
@@ -26,7 +26,7 @@ A real-time cyberbrutalist war-room dashboard streams telemetry, health probes, 
        │                              │
        ├──────────────────────────────┼─────────────────────────────┐
        ▼                                                            ▼
-[UNIT-01: AKIRA-CHAOS]                                    [UNIT-02: AEGIS-SRE]
+  [CHAOS-RED]                                                  [@SRE-BLUE]
 (@chaos-red // Owner-Only)                                (@sre-blue // Anyone)
        │                                                            │
        │  [STRIKE: INJECT FAULT]                [TRIAGE & HOTPATCH] │
