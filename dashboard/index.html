@@ -3,140 +3,805 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ChaosArena — Live SRE War-Room Monitor</title>
+  <title>CHAOS-ARENA // SWITCH MULTI-AGENT WAR ROOM</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800;900&display=swap');
+
+    :root {
+      --bg-dark: #050508;
+      --red-neon: #ff003c;
+      --red-glow: rgba(255, 0, 60, 0.4);
+      --blue-neon: #00f0ff;
+      --blue-glow: rgba(0, 240, 255, 0.4);
+      --green-neon: #00ff66;
+      --yellow-warn: #ffe600;
+    }
+
+    * {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: #f1f5f9;
+    }
+
+    /* Cyberbrutalist hard offsets */
+    .brutal-box {
+      border: 2px solid #1e293b;
+      box-shadow: 4px 4px 0px #000000;
+    }
+    .brutal-box-red {
+      border: 2px solid var(--red-neon);
+      box-shadow: 4px 4px 0px #ff003c;
+    }
+    .brutal-box-blue {
+      border: 2px solid var(--blue-neon);
+      box-shadow: 4px 4px 0px #00f0ff;
+    }
+    .brutal-box-green {
+      border: 2px solid var(--green-neon);
+      box-shadow: 4px 4px 0px #00ff66;
+    }
+
+    .brutal-btn {
+      border: 2px solid #000000;
+      box-shadow: 3px 3px 0px #000000;
+      transition: all 0.08s ease;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    .brutal-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #000000;
+    }
+
+    .hazard-stripe-red {
+      background: repeating-linear-gradient(
+        -45deg,
+        #1a0509,
+        #1a0509 10px,
+        #3b0813 10px,
+        #3b0813 20px
+      );
+    }
+    .hazard-stripe-green {
+      background: repeating-linear-gradient(
+        -45deg,
+        #041a0d,
+        #041a0d 10px,
+        #08381c 10px,
+        #08381c 20px
+      );
+    }
+
+    /* Scanlines effect */
+    .scanlines::after {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 999;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    /* Glitch Pulse */
+    @keyframes alertPulse {
+      0%, 100% { border-color: var(--red-neon); box-shadow: 0 0 15px var(--red-glow), 5px 5px 0 #000; }
+      50% { border-color: #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.8), 5px 5px 0 var(--red-neon); }
+    }
+    .outage-alert {
+      animation: alertPulse 0.9s infinite;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-mono p-6">
-  <div class="max-w-6xl mx-auto space-y-6">
-    <!-- Top Header -->
-    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-      <div>
-        <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-3">
-          <span>⚡ ChaosArena</span>
-          <span class="text-xs px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 border border-indigo-700">Switch Multi-Agent War Room</span>
+<body class="min-h-screen p-4 md:p-6 scanlines">
+  <div class="max-w-7xl mx-auto space-y-5">
+
+    <!-- TOP SYSTEM HUD HEADER -->
+    <header class="bg-black brutal-box p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-2 border-slate-700">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="bg-red-600 text-black px-2 py-0.5 text-xs font-black tracking-widest">[ZONE:01]</span>
+          <span class="bg-cyan-400 text-black px-2 py-0.5 text-xs font-black tracking-widest">[SWITCH-GAMEDAY]</span>
+          <span class="text-xs text-slate-400 tracking-wider">ROOM: #chaos-gameday // WEBPAGE: port 4000</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
+          <span class="text-red-500 font-extrabold">//</span> CHAOS-ARENA
+          <span class="text-xs md:text-sm font-semibold text-slate-400 border border-slate-700 px-2 py-0.5 bg-slate-900">
+            AUTONOMOUS RED-VS-BLUE WAR ROOM
+          </span>
         </h1>
-        <p class="text-sm text-slate-400 mt-1">Real-Time Telemetry for <code class="text-slate-200">target-service (port 4000)</code> — Polled every 1s</p>
       </div>
-      <button onclick="sendTestOrder()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-sm font-semibold transition">
-        🚀 Fire Test Checkout Request
-      </button>
-    </div>
 
-    <!-- Big Status Banner -->
-    <div id="status-banner" class="rounded-xl p-6 border-2 transition-all duration-300 bg-emerald-950/60 border-emerald-500 flex items-center justify-between">
+      <!-- Quick Action Commands -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="triggerSimulatedBattle()" class="brutal-btn bg-amber-400 hover:bg-amber-300 text-black px-3 py-2 text-xs">
+          [RUN] SIMULATED GAMEDAY CLASH
+        </button>
+        <button onclick="sendDirectProbe()" class="brutal-btn bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 text-xs border border-slate-600">
+          [PROBE] CHECKOUT API
+        </button>
+        <button onclick="resetArena()" class="brutal-btn bg-slate-900 hover:bg-red-950 text-slate-300 hover:text-red-300 px-3 py-2 text-xs border border-slate-800">
+          [PURGE] RESET METRICS
+        </button>
+      </div>
+    </header>
+
+    <!-- LIVE TARGET STATUS BANNER (CYBERBRUTALIST ALERT) -->
+    <section id="status-banner" class="brutal-box-green bg-black p-5 transition-all duration-200">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-emerald-400" id="status-tag">
+            <span>[SYS_MONITOR]</span>
+            <span class="text-slate-500">::</span>
+            <span>TELEMETRY STREAM NOMINAL</span>
+          </div>
+          <div class="text-xl md:text-2xl font-black text-white tracking-tight uppercase" id="status-headline">
+            [STATUS: NOMINAL] ALL MICROSERVICE ENDPOINTS OPERATIONAL
+          </div>
+          <p class="text-xs text-slate-400 font-mono" id="status-subline">
+            TARGET-SERVICE [PORT:4000] // POST /api/checkout &amp; GET /api/inventory OK // NO FAULTS ACTIVE
+          </p>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="text-right font-mono">
+            <div class="text-[10px] text-slate-400 tracking-wider uppercase">INCIDENT TIMER</div>
+            <div class="text-lg font-black text-slate-200" id="incident-timer">00:00:00</div>
+          </div>
+          <div id="status-pill" class="px-3 py-2 bg-emerald-500 text-black text-xs font-black tracking-widest uppercase border-2 border-black">
+            SLO MAINTAINED
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICE INTEGRITY PROGRESS BAR -->
+      <div class="mt-4 pt-3 border-t border-slate-800">
+        <div class="flex justify-between text-xs font-bold mb-1">
+          <span class="text-slate-400 uppercase tracking-wider">TARGET SYSTEM INTEGRITY</span>
+          <span id="integrity-value" class="text-emerald-400">100% [ONLINE]</span>
+        </div>
+        <div class="w-full bg-slate-900 border border-slate-800 h-3 overflow-hidden">
+          <div id="integrity-bar" class="h-full bg-emerald-400 transition-all duration-300 w-full"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BATTLE ARENA: ANIME MECHA BOTS HEAD-TO-HEAD -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+      <!-- LEFT: UNIT-01 // AKIRA-CHAOS (RED TEAM SABOTEUR) -->
+      <div class="lg:col-span-5 bg-black brutal-box-red p-5 flex flex-col justify-between relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 text-8xl font-black text-red-950/20 select-none pointer-events-none">
+          RED-01
+        </div>
+
+        <div>
+          <!-- Bot Header Badge -->
+          <div class="flex items-center justify-between border-b-2 border-red-900 pb-3 mb-4">
+            <div>
+              <span class="bg-red-600 text-black px-2 py-0.5 text-[10px] font-black tracking-widest uppercase">
+                RED-TEAM ADVERSARY
+              </span>
+              <h2 class="text-lg font-black text-red-500 mt-1 tracking-tight uppercase">
+                UNIT-01 // AKIRA-CHAOS
+              </h2>
+              <div class="text-[11px] text-slate-400">CLASS: CHAOS SABOTEUR MECHA // SECTOR: 0xRED</div>
+            </div>
+            <div class="text-right">
+              <span id="red-status-tag" class="px-2 py-1 bg-red-950 border border-red-600 text-red-400 text-[10px] font-black uppercase">
+                STANDBY ARMED
+              </span>
+            </div>
+          </div>
+
+          <!-- Anime Bot Visual Display (SVG Cyber Mecha Avatar) -->
+          <div class="flex items-center gap-4 bg-slate-950/80 border border-red-900 p-3 mb-4">
+            <div class="w-24 h-24 bg-red-950/40 border-2 border-red-600 shrink-0 flex items-center justify-center relative">
+              <!-- Anime Mecha Red SVG -->
+              <svg viewBox="0 0 100 100" class="w-20 h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Mecha Horns / Antenna -->
+                <path d="M20 15 L35 38 L28 42 Z" fill="#ff003c" stroke="#ff859c" stroke-width="1.5"/>
+                <path d="M80 15 L65 38 L72 42 Z" fill="#ff003c" stroke="#ff859c" stroke-width="1.5"/>
+                <path d="M50 8 L54 28 L46 28 Z" fill="#ffe600"/>
+                <!-- Helmet Frame -->
+                <polygon points="30,30 70,30 78,50 68,75 50,88 32,75 22,50" fill="#180408" stroke="#ff003c" stroke-width="2"/>
+                <!-- Face Armor Plates -->
+                <polygon points="34,42 66,42 60,60 50,68 40,60" fill="#2d050f" stroke="#ff003c" stroke-width="1.2"/>
+                <!-- Glowing Monocular / Optic Lens -->
+                <rect x="36" y="47" width="28" height="7" rx="1" fill="#000" stroke="#ff003c" stroke-width="1"/>
+                <circle cx="50" cy="50.5" r="3.5" fill="#ff003c" class="animate-ping"/>
+                <circle cx="50" cy="50.5" r="2.5" fill="#ffffff"/>
+                <!-- Chin / Vent -->
+                <line x1="44" y1="72" x2="56" y2="72" stroke="#ff003c" stroke-width="2"/>
+                <line x1="46" y1="76" x2="54" y2="76" stroke="#ff003c" stroke-width="2"/>
+              </svg>
+              <div class="absolute bottom-1 right-1 text-[8px] bg-red-600 text-black font-black px-1">01</div>
+            </div>
+
+            <!-- Bot Specs -->
+            <div class="space-y-1 text-xs">
+              <div class="text-slate-300 font-bold uppercase tracking-wider">MISSION OBJECTIVE:</div>
+              <p class="text-slate-400 text-[11px] leading-relaxed">
+                Inject deterministic production faults into <code class="text-red-400">checkout.js</code>, compromise P99 latency, trigger 5xx cascades, and challenge Blue SRE reflexes.
+              </p>
+              <div class="text-[10px] text-red-400 font-mono pt-1">
+                ADDRESSING: <span class="text-white font-bold">OWNER-ONLY</span> // AGENT-ID: @chaos-red
+              </div>
+            </div>
+          </div>
+
+          <!-- Red Attack Actions (Weapons Bay) -->
+          <div class="space-y-2">
+            <div class="text-xs font-black tracking-widest text-red-400 uppercase flex items-center justify-between">
+              <span>// WEAPONS BAY (CHAOS INJECTION)</span>
+              <span class="text-[10px] text-slate-500">CLICK TO EXECUTE FAULT</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <button onclick="injectChaosFault('null-crash')" class="brutal-btn bg-red-600 hover:bg-red-500 text-black p-2 text-xs text-left">
+                <div class="font-black">[STRIKE 1]</div>
+                <div class="text-[10px] leading-tight mt-0.5">NULL-POINTER CRASH</div>
+              </button>
+
+              <button onclick="injectChaosFault('latency-bomb')" class="brutal-btn bg-red-800 hover:bg-red-700 text-white p-2 text-xs text-left">
+                <div class="font-black text-amber-300">[STRIKE 2]</div>
+                <div class="text-[10px] leading-tight mt-0.5">2.6s LATENCY BOMB</div>
+              </button>
+
+              <button onclick="injectChaosFault('pool-exhaustion')" class="brutal-btn bg-rose-950 hover:bg-rose-900 border border-red-500 text-red-200 p-2 text-xs text-left">
+                <div class="font-black text-red-400">[STRIKE 3]</div>
+                <div class="text-[10px] leading-tight mt-0.5">DB POOL DRAIN</div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-red-950/80 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+          <span>THREAT STATUS: <strong id="red-threat-label" class="text-red-400">NOMINAL</strong></span>
+          <span>WEAPON: <span id="active-fault-label" class="text-white font-bold">NONE</span></span>
+        </div>
+      </div>
+
+      <!-- CENTER: TELEMETRY & TENSION METRICS (WAR ZONE) -->
+      <div class="lg:col-span-2 bg-black brutal-box p-4 flex flex-col justify-between border-2 border-slate-700">
+        <div>
+          <div class="text-xs font-black tracking-widest text-center text-slate-400 border-b border-slate-800 pb-2 mb-3 uppercase">
+            // TELEMETRY HUD
+          </div>
+
+          <!-- KPI 1: P99 LATENCY -->
+          <div class="bg-slate-950 border border-slate-800 p-3 mb-3">
+            <div class="text-[10px] text-slate-400 uppercase tracking-widest">P99 LATENCY</div>
+            <div id="metric-latency" class="text-2xl md:text-3xl font-black text-emerald-400 mt-1">12 MS</div>
+            <div class="text-[9px] text-slate-500 mt-1">SLO: &lt; 250MS</div>
+          </div>
+
+          <!-- KPI 2: ERROR RATE -->
+          <div class="bg-slate-950 border border-slate-800 p-3 mb-3">
+            <div class="text-[10px] text-slate-400 uppercase tracking-widest">5XX ERROR RATE</div>
+            <div id="metric-errors" class="text-2xl md:text-3xl font-black text-emerald-400 mt-1">0%</div>
+            <div class="text-[9px] text-slate-500 mt-1">ALERT: &gt; 5%</div>
+          </div>
+
+          <!-- KPI 3: MONITORED REQUESTS -->
+          <div class="bg-slate-950 border border-slate-800 p-3">
+            <div class="text-[10px] text-slate-400 uppercase tracking-widest">TRANSACTIONS</div>
+            <div id="metric-total" class="text-2xl font-black text-cyan-400 mt-1">0</div>
+            <div class="text-[9px] text-slate-500 mt-1">WINDOW: LAST 40</div>
+          </div>
+        </div>
+
+        <div class="text-center text-[10px] text-slate-500 font-mono pt-3 border-t border-slate-800">
+          SWITCH BRIDGE: <span class="text-slate-300 font-bold">MATTERMOST</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: UNIT-02 // AEGIS-SRE (BLUE TEAM DEFENDER) -->
+      <div class="lg:col-span-5 bg-black brutal-box-blue p-5 flex flex-col justify-between relative overflow-hidden">
+        <div class="absolute -left-4 -top-4 text-8xl font-black text-cyan-950/20 select-none pointer-events-none">
+          BLUE-02
+        </div>
+
+        <div>
+          <!-- Bot Header Badge -->
+          <div class="flex items-center justify-between border-b-2 border-cyan-900 pb-3 mb-4">
+            <div>
+              <span class="bg-cyan-400 text-black px-2 py-0.5 text-[10px] font-black tracking-widest uppercase">
+                BLUE-TEAM SENTINEL
+              </span>
+              <h2 class="text-lg font-black text-cyan-400 mt-1 tracking-tight uppercase">
+                UNIT-02 // AEGIS-SRE
+              </h2>
+              <div class="text-[11px] text-slate-400">CLASS: SITE RELIABILITY SENTINEL // SECTOR: 0xBLUE</div>
+            </div>
+            <div class="text-right">
+              <span id="blue-status-tag" class="px-2 py-1 bg-cyan-950 border border-cyan-500 text-cyan-300 text-[10px] font-black uppercase">
+                PATROL ACTIVE
+              </span>
+            </div>
+          </div>
+
+          <!-- Anime Bot Visual Display (SVG Cyber Mecha Avatar) -->
+          <div class="flex items-center gap-4 bg-slate-950/80 border border-cyan-900 p-3 mb-4">
+            <div class="w-24 h-24 bg-cyan-950/40 border-2 border-cyan-400 shrink-0 flex items-center justify-center relative">
+              <!-- Anime Mecha Blue SVG -->
+              <svg viewBox="0 0 100 100" class="w-20 h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- V-Fin Antenna Crown -->
+                <polygon points="50,15 42,32 50,28 58,32" fill="#00f0ff" stroke="#ffffff" stroke-width="1"/>
+                <line x1="25" y1="20" x2="45" y2="35" stroke="#00f0ff" stroke-width="2.5"/>
+                <line x1="75" y1="20" x2="55" y2="35" stroke="#00f0ff" stroke-width="2.5"/>
+                <!-- Helmet Crest -->
+                <polygon points="32,32 68,32 76,52 66,78 50,88 34,78 24,52" fill="#021526" stroke="#00f0ff" stroke-width="2"/>
+                <!-- Visor Face Plate -->
+                <polygon points="34,44 66,44 62,62 50,70 38,62" fill="#042940" stroke="#00f0ff" stroke-width="1.2"/>
+                <!-- Dual Glowing Blue Optics -->
+                <polygon points="36,49 46,49 44,55 36,55" fill="#00f0ff"/>
+                <polygon points="54,49 64,49 64,55 56,55" fill="#00f0ff"/>
+                <circle cx="41" cy="52" r="1.5" fill="#ffffff"/>
+                <circle cx="59" cy="52" r="1.5" fill="#ffffff"/>
+                <!-- Mouthguard Grid -->
+                <line x1="44" y1="72" x2="56" y2="72" stroke="#00f0ff" stroke-width="1.5"/>
+                <line x1="46" y1="76" x2="54" y2="76" stroke="#00f0ff" stroke-width="1.5"/>
+              </svg>
+              <div class="absolute bottom-1 right-1 text-[8px] bg-cyan-400 text-black font-black px-1">02</div>
+            </div>
+
+            <!-- Bot Specs -->
+            <div class="space-y-1 text-xs">
+              <div class="text-slate-300 font-bold uppercase tracking-wider">DEFENSE PROTOCOL:</div>
+              <p class="text-slate-400 text-[11px] leading-relaxed">
+                Autonomous triage loop: detect outages, parse structured stack traces, isolate buggy AST nodes, formulate surgical diffs, and prompt human operator for heal authorization.
+              </p>
+              <div class="text-[10px] text-cyan-400 font-mono pt-1">
+                ADDRESSING: <span class="text-white font-bold">ANYONE</span> // AGENT-ID: @sre-blue
+              </div>
+            </div>
+          </div>
+
+          <!-- Blue Defense Actions (Counter-Measures Bay) -->
+          <div class="space-y-2">
+            <div class="text-xs font-black tracking-widest text-cyan-400 uppercase flex items-center justify-between">
+              <span>// DEFENSE MATRIX (SRE RECOVERY)</span>
+              <span class="text-[10px] text-slate-500">CLICK TO EXECUTE PROTOCOL</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <button onclick="triggerTriageProbe()" class="brutal-btn bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500 p-2 text-xs text-left">
+                <div class="font-black">[STEP 1]</div>
+                <div class="text-[10px] leading-tight mt-0.5">RUN TRIAGE RADAR</div>
+              </button>
+
+              <button onclick="applyAutoHeal()" class="brutal-btn bg-cyan-400 hover:bg-cyan-300 text-black p-2 text-xs text-left">
+                <div class="font-black">[STEP 2]</div>
+                <div class="text-[10px] leading-tight mt-0.5">DISPATCH HOTPATCH</div>
+              </button>
+
+              <button onclick="verifyRecoverySuite()" class="brutal-btn bg-emerald-400 hover:bg-emerald-300 text-black p-2 text-xs text-left">
+                <div class="font-black">[STEP 3]</div>
+                <div class="text-[10px] leading-tight mt-0.5">VERIFY 5 PROBES</div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-cyan-950/80 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+          <span>BARRIER INTEGRITY: <strong id="blue-barrier-label" class="text-cyan-400">100%</strong></span>
+          <span>REPAIR DRONES: <span id="blue-drones-label" class="text-white font-bold">STANDBY</span></span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- REAL-TIME TACTICAL COMMS & ANIME BOT COMBAT TRANSMISSIONS -->
+    <section class="bg-black brutal-box p-4 border-2 border-slate-700">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 bg-red-500 rounded-full animate-ping"></span>
+          <h2 class="text-sm font-black uppercase text-white tracking-wider">
+            // TACTICAL COMMS LOG: #chaos-gameday (SWITCH ROOM)
+          </h2>
+        </div>
+        <div class="text-xs text-slate-500 font-mono">
+          MULTI-AGENT BRIDGE ACTIVE
+        </div>
+      </div>
+
+      <div id="comms-feed" class="space-y-2 text-xs max-h-56 overflow-y-auto pr-1">
+        <!-- Live anime transmissions rendered here -->
+      </div>
+    </section>
+
+    <!-- SIDE-BY-SIDE TELEMETRY & LOG TERMINALS -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+      <!-- HTTP PROBE STREAM -->
+      <div class="bg-black brutal-box p-4 border-2 border-slate-700">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+          <h3 class="text-xs font-black uppercase tracking-wider text-slate-300">
+            // HTTP PROBES TELEMETRY FEED
+          </h3>
+          <span class="text-[10px] text-slate-500">LIVE SINK</span>
+        </div>
+        <div id="events-list" class="space-y-1.5 text-xs max-h-64 overflow-y-auto"></div>
+      </div>
+
+      <!-- STRUCTURED APPLICATION LOGS (WITH STACK TRACES) -->
+      <div class="bg-black brutal-box p-4 border-2 border-slate-700">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+          <h3 class="text-xs font-black uppercase tracking-wider text-slate-300">
+            // APPLICATION LOGS (logs/app.log)
+          </h3>
+          <span class="text-[10px] text-slate-500">EXACT FILE &amp; LINE NUMBERS</span>
+        </div>
+        <div id="logs-list" class="space-y-1.5 text-xs max-h-64 overflow-y-auto font-mono"></div>
+      </div>
+
+    </section>
+
+    <!-- FOOTER HUD -->
+    <footer class="text-center text-[11px] text-slate-500 border-t border-slate-800 pt-4 pb-2 font-mono flex flex-col md:flex-row items-center justify-between gap-2">
       <div>
-        <div class="text-xs uppercase tracking-widest text-emerald-300 font-bold" id="status-subtitle">Live Production Status</div>
-        <div class="text-3xl font-extrabold text-white mt-1" id="status-title">✅ SYSTEM HEALTHY — ALL SERVICES OPERATIONAL</div>
+        FLIP THE SWITCH HACKATHON // TRACK 01: BEST BUSINESS WORKFLOW ($2,000)
       </div>
-      <div class="text-right">
-        <span id="status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-slate-950">HTTP 200 OK</span>
+      <div class="flex items-center gap-3">
+        <span>SWITCH AGENTS ENGINE</span>
+        <span>::</span>
+        <span>MATTERMOST BRIDGE</span>
+        <span>::</span>
+        <span>NODE.JS HOT-RELOAD</span>
       </div>
-    </div>
+    </footer>
 
-    <!-- KPI Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-        <div class="text-xs text-slate-400 uppercase">P99 Latency (Checkout API)</div>
-        <div id="metric-latency" class="text-4xl font-black text-emerald-400 mt-2">12 ms</div>
-        <div class="text-xs text-slate-500 mt-1">SLO Threshold: &lt; 250 ms</div>
-      </div>
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-        <div class="text-xs text-slate-400 uppercase">5xx Error Rate (Rolling Window)</div>
-        <div id="metric-errors" class="text-4xl font-black text-emerald-400 mt-2">0%</div>
-        <div class="text-xs text-slate-500 mt-1">Alert Threshold: &gt; 5%</div>
-      </div>
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-        <div class="text-xs text-slate-400 uppercase">Total Monitored Requests</div>
-        <div id="metric-total" class="text-4xl font-black text-sky-400 mt-2">0</div>
-        <div class="text-xs text-slate-500 mt-1">Active Room: #chaos-gameday</div>
-      </div>
-    </div>
-
-    <!-- Live HTTP Feed & Error Stack Stream -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-        <h2 class="text-sm font-bold uppercase text-slate-300 mb-3 border-b border-slate-800 pb-2">Recent HTTP Probes</h2>
-        <div id="events-list" class="space-y-2 text-xs max-h-80 overflow-y-auto"></div>
-      </div>
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-        <h2 class="text-sm font-bold uppercase text-slate-300 mb-3 border-b border-slate-800 pb-2">Live Application Log Stream (logs/app.log)</h2>
-        <div id="logs-list" class="space-y-2 text-xs max-h-80 overflow-y-auto"></div>
-      </div>
-    </div>
   </div>
 
+  <!-- CLIENT-SIDE WAR ROOM ENGINE -->
   <script>
-    async function sendTestOrder() {
+    let incidentStartTime = null;
+    let incidentInterval = null;
+    let isCurrentlyOutage = false;
+
+    // AUDIO SYNTH FOR CYBER HUD EFFECTS (Optional Web Audio API without assets)
+    const audioCtx = (typeof window !== 'undefined' && (window.AudioContext || window.webkitAudioContext))
+      ? new (window.AudioContext || window.webkitAudioContext)()
+      : null;
+
+    function playBeep(freq = 440, type = 'sine', duration = 0.08) {
+      if (!audioCtx) return;
       try {
-        await fetch('/api/checkout', {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Audio muted or not allowed
+      }
+    }
+
+    // POLL STATUS & METRICS FROM SERVER
+    async function refreshArenaStatus() {
+      try {
+        const res = await fetch('/api/arena/status');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        renderArena(data);
+      } catch (err) {
+        console.error('Arena status poll failed', err);
+      }
+    }
+
+    function renderArena(data) {
+      const summary = data.metrics || {};
+      const isOutage = summary.status === 'CRITICAL_OUTAGE';
+
+      // KPI elements
+      const latencyEl = document.getElementById('metric-latency');
+      const errorsEl = document.getElementById('metric-errors');
+      const totalEl = document.getElementById('metric-total');
+
+      latencyEl.textContent = `${summary.p99_latency_ms || 12} MS`;
+      errorsEl.textContent = `${summary.error_rate_percent || 0}%`;
+      totalEl.textContent = summary.total_requests || 0;
+
+      // Status banner elements
+      const banner = document.getElementById('status-banner');
+      const tag = document.getElementById('status-tag');
+      const headline = document.getElementById('status-headline');
+      const subline = document.getElementById('status-subline');
+      const pill = document.getElementById('status-pill');
+      const integrityBar = document.getElementById('integrity-bar');
+      const integrityVal = document.getElementById('integrity-value');
+
+      // Bot statuses
+      const redStatusTag = document.getElementById('red-status-tag');
+      const redThreatLabel = document.getElementById('red-threat-label');
+      const activeFaultLabel = document.getElementById('active-fault-label');
+      const blueStatusTag = document.getElementById('blue-status-tag');
+      const blueBarrierLabel = document.getElementById('blue-barrier-label');
+      const blueDronesLabel = document.getElementById('blue-drones-label');
+
+      activeFaultLabel.textContent = (data.active_fault || 'NONE').toUpperCase();
+
+      if (isOutage) {
+        if (!isCurrentlyOutage) {
+          isCurrentlyOutage = true;
+          startIncidentTimer();
+          playBeep(220, 'sawtooth', 0.25);
+        }
+
+        banner.className = 'brutal-box-red bg-black p-5 transition-all duration-200 outage-alert hazard-stripe-red';
+        tag.className = 'flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-red-500';
+        tag.innerHTML = `<span>[ALERT: BREACH ACTIVE]</span><span class="text-red-400">::</span><span>CRITICAL OUTAGE DETECTED</span>`;
+        headline.className = 'text-xl md:text-2xl font-black text-red-500 tracking-tight uppercase';
+        headline.textContent = '[CRITICAL FAILURE] CHECKOUT SERVICE DOWN - ATTACK ENGAGED';
+        subline.textContent = `PAYLOAD ACTIVE: ${(data.active_fault || 'CRASH').toUpperCase()} // P99: ${summary.p99_latency_ms}ms // 5XX CASCADE`;
+        pill.className = 'px-3 py-2 bg-red-600 text-black text-xs font-black tracking-widest uppercase border-2 border-black animate-bounce';
+        pill.textContent = 'BREACH DETECTED';
+
+        latencyEl.className = 'text-2xl md:text-3xl font-black text-red-500 mt-1';
+        errorsEl.className = 'text-2xl md:text-3xl font-black text-red-500 mt-1';
+
+        integrityBar.className = 'h-full bg-red-600 transition-all duration-300';
+        integrityBar.style.width = `${data.service_integrity || 15}%`;
+        integrityVal.className = 'text-red-500';
+        integrityVal.textContent = `${data.service_integrity || 15}% [CRITICAL BREACH]`;
+
+        redStatusTag.className = 'px-2 py-1 bg-red-600 text-black text-[10px] font-black uppercase animate-pulse';
+        redStatusTag.textContent = 'STRIKE ACTIVE';
+        redThreatLabel.textContent = 'CRITICAL OVERLOAD';
+        redThreatLabel.className = 'text-red-500 font-black';
+
+        blueStatusTag.className = 'px-2 py-1 bg-amber-500 text-black text-[10px] font-black uppercase animate-pulse';
+        blueStatusTag.textContent = 'TRIAGE & REPAIR';
+        blueBarrierLabel.textContent = `${data.service_integrity || 15}%`;
+        blueBarrierLabel.className = 'text-red-400 font-black';
+        blueDronesLabel.textContent = 'DEPLOYED';
+      } else {
+        if (isCurrentlyOutage) {
+          isCurrentlyOutage = false;
+          stopIncidentTimer();
+          playBeep(660, 'triangle', 0.15);
+        }
+
+        banner.className = 'brutal-box-green bg-black p-5 transition-all duration-200';
+        tag.className = 'flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-emerald-400';
+        tag.innerHTML = `<span>[SYS_MONITOR]</span><span class="text-slate-500">::</span><span>TELEMETRY STREAM NOMINAL</span>`;
+        headline.className = 'text-xl md:text-2xl font-black text-white tracking-tight uppercase';
+        headline.textContent = '[STATUS: NOMINAL] ALL MICROSERVICE ENDPOINTS OPERATIONAL';
+        subline.textContent = 'TARGET-SERVICE [PORT:4000] // POST /api/checkout & GET /api/inventory OK // NO FAULTS ACTIVE';
+        pill.className = 'px-3 py-2 bg-emerald-500 text-black text-xs font-black tracking-widest uppercase border-2 border-black';
+        pill.textContent = 'SLO MAINTAINED';
+
+        latencyEl.className = 'text-2xl md:text-3xl font-black text-emerald-400 mt-1';
+        errorsEl.className = 'text-2xl md:text-3xl font-black text-emerald-400 mt-1';
+
+        integrityBar.className = 'h-full bg-emerald-400 transition-all duration-300';
+        integrityBar.style.width = '100%';
+        integrityVal.className = 'text-emerald-400';
+        integrityVal.textContent = '100% [ONLINE]';
+
+        redStatusTag.className = 'px-2 py-1 bg-red-950 border border-red-600 text-red-400 text-[10px] font-black uppercase';
+        redStatusTag.textContent = 'STANDBY ARMED';
+        redThreatLabel.textContent = 'NOMINAL';
+        redThreatLabel.className = 'text-slate-400';
+
+        blueStatusTag.className = 'px-2 py-1 bg-cyan-950 border border-cyan-500 text-cyan-300 text-[10px] font-black uppercase';
+        blueStatusTag.textContent = 'PATROL ACTIVE';
+        blueBarrierLabel.textContent = '100%';
+        blueBarrierLabel.className = 'text-cyan-400';
+        blueDronesLabel.textContent = 'STANDBY';
+      }
+
+      // Render Comms Feed (War Log)
+      const warLogs = data.war_logs || [];
+      const commsHtml = warLogs.map(w => {
+        let borderClass = 'border-slate-800 text-slate-300';
+        let senderClass = 'text-slate-400';
+
+        if (w.sender.includes('AKIRA') || w.sender.includes('RED') || w.type === 'ATTACK') {
+          borderClass = 'border-red-900 bg-red-950/20 text-red-200';
+          senderClass = 'text-red-400 font-black';
+        } else if (w.sender.includes('AEGIS') || w.sender.includes('BLUE') || w.type === 'DEFENSE' || w.type === 'HEAL') {
+          borderClass = 'border-cyan-900 bg-cyan-950/20 text-cyan-200';
+          senderClass = 'text-cyan-400 font-black';
+        } else if (w.sender.includes('OPERATOR') || w.sender.includes('OVERRIDE')) {
+          borderClass = 'border-amber-800 bg-amber-950/20 text-amber-200';
+          senderClass = 'text-amber-400 font-black';
+        }
+
+        const time = (w.timestamp || '').slice(11, 19);
+        return `<div class="p-2 border ${borderClass} font-mono">
+          <div class="flex items-center justify-between text-[10px] text-slate-500 mb-0.5">
+            <span class="${senderClass}">// ${w.sender}</span>
+            <span>[${time}]</span>
+          </div>
+          <div class="text-[11px] leading-snug">${escapeHtml(w.text)}</div>
+        </div>`;
+      }).join('');
+      document.getElementById('comms-feed').innerHTML = commsHtml || '<div class="text-slate-600 font-mono">[NO COMMS RECORDED]</div>';
+
+      // Render Events (Probes)
+      const events = summary.recent_events || [];
+      const eventsHtml = events.map(ev => {
+        const isErr = ev.status >= 500 || ev.latency_ms > 1000;
+        const color = isErr
+          ? 'text-red-400 border-red-900 bg-red-950/30'
+          : 'text-emerald-400 border-slate-800 bg-slate-950';
+        return `<div class="p-2 border ${color} flex items-center justify-between font-mono">
+          <span><strong>${ev.method}</strong> ${ev.path}</span>
+          <span class="font-bold">HTTP ${ev.status} // ${ev.latency_ms}MS</span>
+        </div>`;
+      }).join('');
+      document.getElementById('events-list').innerHTML = eventsHtml || '<div class="text-slate-600 font-mono">[AWAITING TRAFFIC PROBES]</div>';
+
+      // Render Logs
+      const logs = data.recent_logs || [];
+      const logsHtml = logs.map(l => {
+        const isErr = l.level === 'ERROR';
+        const color = isErr
+          ? 'text-red-300 border-red-900 bg-red-950/40'
+          : 'text-slate-300 border-slate-800 bg-slate-950';
+        return `<div class="p-2 border ${color} text-[11px]">
+          <div class="flex justify-between font-bold">
+            <span>[${l.level || 'LOG'}] ${escapeHtml(l.message || l.raw || '')}</span>
+            <span class="text-[9px] text-slate-500">${(l.timestamp || '').slice(11, 19)}</span>
+          </div>
+          ${l.stack ? `<pre class="mt-1 text-[9px] text-red-400 overflow-x-auto border-t border-red-950 pt-1">${escapeHtml(l.stack.split('\n').slice(0, 3).join('\n'))}</pre>` : ''}
+        </div>`;
+      }).join('');
+      document.getElementById('logs-list').innerHTML = logsHtml || '<div class="text-slate-600 font-mono">[LOG BUFFER EMPTY]</div>';
+    }
+
+    // ACTIONS: INJECT CHAOS (RED-TEAM)
+    async function injectChaosFault(mode) {
+      playBeep(330, 'square', 0.1);
+      try {
+        const res = await fetch('/api/arena/inject', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mode })
+        });
+        await refreshArenaStatus();
+      } catch (err) {
+        console.error('Chaos injection failed', err);
+      }
+    }
+
+    // ACTIONS: BLUE-TEAM SRE RECOVERY
+    async function applyAutoHeal() {
+      playBeep(550, 'triangle', 0.12);
+      try {
+        const res = await fetch('/api/arena/heal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        await refreshArenaStatus();
+      } catch (err) {
+        console.error('Auto heal failed', err);
+      }
+    }
+
+    async function triggerTriageProbe() {
+      playBeep(440, 'sine', 0.08);
+      await sendDirectProbe();
+      await refreshArenaStatus();
+    }
+
+    async function verifyRecoverySuite() {
+      await applyAutoHeal();
+    }
+
+    async function sendDirectProbe() {
+      try {
+        await fetch('/api/arena/probe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ items: [{ sku: 'SW-ENT-01', qty: 2, price: 49 }] })
         });
-        await refreshMetrics();
+        await refreshArenaStatus();
       } catch (e) {
         console.error(e);
       }
     }
 
-    async function refreshMetrics() {
+    async function resetArena() {
       try {
-        const res = await fetch('/metrics');
-        const data = await res.json();
-
-        const banner = document.getElementById('status-banner');
-        const title = document.getElementById('status-title');
-        const badge = document.getElementById('status-badge');
-        const latencyEl = document.getElementById('metric-latency');
-        const errorsEl = document.getElementById('metric-errors');
-        const totalEl = document.getElementById('metric-total');
-
-        latencyEl.textContent = `${data.p99_latency_ms} ms`;
-        errorsEl.textContent = `${data.error_rate_percent}%`;
-        totalEl.textContent = data.total_requests;
-
-        if (data.status === 'CRITICAL_OUTAGE') {
-          banner.className = 'rounded-xl p-6 border-2 transition-all duration-300 bg-rose-950/80 border-rose-500 animate-pulse flex items-center justify-between';
-          title.textContent = '🚨 CRITICAL OUTAGE — CHECKOUT SERVICE FAILING';
-          badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-500 text-white';
-          badge.textContent = 'INCIDENT ACTIVE';
-          latencyEl.className = 'text-4xl font-black text-rose-400 mt-2';
-          errorsEl.className = 'text-4xl font-black text-rose-400 mt-2';
-        } else {
-          banner.className = 'rounded-xl p-6 border-2 transition-all duration-300 bg-emerald-950/60 border-emerald-500 flex items-center justify-between';
-          title.textContent = '✅ SYSTEM HEALTHY — ALL SERVICES OPERATIONAL';
-          badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-slate-950';
-          badge.textContent = 'HTTP 200 OK';
-          latencyEl.className = 'text-4xl font-black text-emerald-400 mt-2';
-          errorsEl.className = 'text-4xl font-black text-emerald-400 mt-2';
-        }
-
-        const eventsHtml = (data.recent_events || []).map(ev => {
-          const isErr = ev.status >= 500 || ev.latency_ms > 1000;
-          const color = isErr ? 'text-rose-400 border-rose-900 bg-rose-950/40' : 'text-emerald-400 border-slate-800 bg-slate-950';
-          return `<div class="p-2 rounded border ${color} flex justify-between">
-            <span><strong>${ev.method}</strong> ${ev.path}</span>
-            <span>HTTP ${ev.status} • ${ev.latency_ms}ms</span>
-          </div>`;
-        }).join('');
-        document.getElementById('events-list').innerHTML = eventsHtml || '<div class="text-slate-500">No requests yet...</div>';
-
-        const logsHtml = (data.recent_logs || []).map(l => {
-          const isErr = l.level === 'ERROR';
-          const color = isErr ? 'text-rose-300 border-rose-800 bg-rose-950/50' : 'text-slate-300 border-slate-800 bg-slate-950';
-          return `<div class="p-2 rounded border ${color}">
-            <div class="font-bold">[${l.level || 'LOG'}] ${l.message || l.raw}</div>
-            ${l.stack ? `<pre class="mt-1 text-[10px] text-rose-400 overflow-x-auto">${l.stack.split('\n').slice(0, 3).join('\n')}</pre>` : ''}
-          </div>`;
-        }).join('');
-        document.getElementById('logs-list').innerHTML = logsHtml || '<div class="text-slate-500">No logs recorded yet...</div>';
-      } catch (err) {
-        console.error('Metrics poll failed', err);
+        await fetch('/api/arena/reset', { method: 'POST' });
+        resetIncidentTimer();
+        await refreshArenaStatus();
+      } catch (e) {
+        console.error(e);
       }
     }
 
-    setInterval(refreshMetrics, 1000);
-    refreshMetrics();
+    // SIMULATE AUTOMATED MULTI-AGENT CLASH
+    async function triggerSimulatedBattle() {
+      // Step 1: Red Attacks
+      await injectChaosFault('null-crash');
+      await refreshArenaStatus();
+
+      // Step 2: Pause for dramatic triage by Blue (1.8s)
+      setTimeout(async () => {
+        await sendDirectProbe();
+        await refreshArenaStatus();
+
+        // Step 3: Human grants sign-off -> Blue heals (2.2s later)
+        setTimeout(async () => {
+          await applyAutoHeal();
+          await refreshArenaStatus();
+        }, 2200);
+      }, 1800);
+    }
+
+    // INCIDENT TIMER
+    function startIncidentTimer() {
+      incidentStartTime = Date.now();
+      clearInterval(incidentInterval);
+      incidentInterval = setInterval(() => {
+        if (!incidentStartTime) return;
+        const diff = Date.now() - incidentStartTime;
+        const sec = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+        const min = Math.floor((diff / (1000 * 60)) % 60).toString().padStart(2, '0');
+        const ms = Math.floor((diff % 1000) / 10).toString().padStart(2, '0');
+        document.getElementById('incident-timer').textContent = `${min}:${sec}:${ms}`;
+      }, 50);
+    }
+
+    function stopIncidentTimer() {
+      clearInterval(incidentInterval);
+    }
+
+    function resetIncidentTimer() {
+      stopIncidentTimer();
+      incidentStartTime = null;
+      document.getElementById('incident-timer').textContent = '00:00:00';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Start 1000ms loop
+    setInterval(refreshArenaStatus, 1000);
+    refreshArenaStatus();
   </script>
 </body>
 </html>

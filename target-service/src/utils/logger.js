@@ -16,11 +16,53 @@ const telemetry = {
   lastFaultNote: null
 };
 
+const warLogs = [
+  {
+    timestamp: new Date().toISOString(),
+    sender: 'SYSTEM-OVERWATCH',
+    type: 'RADIO',
+    text: '[ONLINE] SWITCH GAMEDAY BATTLEGROUND INITIALIZED. ARENA READY.'
+  },
+  {
+    timestamp: new Date().toISOString(),
+    sender: 'UNIT-02: AEGIS-BLUE',
+    type: 'DEFENSE',
+    text: '[PATROL] TELEMETRY MATRIX SYNCHRONIZED. TARGET-SERVICE SLO NOMINAL.'
+  },
+  {
+    timestamp: new Date().toISOString(),
+    sender: 'UNIT-01: AKIRA-RED',
+    type: 'ATTACK',
+    text: '[STANDBY] WEAPONS SUBSYSTEMS ARMED. SCANNING FOR UNGUARDED PROPERTIES.'
+  }
+];
+
 function recordMetric(entry) {
   telemetry.requests.push(entry);
   if (telemetry.requests.length > 40) {
     telemetry.requests.shift();
   }
+}
+
+function resetTelemetry() {
+  telemetry.requests = [];
+  telemetry.lastFaultNote = null;
+}
+
+function addWarLog(sender, type, text) {
+  warLogs.push({
+    timestamp: new Date().toISOString(),
+    sender,
+    type,
+    text
+  });
+  if (warLogs.length > 50) {
+    warLogs.shift();
+  }
+}
+
+function getWarLogs() {
+  return warLogs.slice(-25).reverse();
 }
 
 function logEvent(level, message, meta = {}) {
@@ -70,6 +112,9 @@ function getMetricsSummary() {
 module.exports = {
   logEvent,
   recordMetric,
+  resetTelemetry,
+  addWarLog,
+  getWarLogs,
   getMetricsSummary,
   LOG_FILE
 };

@@ -1,141 +1,151 @@
-# ⚡ ChaosArena
+# // CHAOS-ARENA
 
 > Autonomous Red-Team vs. Blue-Team Self-Healing GameDays inside [Switch](https://switchagents.ai)
+> Flip the Switch Hackathon // Track 01: Best Business Workflow ($2,000)
 
-## 🎯 What is ChaosArena?
+---
 
-ChaosArena pits two AI agents against each other in a shared Mattermost war room powered by Switch:
+## [MISSION] WHAT IS CHAOS-ARENA?
 
-- **🔴 @chaos-red** — A Red-Team Saboteur that injects realistic production faults
-- **🔵 @sre-blue** — A Blue-Team SRE that detects, diagnoses, and auto-heals incidents
+ChaosArena pits two autonomous AI anime-styled combat agents against each other in a shared Mattermost war room powered by Switch:
 
-A live dashboard shows the outage → recovery cycle in real-time, turning from 🟢 GREEN to 🔴 RED and back as agents battle.
+- **UNIT-01: AKIRA-CHAOS (@chaos-red)** - Red-Team Saboteur Mecha that injects realistic production faults into live microservices.
+- **UNIT-02: AEGIS-SRE (@sre-blue)** - Blue-Team SRE Sentinel Mecha that autonomously detects outages, traces AST exceptions, formulates surgical diffs, and requests human sign-off before hot-patching.
 
-## 🏗️ Architecture
+A real-time cyberbrutalist war-room dashboard streams telemetry, health probes, P99 latencies, and tactical comms transmissions in real-time.
+
+---
+
+## [ARCHITECTURE] SYSTEM TOPOLOGY
 
 ```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│   Human (You)   │────▶│  Switch Console  │────▶│   Mattermost    │
-│                 │     │  #chaos-gameday  │     │   (Built-in)    │
-└─────────────────┘     └──────────────────┘     └─────────────────┘
-                              │       │
-                    ┌─────────┘       └─────────┐
-                    ▼                           ▼
-            ┌──────────────┐           ┌──────────────┐
-            │  @chaos-red  │           │  @sre-blue   │
-            │  (Saboteur)  │──TAGS────▶│  (SRE Hero)  │
-            └──────────────┘           └──────────────┘
-                    │                           │
-                    ▼                           ▼
-            ┌──────────────────────────────────────────┐
-            │         target-service (port 4000)       │
-            │  ┌─────────┐  ┌──────────┐  ┌────────┐  │
-            │  │checkout  │  │inventory │  │ health │  │
-            │  │  .js     │  │   .js    │  │  /metrics│ │
-            │  └─────────┘  └──────────┘  └────────┘  │
-            └──────────────────────────────────────────┘
-                              │
-                    ┌─────────┘
-                    ▼
-            ┌──────────────┐
-            │  Dashboard   │
-            │  (index.html)│
-            │  localhost:   │
-            │  4000/       │
-            │  dashboard   │
-            └──────────────┘
+[HUMAN OPERATOR]
+       │
+       ▼
+[SWITCH CONSOLE] ─────────▶ [MATTERMOST BRIDGE] (#chaos-gameday)
+       │                              │
+       ├──────────────────────────────┼─────────────────────────────┐
+       ▼                                                            ▼
+[UNIT-01: AKIRA-CHAOS]                                    [UNIT-02: AEGIS-SRE]
+(@chaos-red // Owner-Only)                                (@sre-blue // Anyone)
+       │                                                            │
+       │  [STRIKE: INJECT FAULT]                [TRIAGE & HOTPATCH] │
+       ▼                                                            ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                      TARGET-SERVICE (PORT 4000)                        │
+│   POST /api/checkout  │  GET /api/inventory  │  GET /api/arena/status  │
+│   GET  /health        │  GET /metrics        │  POST /api/arena/heal   │
+└────────────────────────────────────────────────────────────────────────┘
+       │                                                            ▲
+       └──────────────────────────────┬─────────────────────────────┘
+                                      ▼
+                        [CYBERBRUTALIST DASHBOARD]
+                       (http://localhost:4000/dashboard)
 ```
 
-## 🚀 Quick Start
+---
 
-### 1. Install & Start
+## [QUICK START] EXECUTION INSTRUCTIONS
+
+### 1. Install & Boot Microservice
 
 ```bash
 npm install
 npm start
 ```
 
-The service starts on **http://localhost:4000** with hot-reload enabled.
+The target service starts on `http://localhost:4000` with `node --watch` sub-300ms hot-reload.
 
-### 2. Open the Dashboard
+### 2. Access the Cyberbrutalist War Room Monitor
 
-Navigate to **http://localhost:4000/dashboard** to see the live war-room monitor.
+Open your browser to:
+```
+http://localhost:4000/dashboard
+```
 
-### 3. Try the Chaos Modes
+The monitor features cyberbrutalist styling, anime bot combat cards, interactive weapons/defense panels, a dual tension bar, live telemetry feeds, and zero emojis.
+
+### 3. CLI Chaos Modes (Used by @chaos-red)
 
 ```bash
-# Inject a null-crash bug
+# Strike 1: Null-pointer dereference in checkout.js
 npm run chaos:null
 
-# Inject a latency bomb (2.6s blocking delay)
+# Strike 2: 2.6s CPU spin-loop causing 504 Gateway Timeout
 npm run chaos:latency
 
-# Inject pool exhaustion (503 errors)
+# Strike 3: Connection pool collapse (MAX_POOL_CONNECTIONS = 0) -> 503
 npm run chaos:pool
 
-# Reset to healthy baseline
+# Reset: Revert target file to healthy baseline
 npm run chaos:reset
 ```
 
-### 4. SRE Diagnostic Scripts
+### 4. SRE Diagnostic CLI Suite (Used by @sre-blue)
 
 ```bash
-# Check endpoint health
+# Probe endpoint status & response latencies
 npm run health
 
-# Tail application logs
+# Extract recent structured JSON error logs & stack traces
 npm run logs
 
-# Verify recovery after a fix
+# Run 5-probe post-patch verification suite & MTTR scorecard
 npm run verify
 ```
 
-## 🔗 Switch Multi-Agent Setup
+---
 
-1. Open **Switch Console** (with Docker Desktop running)
-2. Import `room.template.yaml` to create the `#chaos-gameday` room
-3. Connect two agent sessions using the instructions in `agent.md`
-4. See the [agent.md](./agent.md) file for full agent role instructions
+## [SWITCH SETUP] ROOM & MULTI-AGENT WIRING
 
-## 📁 Project Structure
-
-```
-chaos-arena/
-├── package.json                    # Root package with all npm scripts
-├── agent.md                        # Agent role instructions for Switch
-├── room.template.yaml              # Switch room configuration
-├── target-service/
-│   └── src/
-│       ├── server.js               # Express server with telemetry
-│       ├── routes/
-│       │   ├── checkout.js         # POST /api/checkout (attack target)
-│       │   └── inventory.js        # GET /api/inventory
-│       └── utils/
-│           └── logger.js           # Structured JSON logger + metrics
-├── dashboard/
-│   └── index.html                  # Live war-room dashboard (Tailwind)
-├── scripts/
-│   ├── chaos-inject.sh             # Inject chaos faults (3 modes)
-│   ├── check-health.sh             # Health probe script
-│   ├── tail-logs.sh                # Log tail script
-│   └── verify-recovery.sh          # Recovery verification suite
-└── logs/
-    └── app.log                     # Structured JSON log sink
-```
-
-## 🎥 Demo Flow
-
-1. **GREEN**: Dashboard shows all systems operational
-2. **Human** → `@chaos-red inject a Level-2 chaos fault into checkout`
-3. **RED**: Dashboard pulses crimson, shows 100% error rate
-4. **@sre-blue** auto-wakes, runs diagnostics, posts root cause + proposed diff
-5. **Human** → `@sre-blue heal`
-6. **GREEN**: Dashboard returns to healthy, MTTR scorecard posted
-
-## 🏆 Built for Flip the Switch Hackathon
-
-Track 01: Best Business Workflow (\$2,000)
+1. Launch **Switch Console** with Docker running.
+2. Import `room.template.yaml` to spin up `#chaos-gameday` bridged to Mattermost.
+3. Spawn two autonomous agent sessions:
+   - **Session 1 (@chaos-red)**: Bound to `@chaos-red` instructions in `agent.md`. Set addressing to `owner-only`.
+   - **Session 2 (@sre-blue)**: Bound to `@sre-blue` instructions in `agent.md`. Set addressing to `anyone`.
+4. When `@chaos-red` tags `@sre-blue` in Mattermost, `@sre-blue` wakes automatically without human intervention.
 
 ---
 
-*Built with ❤️ using [Switch](https://switchagents.ai), Express.js, and Tailwind CSS*
+## [FILE MANIFEST] REPOSITORY LAYOUT
+
+```
+chaos-arena/
+├── package.json                    # Scripts and dependencies
+├── agent.md                        # Switch agent role prompt specs
+├── room.template.yaml              # Switch room topology definition
+├── blog.md                         # Publication writeup
+├── target-service/
+│   └── src/
+│       ├── server.js               # Express application on port 4000
+│       ├── routes/
+│       │   ├── checkout.js         # POST /api/checkout (sabotage target)
+│       │   ├── inventory.js        # GET /api/inventory
+│       │   └── arena.js            # Control API for dashboard & battle
+│       └── utils/
+│           └── logger.js           # Telemetry buffer + structured log sink
+├── dashboard/
+│   └── index.html                  # Cyberbrutalist war-room dashboard
+├── scripts/
+│   ├── chaos-inject.sh             # Deterministic bug injection runner
+│   ├── check-health.sh             # Live endpoint probe
+│   ├── tail-logs.sh                # Structured log reader
+│   └── verify-recovery.sh          # 5-probe verification scorecard
+└── logs/
+    └── app.log                     # Machine-readable JSON line logs
+```
+
+---
+
+## [DEMO WALKTHROUGH] INCIDENT GAMEDAY LIFECYCLE
+
+1. **STATE: NOMINAL** - Dashboard glows emerald green with P99 latency ~12ms, 0% error rate.
+2. **STRIKE** - Human commands `@chaos-red inject a Level-2 chaos fault into checkout`.
+3. **BREACH DETECTED** - Dashboard flashes crimson hazard alert, P99 spikes, error rate reaches 100%. Red Unit taunts in chat and tags `@sre-blue`.
+4. **TRIAGE** - `@sre-blue` wakes, runs diagnostic scripts, isolates bug in `checkout.js:11`, and posts surgical diff awaiting human authorization.
+5. **HUMAN OVERRIDE** - Human confirms: `@sre-blue heal`.
+6. **RECOVERY** - `@sre-blue` patches code, executes 5 verification probes, confirms 200 OK under 100ms, and dashboard returns to NOMINAL.
+
+---
+
+Built with Switch, Express.js, and Tailwind CSS for the WeMakeDevs Flip the Switch Hackathon.

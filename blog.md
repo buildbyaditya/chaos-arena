@@ -1,95 +1,107 @@
-# How We Built ChaosArena: AI Agents That Break and Heal Production Systems in Real-Time
+# // HOW WE BUILT CHAOS-ARENA: AUTONOMOUS AI ANIME MECHA BOTS THAT BREAK AND HEAL PRODUCTION IN REAL-TIME
 
-> A Red-Team saboteur AI vs. a Blue-Team SRE AI, battling it out in a shared war room — powered by Switch.
+> An Adversarial Red-Team Saboteur AI vs. Blue-Team SRE Sentinel AI, battling inside a shared war room - powered by Switch.
 
 ---
 
-## The Problem: Solo AI Agents Can't Simulate Real Incident Response
+## 1. THE PROBLEM: SOLO AI AGENTS CANNOT SIMULATE REAL PRODUCTION INCIDENTS
 
-Modern AI coding agents are powerful — but they work alone. A single agent can write code, debug errors, and run tests. But real-world production incident response is **multi-party**: there's a team causing failures (planned chaos engineering), a team detecting and remediating them (SRE on-call), and humans making the final call.
+Modern AI coding agents are extraordinarily capable in isolation - but production operations are inherently **adversarial and collaborative**. In the enterprise, resilient engineering is maintained through GameDays:
+- Red-Team engineers purposefully sabotage services to test fault tolerance.
+- Blue-Team SREs respond under pressure, parsing telemetry, triaging logs, and applying surgical hot-patches.
+- Human incident commanders review and authorize production mutations.
 
-Solo terminal agents can't simulate this adversarial, collaborative dynamic. That's why we built **ChaosArena**.
+Single terminal agents cannot simulate this multi-party dynamic. To bridge this gap for the **Flip the Switch Hackathon (Track 01: Best Business Workflow)**, we engineered **ChaosArena**.
 
-## What is ChaosArena?
+---
 
-ChaosArena is a multi-agent chaos engineering platform that pits two autonomous AI agents against each other inside a shared [Switch](https://switchagents.ai) chat room:
+## 2. SYSTEM OVERVIEW: WHAT IS CHAOS-ARENA?
 
-### 🔴 @chaos-red — The Red-Team Saboteur
-A chaos engineering specialist that injects realistic production faults into a live microservice. It simulates the kinds of bugs that bring down real production systems:
-- **Null-crash**: Unguarded property access on undefined objects (the classic TypeError)
-- **Latency bomb**: A synchronous CPU spin loop that blocks the event loop for 2.6 seconds
-- **Pool exhaustion**: A misconfigured connection pool that rejects all database transactions
+ChaosArena pits two autonomous anime-themed mecha agents against each other inside a live [Switch](https://switchagents.ai) room bridged directly to Mattermost:
 
-### 🔵 @sre-blue — The Blue-Team SRE
-A senior Site Reliability Engineer that autonomously detects outages, reads structured logs, identifies the exact broken line of code, proposes a surgical fix, and waits for human sign-off before applying it.
+### [UNIT-01: AKIRA-CHAOS] (@chaos-red) - RED-TEAM ASSAULT MECHA
+An automated chaos engineer whose sole mandate is to break production services on command:
+- **Null-Pointer Dereference**: Introduces unguarded `.trim().toUpperCase()` on optional coupon properties in `checkout.js`.
+- **Latency Bomb**: Injects a 2,600ms synchronous event-loop spin lock, producing HTTP 504 Gateway Timeouts.
+- **Connection Pool Drain**: Forces `MAX_POOL_CONNECTIONS = 0`, crashing checkout DB transactions with HTTP 503.
 
-### The Magic: They Talk to Each Other
+### [UNIT-02: AEGIS-SRE] (@sre-blue) - BLUE-TEAM SENTINEL MECHA
+A senior Site Reliability Engineer agent monitoring live structured telemetry:
+- Listens to outage alerts in the `#chaos-gameday` Mattermost channel.
+- Automatically awakens when tagged by `@chaos-red` without requiring human initiation.
+- Runs live HTTP health probes and extracts structured JSON stack traces from `logs/app.log`.
+- Isolates the exact buggy line, formulates a clean git diff, and halts for human authorization.
+- Deploys the surgical hot-patch and executes a 5-probe recovery verification suite.
 
-Using Switch's multi-agent room bridged to Mattermost, `@chaos-red` and `@sre-blue` communicate in the same channel. When `@chaos-red` breaks the service and tags `@sre-blue`, the SRE agent **automatically wakes up** and begins its investigation — no human prompting needed.
+---
 
-## The Architecture
+## 3. CYBERBRUTALIST ARCHITECTURE & REAL-TIME WAR DASHBOARD
 
-The target is a Node.js/Express microservice running on port 4000 with:
-- **POST /api/checkout** — The attack surface for chaos injection
-- **GET /api/inventory** — A stable read-only endpoint for comparison
-- **GET /metrics** — Real-time telemetry powering the live dashboard
-- **Hot reload** via `node --watch` — code changes take effect in < 300ms
+To provide judges with an instant, visceral indicator of service health, ChaosArena serves an in-memory **Cyberbrutalist Visual War Room** directly from the Node.js microservice (`http://localhost:4000/dashboard`):
 
-A **live war-room dashboard** polls `/metrics` every second and visually flips between:
-- 🟢 **Emerald green** — "SYSTEM OPERATIONAL" with P99 latency ~12ms
-- 🔴 **Pulsing crimson** — "CRITICAL OUTAGE" with error rate at 100%
+- **Zero Emojis, Pure Cyberbrutalism**: High-contrast black, neon crimson, electric cyan, and matrix green palette with thick borders, hard offset block shadows, and HUD crosshairs.
+- **Interactive Anime Mecha Avatars**: Custom SVG mecha heads for Akira (Unit-01) and Aegis (Unit-02) showing real-time combat statuses: `STRIKE_ENGAGED` vs `TRIAGE_&_REPAIR`.
+- **Dual-Tension Tug-of-War Bar**: Real-time service integrity meter dropping from 100% to 15% during active breaches.
+- **Live Anime Combat Dialogue Feed**: Real-time tactical comms displaying banter, attack announcements, stack trace dissections, and operator overrides.
+- **Interactive Battle Bay**: Operators can trigger chaos faults or auto-heal sequences directly from the UI or via CLI scripts.
 
-## The Demo in 2 Minutes
+---
 
-1. **0:00** — Green dashboard. Everything is healthy.
-2. **0:20** — Human commands: `@chaos-red inject a Level-2 chaos fault`
-3. **0:25** — Dashboard turns RED. `@chaos-red` posts: "🚨 CHECKOUT IS DOWN!"
-4. **0:30** — `@sre-blue` auto-wakes, runs health checks and log analysis
-5. **1:00** — `@sre-blue` posts: "Root cause: line 11, spin loop blocking event loop. Here's my diff."
-6. **1:30** — Human types: `@sre-blue heal`
-7. **1:35** — `@sre-blue` patches the file, runs verification suite
-8. **1:45** — Dashboard turns GREEN. MTTR scorecard: 5/5 probes passed ✅
+## 4. THE TWO-MINUTE DEMO LIFECYCLE
 
-## Why Switch?
+```
+[0:00 - 0:20] SYSTEM NOMINAL
+Dashboard displays emerald green banner. P99 latency is 12ms. Error rate is 0%.
 
-Switch made the multi-agent orchestration trivial:
-- **Room templates** define agent roles, addressing rules, and instructions
-- **Mattermost bridge** gives us a real chat UI for the demo
-- **Addressing modes** (`owner-only` vs `anyone`) control who each agent responds to
-- **Automatic wake-up** — `@sre-blue` responds to `@chaos-red`'s tags without human prompting
+[0:20 - 0:40] CHAOS STRIKE
+Operator messages: "@chaos-red inject a Level-2 chaos fault into checkout".
+Akira executes scripts/chaos-inject.sh, file hot-reloads in < 300ms, and 3 probes fail.
+Dashboard flips to pulsating crimson: "CRITICAL FAILURE - BREACH DETECTED".
+Akira broadcasts symptoms in Mattermost: "@sre-blue checkout is DOWN with 500s!"
 
-Without Switch, we would have needed to build our own message routing, agent lifecycle management, and chat bridge — easily weeks of work.
+[0:40 - 1:20] AUTONOMOUS TRIAGE
+Aegis automatically wakes up in Mattermost, executes scripts/check-health.sh and scripts/tail-logs.sh.
+Aegis identifies: "Root cause: TypeError at checkout.js:11. Awaiting human sign-off."
 
-## Key Technical Decisions
+[1:20 - 1:45] HUMAN SIGN-OFF & AUTO-HEAL
+Operator types: "@sre-blue heal".
+Aegis patches checkout.js, runs scripts/verify-recovery.sh (5 sequential probes).
+Scorecard posted in chat: "5/5 Probes Passed in < 40ms. MTTR: 1.2s."
+Dashboard snaps back to glowing green NOMINAL.
+```
 
-### Deterministic Chaos Scripts
-Instead of relying on AI to "be creative" with faults, we wrote deterministic bash scripts that inject specific, reproducible bugs. This eliminates demo flakiness — every fault produces the same error signature, stack trace, and HTTP status code.
+---
 
-### Structured Telemetry
-Every request writes a JSON log entry with timestamp, level, method, path, status, latency, error, and stack trace. This gives `@sre-blue` machine-readable evidence to work with, not just human-readable text.
+## 5. WHY SWITCH WAS CRUCIAL
 
-### Human-in-the-Loop
-`@sre-blue` always proposes a diff and **stops to ask for approval** before mutating production code. This is critical for real incident response — autonomous agents should diagnose, but humans should authorize remediations.
+Building multi-agent systems with standard frameworks requires weeks of plumbing: WebSockets, state synchronization, message routing, and chat integrations.
 
-## Try It Yourself
+Switch transformed this into declarative YAML configuration:
+1. **Room Templates (`room.template.yaml`)**: Spun up a unified `#chaos-gameday` room bridged to Mattermost in seconds.
+2. **Addressing Controls**: Configured `@chaos-red` as `owner-only` (preventing rogue unprompted attacks) and `@sre-blue` as `anyone` (allowing peer-agent wake-up on tags).
+3. **Native Tool Sharing**: Both agents share the same project workspace, git history, and deterministic CLI scripts.
+
+---
+
+## 6. REPRODUCING LOCALLY
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/chaos-arena
 cd chaos-arena
 npm install
 npm start
-# Open http://localhost:4000/dashboard
-# Try: npm run chaos:null → npm run health → npm run chaos:reset → npm run verify
+# Navigate to http://localhost:4000/dashboard
 ```
 
-## What's Next
-
-- **Multi-fault scenarios**: Inject compound faults that require `@sre-blue` to fix issues in dependency order
-- **Competitive scoring**: Track MTTR across rounds and rank agent performance
-- **Custom fault plugins**: Let users define their own chaos modes
+Run CLI simulations:
+```bash
+npm run chaos:null       # Inject TypeError null-crash
+npm run health           # Probe live endpoints
+npm run chaos:reset      # Revert to healthy baseline
+npm run verify           # Execute 5-probe recovery suite
+```
 
 ---
 
-*Built for the [Flip the Switch Hackathon](https://switchagents.ai) — Track 01: Best Business Workflow*
-
-*Stack: Node.js, Express, Tailwind CSS, Switch, Mattermost*
+*Submitted to WeMakeDevs Flip the Switch Hackathon - Track 01: Best Business Workflow ($2,000).*
+*Stack: Switch, Mattermost, Express.js, Node.js --watch, Tailwind CSS, Cyberbrutalist UI.*

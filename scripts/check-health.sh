@@ -18,9 +18,9 @@ echo "POST /api/checkout  -> HTTP $CHK_CODE (${LATENCY}ms)"
 echo "Response Payload    -> $CHK_BODY"
 
 if [ "$CHK_CODE" != "200" ] || [ "$LATENCY" -gt 1000 ]; then
-  echo "STATUS: 🚨 CRITICAL OUTAGE DETECTED"
+  echo "STATUS: [!] CRITICAL OUTAGE DETECTED"
   exit 1
 else
-  echo "STATUS: ✅ ALL ENDPOINTS HEALTHY"
+  echo "STATUS: [+] ALL ENDPOINTS HEALTHY"
   exit 0
 fi

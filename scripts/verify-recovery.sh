@@ -28,13 +28,13 @@ echo "========================================"
 echo "  Probes Passed: $PASS / $TOTAL"
 
 if [ "$PASS" -eq "$TOTAL" ]; then
-  echo "  Status: ✅ FULL RECOVERY CONFIRMED"
+  echo "  Status: [+] FULL RECOVERY CONFIRMED"
   echo "  All endpoints returning HTTP 200"
   echo "  All latencies under 250ms SLO"
   echo "========================================"
   exit 0
 else
-  echo "  Status: ⚠️  PARTIAL RECOVERY"
+  echo "  Status: [!] PARTIAL RECOVERY"
   echo "  $((TOTAL - PASS)) probes still failing"
   echo "========================================"
   exit 1
