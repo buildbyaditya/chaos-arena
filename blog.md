@@ -103,5 +103,7 @@ npm run verify           # Execute 5-probe recovery suite
 
 ---
 
-*Submitted to WeMakeDevs Flip the Switch Hackathon - Track 01: Best Business Workflow ($2,000).*
+*Live Interactive War Room: [https://buildbyaditya.github.io/chaos-arena/](https://buildbyaditya.github.io/chaos-arena/)*  
+*GitHub Repository: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)*  
+*Submitted to WeMakeDevs Flip the Switch Hackathon - Track 01: Best Business Workflow ($2,000).*  
 *Stack: Switch, Mattermost, Express.js, Node.js --watch, Tailwind CSS, Cyberbrutalist UI.*
