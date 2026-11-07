@@ -25,13 +25,13 @@ const warLogs = [
   },
   {
     timestamp: new Date().toISOString(),
-    sender: 'UNIT-02: AEGIS-BLUE',
+    sender: '@SRE-BLUE',
     type: 'DEFENSE',
     text: '[PATROL] TELEMETRY MATRIX SYNCHRONIZED. TARGET-SERVICE SLO NOMINAL.'
   },
   {
     timestamp: new Date().toISOString(),
-    sender: 'UNIT-01: AKIRA-RED',
+    sender: 'CHAOS-RED',
     type: 'ATTACK',
     text: '[STANDBY] WEAPONS SUBSYSTEMS ARMED. SCANNING FOR UNGUARDED PROPERTIES.'
   }
@@ -62,7 +62,7 @@ function addWarLog(sender, type, text) {
 }
 
 function getWarLogs() {
-  return warLogs.slice(-25).reverse();
+  return warLogs.slice(-25);
 }
 
 function logEvent(level, message, meta = {}) {

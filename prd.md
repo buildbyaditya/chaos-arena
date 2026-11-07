@@ -15,9 +15,9 @@
 2. **Attack Command (0:20 - 0:40):** In the Switch `#chaos-gameday` room, the human engineer types:
    > `@Chaos-Red launch a Level-2 chaos attack on checkout`
 3. **Sabotage & Symptom Alert (0:40 - 1:00):** `@Chaos-Red` injects a realistic bug into `checkout.js` (e.g., an unhandled discount-code parsing crash + latency spike), triggers failing traffic so the dashboard turns **RED (HTTP 500)**, and posts in chat:
-   > *"💣 **CHAOS INJECTED!** External monitors report `POST /api/checkout` is throwing HTTP 500s and P99 latency spiked to 3,200ms. Good luck finding it, @SRE-Blue!"*
+   > *"[CHAOS] **CHAOS INJECTED!** External monitors report `POST /api/checkout` is throwing HTTP 500s and P99 latency spiked to 3,200ms. Good luck finding it, @SRE-Blue!"*
 4. **Autonomous Triage & RCA (1:00 - 1:30):** `@SRE-Blue` wakes up in the room, runs `./scripts/check-health.sh` and `./scripts/tail-logs.sh`, inspects the stack trace in `logs/app.log`, locates the exact bug in `target-service/src/routes/checkout.js`, and posts:
-   > *"🔍 **RCA Complete:** Found unguarded `.toUpperCase()` on null `couponCode` + blocking synchronous loop at `checkout.js:42`. Proposed surgical diff attached below. @Human reply `@SRE-Blue heal` to apply patch."*
+   > *" **RCA Complete:** Found unguarded `.toUpperCase()` on null `couponCode` + blocking synchronous loop at `checkout.js:42`. Proposed surgical diff attached below. @Human reply `@SRE-Blue heal` to apply patch."*
 5. **Human Approval & Self-Healing (1:30 - 2:00):** The human replies `@SRE-Blue heal`. `@SRE-Blue` patches the file, runs `./scripts/verify-recovery.sh`, the live dashboard turns **GREEN**, and `@SRE-Blue` posts the final MTTR (Mean Time To Recovery) scorecard.
 
 ## 4. Success Metrics

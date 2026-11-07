@@ -65,6 +65,8 @@ app.get('/metrics', (req, res) => {
   });
 });
 
+app.use('/dashboard/assets', express.static(path.join(__dirname, '../../dashboard/assets')));
+
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '../../dashboard/index.html'));
 });

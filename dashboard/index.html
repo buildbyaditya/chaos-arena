@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CYBER BRUTALISM // CHAOS-ARENA BOTS WAR ROOM</title>
+  <title>CHAOS-ARENA // SWITCH MULTI-AGENT SRE WAR ROOM</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=JetBrains+Mono:wght@400;600;800;900&family=Press+Start+2P&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=JetBrains+Mono:wght@400;600;800;900&display=swap');
 
     :root {
       --lime: #d4ff00;
@@ -14,7 +14,6 @@
       --bg-black: #000000;
       --card-bg: #09090b;
       --red-cyber: #ff1f3d;
-      --blue-cyber: #0048ff;
       --cyan-cyber: #00f0ff;
       --green-cyber: #00ff66;
     }
@@ -28,20 +27,16 @@
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    .font-pixel {
-      font-family: 'Press Start 2P', monospace;
-    }
-
     body {
       background-color: var(--bg-black);
       color: #ffffff;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
       background-size: 32px 32px;
     }
 
-    /* Reference poster exact sharp borders */
+    /* Reference poster sharp borders */
     .c-border {
       border: 1px solid #27272a;
     }
@@ -58,7 +53,7 @@
       border: 1px solid var(--cyan-cyber);
     }
 
-    /* Kinetic buttons */
+    /* Kinetic buttons matching reference */
     .btn-lime {
       background-color: var(--lime);
       color: #000000;
@@ -74,7 +69,7 @@
 
     .btn-wire {
       border: 1px solid #3f3f46;
-      background-color: rgba(9, 9, 11, 0.8);
+      background-color: rgba(9, 9, 11, 0.85);
       color: #ffffff;
       transition: all 0.08s ease;
     }
@@ -86,18 +81,18 @@
       transform: translate(2px, 2px);
     }
 
-    /* Barcode simulation */
+    /* Barcode graphic */
     .barcode {
       display: inline-flex;
       gap: 2px;
-      height: 28px;
+      height: 24px;
       align-items: stretch;
     }
     .barcode span {
       background-color: #ffffff;
     }
 
-    /* Hazard stripes */
+    /* Hazard warning stripes */
     .hazard-bar {
       background: repeating-linear-gradient(
         -45deg,
@@ -117,50 +112,42 @@
       );
     }
 
-    /* Video Kinetic Typography Block Inversion */
-    .kinetic-box {
-      position: relative;
-      overflow: hidden;
-    }
-    .kinetic-text {
-      text-transform: uppercase;
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-    }
-
-    /* Pixel rendering */
-    .pixelated {
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
-
-    /* Keyframes for bots game */
-    @keyframes bobble {
+    /* Bot combat movements */
+    @keyframes botHover {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+      50% { transform: translateY(-8px); }
     }
-    .anim-bobble {
-      animation: bobble 1.2s infinite ease-in-out;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 4px var(--lime)); }
-      50% { opacity: 1; filter: drop-shadow(0 0 12px var(--lime)); }
-    }
-    .anim-glow {
-      animation: pulseGlow 2s infinite ease-in-out;
+    .anim-bot-idle {
+      animation: botHover 2.2s infinite ease-in-out;
     }
 
-    @keyframes glitchShake {
+    @keyframes botChargeRed {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(70px) scale(1.06); }
+      100% { transform: translateX(0); }
+    }
+    .anim-bot-attack {
+      animation: botChargeRed 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes botHealBlue {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-70px) scale(1.06); }
+      100% { transform: translateX(0); }
+    }
+    .anim-bot-heal {
+      animation: botHealBlue 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes glitchAlert {
       0%, 100% { transform: translate(0, 0); }
       20% { transform: translate(-3px, 2px); }
       40% { transform: translate(3px, -2px); }
       60% { transform: translate(-2px, -3px); }
       80% { transform: translate(2px, 3px); }
     }
-    .glitch-active {
-      animation: glitchShake 0.2s infinite linear;
+    .glitch-flash {
+      animation: glitchAlert 0.25s infinite linear;
     }
 
     /* Custom scrollbars */
@@ -180,7 +167,7 @@
   </style>
 </head>
 <body class="min-h-screen text-slate-100 p-3 sm:p-5 md:p-8">
-  <div class="max-w-[1340px] mx-auto c-border-thick bg-black relative">
+  <div class="max-w-[1360px] mx-auto c-border-thick bg-black relative shadow-2xl">
 
     <!-- CORNER CROSSHAIR ACCENTS -->
     <div class="absolute -top-2.5 -left-2.5 text-zinc-500 font-bold select-none text-sm">+</div>
@@ -188,31 +175,29 @@
     <div class="absolute -bottom-2.5 -left-2.5 text-zinc-500 font-bold select-none text-sm">+</div>
     <div class="absolute -bottom-2.5 -right-2.5 text-zinc-500 font-bold select-none text-sm">+</div>
 
-    <!-- TOP HEADER (100% ACCURATE TO REFERENCE POSTER) -->
+    <!-- TOP HEADER (MATCHING REFERENCE POSTER DESIGN) -->
     <header class="border-b border-zinc-800 flex flex-wrap items-stretch justify-between text-xs tracking-wider">
       
-      <!-- Logo Pill -->
+      <!-- Logo Box in Acid Lime -->
       <div class="flex items-center px-4 py-3 border-r border-zinc-800">
-        <div class="bg-[#d4ff00] text-black font-extrabold px-3 py-1 flex items-center gap-1 text-sm tracking-tighter">
-          <span>CYBR_</span>
+        <div class="bg-[#d4ff00] text-black font-extrabold px-3 py-1 flex items-center gap-1.5 text-sm tracking-tighter">
+          <span>CHAOS_</span>
           <span class="w-1.5 h-3 bg-black inline-block animate-pulse"></span>
         </div>
       </div>
 
       <!-- Navigation Links with '+' separators -->
       <nav class="hidden md:flex items-center gap-3 px-6 text-zinc-400 font-semibold uppercase text-[11px] border-r border-zinc-800">
-        <a href="#arena" class="hover:text-white transition">WORK</a>
+        <a href="#arena" class="hover:text-white transition">WAR ROOM</a>
         <span class="text-zinc-600">+</span>
-        <a href="#principles" class="hover:text-white transition">SERVICES</a>
+        <a href="#fixtures" class="hover:text-white transition">FIXTURES</a>
         <span class="text-zinc-600">+</span>
-        <a href="#arena" class="hover:text-white transition">ABOUT</a>
+        <a href="#telemetry" class="hover:text-white transition">TELEMETRY</a>
         <span class="text-zinc-600">+</span>
-        <a href="#telemetry" class="hover:text-white transition">LABS</a>
-        <span class="text-zinc-600">+</span>
-        <a href="#logs" class="hover:text-white transition">CONTACT</a>
+        <a href="#logs" class="hover:text-white transition">MATTERMOST</a>
       </nav>
 
-      <!-- System Time & CTA Buttons -->
+      <!-- Live Running UTC Clock & CTA Button -->
       <div class="flex items-stretch ml-auto">
         <!-- Live System Clock -->
         <div class="hidden sm:flex flex-col justify-center px-4 py-2 border-l border-zinc-800 text-[10px] font-mono leading-tight">
@@ -220,18 +205,18 @@
           <span id="header-clock" class="text-white font-bold">00:00:00 UTC+0</span>
         </div>
 
-        <!-- Start a Project / Trigger Gameday CTA -->
+        <!-- Trigger Gameday CTA Button -->
         <button onclick="triggerSimulatedBattle()" class="btn-lime px-5 py-3 text-xs tracking-wider flex items-center gap-2 border-l border-zinc-800 uppercase font-black">
-          <span>START A GAMEDAY</span>
+          <span>TRIGGER GAMEDAY</span>
           <span class="text-sm font-black">↗</span>
         </button>
       </div>
     </header>
 
-    <!-- SECTION /01: HERO BANNER (100% ACCURATE TO REFERENCE POSTER) -->
+    <!-- SECTION /01: HERO SECTION (HUMANIZED, NO SLOP, REFERENCE MATCH) -->
     <section class="border-b border-zinc-800 grid grid-cols-1 lg:grid-cols-12 relative overflow-hidden">
       
-      <!-- Left Hero Typography -->
+      <!-- Left Hero Typography & Description -->
       <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-zinc-800 relative">
         
         <!-- Top Tech Tags -->
@@ -239,7 +224,7 @@
           <div class="flex items-center gap-3">
             <span class="text-zinc-400 font-mono">2024</span>
             <span class="text-zinc-600">|</span>
-            <span class="tracking-widest">WEB DESIGN TREND</span>
+            <span class="tracking-widest">SWITCH AGENT ECOSYSTEM</span>
             <span class="text-zinc-600">| || |||</span>
           </div>
           <span class="font-mono text-zinc-400">/01</span>
@@ -248,29 +233,29 @@
         <!-- Giant Cyberbrutalist Typography -->
         <div class="my-4">
           <h1 class="font-heading font-black text-6xl sm:text-7xl md:text-8xl tracking-tighter leading-[0.88] uppercase text-white">
-            CYBER<br />
-            BRUTALISM
+            CHAOS<br />
+            ARENA
           </h1>
 
           <div class="mt-6 space-y-2">
             <div class="text-sm font-extrabold text-white tracking-wider uppercase">
-              THE FUTURE ISN'T MINIMAL. IT'S SYSTEMATIC.
+              AUTONOMOUS RED-VS-BLUE SRE GAMEDAYS POWERED BY SWITCH
             </div>
             <p class="text-xs text-zinc-400 max-w-lg leading-relaxed">
-              Cyber Brutalism is raw, digital, and unapologetically functional. A new visual language for the machine age. Powering autonomous Red-Team vs Blue-Team self-healing microservices.
+              Solo AI agents can't simulate real-world incident response. ChaosArena pits an autonomous Red-Team Saboteur against a Blue-Team SRE Sentinel inside a shared Mattermost channel to battle-test microservice resilience in real time.
             </p>
           </div>
         </div>
 
-        <!-- Hero CTAs & Barcode -->
+        <!-- Hero CTAs & Barcode (Reference Match) -->
         <div class="mt-8 pt-6 border-t border-zinc-900 flex flex-wrap items-center gap-4">
-          <button onclick="sendDirectProbe()" class="btn-lime px-5 py-2.5 text-xs uppercase flex items-center gap-2">
-            <span>EXPLORE WORK</span>
+          <button onclick="triggerSimulatedBattle()" class="btn-lime px-5 py-2.5 text-xs uppercase flex items-center gap-2">
+            <span>LAUNCH AUTO-WAR</span>
             <span class="font-bold">↗</span>
           </button>
 
-          <button onclick="document.getElementById('arena').scrollIntoView({ behavior: 'smooth' })" class="btn-wire px-4 py-2.5 text-xs uppercase flex items-center gap-2">
-            <span>VIEW MANIFESTO</span>
+          <button onclick="document.getElementById('fixtures').scrollIntoView({ behavior: 'smooth' })" class="btn-wire px-4 py-2.5 text-xs uppercase flex items-center gap-2">
+            <span>INSPECT FIXTURES</span>
             <span class="text-zinc-500">[ ]</span>
           </button>
 
@@ -284,65 +269,56 @@
         </div>
       </div>
 
-      <!-- Right Hero Graphic: Wireframe 3D Mesh & Coordinate HUD (Matching Reference) -->
+      <!-- Right Hero Graphic: Live Target Radar & Coordinate HUD (Reference Match) -->
       <div class="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between relative bg-zinc-950/40">
         
         <!-- Top HUD Stamping -->
         <div class="flex items-center justify-between text-[10px] text-zinc-500 font-mono">
           <div class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 bg-[#d4ff00] rounded-none"></span>
-            <span class="text-zinc-300">&gt;RENDERING...</span>
-            <span class="text-[#d4ff00]">87%</span>
+            <span class="w-1.5 h-1.5 bg-[#d4ff00]"></span>
+            <span class="text-zinc-300">&gt;TARGET_SERVICE...</span>
+            <span id="hero-telemetry-badge" class="text-[#00ff66] font-bold">SLO 100% NOMINAL</span>
           </div>
           <div class="flex items-center gap-2">
             <span>+</span>
-            <!-- Wireframe Globe Icon -->
-            <svg class="w-4 h-4 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="2" y1="12" x2="22" y2="12"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
+            <span class="text-zinc-400">PORT:4000</span>
             <span>x</span>
           </div>
         </div>
 
-        <!-- Center 3D Digital Mesh Sculpture / Head Graphic (SVG Vector with Glitch Blocks) -->
+        <!-- Center Target Service Radar Graphic with Coordinates -->
         <div class="py-6 flex items-center justify-center relative">
-          <div class="relative w-56 h-64 border border-zinc-800 p-2 bg-black/60 flex items-center justify-center">
+          <div class="relative w-64 h-64 border border-zinc-800 p-3 bg-black/80 flex flex-col items-center justify-between">
             
-            <!-- Wireframe Cyber Head Silhouette -->
-            <svg viewBox="0 0 200 240" class="w-48 h-56 text-zinc-400" fill="none" stroke="currentColor" stroke-width="1">
-              <!-- Digital mesh lines -->
-              <polygon points="100,20 130,35 150,60 160,95 155,140 140,180 110,215 90,215 60,180 45,140 40,95 50,60 70,35" stroke="#3f3f46" stroke-width="1.2"/>
-              <line x1="100" y1="20" x2="100" y2="215" stroke="#27272a"/>
-              <line x1="50" y1="60" x2="150" y2="60" stroke="#27272a"/>
-              <line x1="40" y1="95" x2="160" y2="95" stroke="#27272a"/>
-              <line x1="45" y1="140" x2="155" y2="140" stroke="#27272a"/>
-              <line x1="60" y1="180" x2="140" y2="180" stroke="#27272a"/>
-              <!-- Polygon Facets -->
-              <polygon points="100,20 100,60 70,35" fill="rgba(212,255,0,0.04)" stroke="#52525b"/>
-              <polygon points="100,20 130,35 100,60" fill="rgba(212,255,0,0.08)" stroke="#52525b"/>
-              <polygon points="70,35 100,60 75,95" stroke="#52525b"/>
-              <polygon points="130,35 125,95 100,60" stroke="#52525b"/>
-              <polygon points="75,95 100,120 100,60" stroke="#52525b"/>
-              <polygon points="100,60 100,120 125,95" stroke="#52525b"/>
-              <!-- Cyber Optic Eyes -->
-              <rect x="70" y="88" width="18" height="6" fill="#d4ff00" class="anim-glow"/>
-              <rect x="112" y="88" width="18" height="6" fill="#00f0ff"/>
-              <!-- Mouthgrid -->
-              <line x1="85" y1="160" x2="115" y2="160" stroke="#d4ff00" stroke-width="2"/>
-            </svg>
+            <div class="w-full flex justify-between text-[9px] text-zinc-500 font-mono">
+              <span>SECTOR: 0x4F9B</span>
+              <span class="text-[#d4ff00]">ROOM: #CHAOS-GAMEDAY</span>
+            </div>
 
-            <!-- Acid Lime Glitch Blocks (Direct reference match) -->
-            <div class="absolute top-8 right-6 w-5 h-5 bg-[#d4ff00] mix-blend-screen opacity-90"></div>
-            <div class="absolute top-16 right-4 w-3 h-8 bg-[#d4ff00] mix-blend-screen opacity-80"></div>
-            <div class="absolute bottom-12 left-4 w-6 h-3 bg-[#d4ff00] mix-blend-screen opacity-70"></div>
+            <!-- Animated Radar Reticle -->
+            <div class="relative w-36 h-36 border border-zinc-700 rounded-full flex items-center justify-center">
+              <div class="w-24 h-24 border border-zinc-800 rounded-full flex items-center justify-center">
+                <div class="w-12 h-12 border border-zinc-800 rounded-full"></div>
+              </div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-full h-px bg-zinc-800"></div>
+              </div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="h-full w-px bg-zinc-800"></div>
+              </div>
+              <div id="radar-blip" class="absolute top-10 right-10 w-2.5 h-2.5 bg-[#d4ff00] rounded-full animate-ping"></div>
+            </div>
 
             <!-- Coordinate HUD Overlay Box (Matching Reference) -->
-            <div class="absolute bottom-4 right-4 bg-black/90 border border-zinc-700 p-2 text-[9px] font-mono leading-tight">
-              <div class="text-zinc-400">X_36.1749</div>
-              <div class="text-zinc-400">Y_-86.7676</div>
-              <div class="text-[#d4ff00]">Z_46.6827</div>
+            <div class="w-full bg-zinc-950 border border-zinc-800 p-2 text-[9px] font-mono leading-tight flex justify-between items-center">
+              <div>
+                <div class="text-zinc-400">LATENCY: <span id="hero-latency" class="text-white font-bold">12ms</span></div>
+                <div class="text-zinc-400">ERROR_RATE: <span id="hero-errors" class="text-[#00ff66] font-bold">0%</span></div>
+              </div>
+              <div class="text-right">
+                <div class="text-[#d4ff00]">HOT_RELOAD: &lt;300ms</div>
+                <div class="text-zinc-500">SWITCH AGENTS: 2</div>
+              </div>
             </div>
           </div>
         </div>
@@ -350,275 +326,254 @@
         <!-- Bottom Scene Tag -->
         <div class="flex items-center justify-between text-[10px] text-zinc-500 font-mono pt-4 border-t border-zinc-900">
           <span>x</span>
-          <span class="text-zinc-400 tracking-widest">//SCN_01</span>
+          <span class="text-zinc-400 tracking-widest">//MATTERMOST_BRIDGE_ONLINE</span>
         </div>
       </div>
     </section>
 
-    <!-- SECTION /02: CORE PRINCIPLES (100% ACCURATE TO REFERENCE POSTER) -->
-    <section id="principles" class="border-b border-zinc-800 p-6 sm:p-8">
+    <!-- SECTION /02: THE 3 MICROSERVICE FIXTURES (WHAT THE BOTS FIGHT FOR!) -->
+    <section id="fixtures" class="border-b border-zinc-800 p-6 sm:p-8">
       <div class="flex items-center justify-between text-[11px] mb-6">
         <span class="font-mono text-zinc-400">/02</span>
-        <span class="font-extrabold tracking-widest uppercase text-white">CORE PRINCIPLES</span>
+        <span class="font-extrabold tracking-widest uppercase text-white">THE CONTESTED MICROSERVICE FIXTURES</span>
+        <span class="text-xs text-zinc-500 font-mono">[TARGET ARCHITECTURE]</span>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         
-        <!-- Principle 1 -->
-        <div class="c-border p-4 bg-zinc-950/60 flex flex-col justify-between min-h-[140px]">
+        <!-- Fixture 1: Checkout Pipeline -->
+        <div id="fixture-card-1" class="c-border p-4 bg-zinc-950 flex flex-col justify-between transition-all">
           <div>
-            <div class="w-6 h-6 border border-zinc-700 mb-3 flex items-center justify-center text-[10px] text-[#d4ff00]">
-              [ ]
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3">
+              <span class="text-[10px] font-mono text-red-400 uppercase font-bold">[FIXTURE 01]</span>
+              <span id="fix-status-1" class="text-[9px] px-1.5 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-600 font-mono font-bold">
+                200 OK
+              </span>
             </div>
-            <div class="text-xs font-black uppercase text-white flex items-center justify-between">
-              <span>FUNCTION OVER FORM</span>
-              <span class="text-zinc-500">+</span>
+            <div class="text-xs font-black uppercase text-white">
+              CHECKOUT TRANSACTION ROUTE
             </div>
+            <div class="text-[10px] font-mono text-[#d4ff00] mt-0.5">
+              POST /api/checkout
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Validates cart items, discount multipliers, and ledger write locks. Target of Red's null-deref attack.
+            </p>
           </div>
-          <p class="text-[10px] text-zinc-500 mt-2 leading-snug">
-            Design is built to serve. Nothing more.
-          </p>
+          <div class="mt-4 pt-3 border-t border-zinc-900 flex justify-between items-center text-[9px] font-mono">
+            <span class="text-zinc-500">ATTACK: NULL_CRASH</span>
+            <button onclick="injectChaosFault('null-crash')" class="text-red-400 hover:text-red-300 font-bold uppercase underline">
+              SABOTAGE ↗
+            </button>
+          </div>
         </div>
 
-        <!-- Principle 2 -->
-        <div class="c-border p-4 bg-zinc-950/60 flex flex-col justify-between min-h-[140px]">
+        <!-- Fixture 2: Inventory Ledger -->
+        <div id="fixture-card-2" class="c-border p-4 bg-zinc-950 flex flex-col justify-between transition-all">
           <div>
-            <div class="w-6 h-6 border border-zinc-700 mb-3 flex items-center justify-center text-[10px] text-zinc-400">
-              #
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3">
+              <span class="text-[10px] font-mono text-amber-400 uppercase font-bold">[FIXTURE 02]</span>
+              <span id="fix-status-2" class="text-[9px] px-1.5 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-600 font-mono font-bold">
+                200 OK
+              </span>
             </div>
-            <div class="text-xs font-black uppercase text-white flex items-center justify-between">
-              <span>SYSTEMS THINKING</span>
-              <span class="text-zinc-500">+</span>
+            <div class="text-xs font-black uppercase text-white">
+              INVENTORY WAREHOUSE ROUTE
             </div>
+            <div class="text-[10px] font-mono text-[#d4ff00] mt-0.5">
+              GET /api/inventory
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Queries real-time hardware stock. Target of Red's 2,600ms event loop blocking spin-lock and 504 timeouts.
+            </p>
           </div>
-          <p class="text-[10px] text-zinc-500 mt-2 leading-snug">
-            Grids. Modules. Data. Everything is connected.
-          </p>
+          <div class="mt-4 pt-3 border-t border-zinc-900 flex justify-between items-center text-[9px] font-mono">
+            <span class="text-zinc-500">ATTACK: LATENCY_BOMB</span>
+            <button onclick="injectChaosFault('latency-bomb')" class="text-amber-400 hover:text-amber-300 font-bold uppercase underline">
+              SABOTAGE ↗
+            </button>
+          </div>
         </div>
 
-        <!-- Principle 3 -->
-        <div class="c-border p-4 bg-zinc-950/60 flex flex-col justify-between min-h-[140px]">
+        <!-- Fixture 3: Connection Pool -->
+        <div id="fixture-card-3" class="c-border p-4 bg-zinc-950 flex flex-col justify-between transition-all">
           <div>
-            <div class="w-6 h-6 border border-zinc-700 mb-3 flex items-center justify-center text-[10px] text-[#d4ff00]">
-              ::
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3">
+              <span class="text-[10px] font-mono text-cyan-400 uppercase font-bold">[FIXTURE 03]</span>
+              <span id="fix-status-3" class="text-[9px] px-1.5 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-600 font-mono font-bold">
+                25 CONNS
+              </span>
             </div>
-            <div class="text-xs font-black uppercase text-white flex items-center justify-between">
-              <span>DIGITAL AESTHETICS</span>
-              <span class="text-zinc-500">+</span>
+            <div class="text-xs font-black uppercase text-white">
+              DATABASE CONNECTION POOL
             </div>
+            <div class="text-[10px] font-mono text-[#d4ff00] mt-0.5">
+              MAX_POOL_CONNECTIONS = 25
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 leading-relaxed">
+              Manages active checkout transactions. Target of Red's pool starvation collapse (503 Service Unavailable).
+            </p>
           </div>
-          <p class="text-[10px] text-zinc-500 mt-2 leading-snug">
-            Glitch, noise, scanlines, and hardware vibes.
-          </p>
-        </div>
-
-        <!-- Principle 4 -->
-        <div class="c-border p-4 bg-zinc-950/60 flex flex-col justify-between min-h-[140px]">
-          <div>
-            <div class="w-6 h-6 border border-zinc-700 mb-3 flex items-center justify-center text-[10px] text-zinc-400">
-              +
-            </div>
-            <div class="text-xs font-black uppercase text-white flex items-center justify-between">
-              <span>BOLD CONTRAST</span>
-              <span class="text-zinc-500">+</span>
-            </div>
+          <div class="mt-4 pt-3 border-t border-zinc-900 flex justify-between items-center text-[9px] font-mono">
+            <span class="text-zinc-500">ATTACK: POOL_EXHAUST</span>
+            <button onclick="injectChaosFault('pool-exhaustion')" class="text-rose-400 hover:text-rose-300 font-bold uppercase underline">
+              SABOTAGE ↗
+            </button>
           </div>
-          <p class="text-[10px] text-zinc-500 mt-2 leading-snug">
-            High contrast. Harsh colors. No soft tones.
-          </p>
-        </div>
-
-        <!-- Principle 5 -->
-        <div class="c-border p-4 bg-zinc-950/60 flex flex-col justify-between min-h-[140px] col-span-2 md:col-span-1">
-          <div>
-            <div class="w-6 h-6 border border-zinc-700 mb-3 flex items-center justify-center text-[10px] text-[#d4ff00]">
-              //
-            </div>
-            <div class="text-xs font-black uppercase text-white flex items-center justify-between">
-              <span>RAW &amp; AUTHENTIC</span>
-              <span class="text-zinc-500">+</span>
-            </div>
-          </div>
-          <p class="text-[10px] text-zinc-500 mt-2 leading-snug">
-            No fluff. No polish. No compromise.
-          </p>
         </div>
 
       </div>
     </section>
 
-    <!-- SECTION /03: LIVE PIXELATED BOTS BATTLE ARENA & INTERACTIVE GAME -->
+    <!-- SECTION /03: LIVE MULTI-AGENT ARENA // BOTS FIGHTING & FIXING FOR FIXTURES -->
     <section id="arena" class="border-b border-zinc-800 p-6 sm:p-8 relative">
       <div class="flex items-center justify-between text-[11px] mb-4">
         <span class="font-mono text-zinc-400">/03</span>
-        <span class="font-extrabold tracking-widest uppercase text-white">LIVE MULTI-AGENT ARENA // PIXELATED BOTS GAME</span>
+        <span class="font-extrabold tracking-widest uppercase text-white">LIVE MULTI-AGENT ARENA // REALTIME SQUADS FIGHTING FOR FIXTURES</span>
         <span class="text-xs text-[#d4ff00] font-mono">[SWITCH ENGINE REALTIME]</span>
       </div>
 
-      <!-- MAIN RETRO GAME STAGE (CENTER DUELING BOTS SCREEN) -->
+      <!-- MAIN RETRO GAME STAGE -->
       <div class="c-border-thick bg-[#050508] p-5 sm:p-6 relative overflow-hidden">
         
         <!-- Top Game Header Status Bar -->
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-4 mb-6">
           <div class="flex items-center gap-3">
-            <span class="font-pixel text-[10px] bg-red-600 text-black px-2 py-1">RED TEAM</span>
-            <span class="font-pixel text-[10px] text-zinc-500">VS</span>
-            <span class="font-pixel text-[10px] bg-cyan-400 text-black px-2 py-1">BLUE TEAM</span>
+            <span class="text-[10px] font-mono font-bold bg-red-600 text-black px-2 py-0.5 uppercase">RED ADVERSARY SQUAD</span>
+            <span class="text-[10px] font-mono text-zinc-500 font-bold">VS</span>
+            <span class="text-[10px] font-mono font-bold bg-cyan-400 text-black px-2 py-0.5 uppercase">BLUE SENTINEL SQUAD</span>
           </div>
 
           <!-- Central Match Stage Notification -->
-          <div id="battle-headline" class="font-pixel text-[10px] sm:text-xs text-[#d4ff00] tracking-wider text-center">
-            [ARENA READY] >> TARGET-SERVICE ARMED AT PORT 4000
+          <div id="battle-headline" class="text-xs text-[#d4ff00] font-mono font-bold tracking-wider text-center">
+            [BATTLEGROUND ONLINE] ALL FIXTURES HEALTHY // AGENTS PATROLLING
           </div>
 
           <!-- Quick Interactive Battle Actions -->
           <div class="flex items-center gap-2">
-            <button onclick="triggerSimulatedBattle()" class="btn-lime text-[10px] font-pixel px-3 py-1.5 uppercase">
-              AUTO CLASH ↗
+            <button onclick="triggerSimulatedBattle()" class="btn-lime text-[10px] px-3 py-1.5 uppercase font-bold">
+              AUTO DUEL ↗
             </button>
-            <button onclick="resetArena()" class="btn-wire text-[10px] font-pixel px-2 py-1.5 uppercase text-zinc-400">
+            <button onclick="resetArena()" class="btn-wire text-[10px] px-2 py-1.5 uppercase text-zinc-400">
               RESET [ ]
             </button>
           </div>
         </div>
 
-        <!-- 2D RETRO BATTLEFIELD STAGE -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center min-h-[300px] relative">
+        <!-- 2D COMBAT ARENA: RED BOT VS FIXTURE MONOLITH VS BLUE BOT -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center min-h-[420px] relative">
           
-          <!-- LEFT FIGHTER: RED TEAM PIXEL BOT [AKIRA-CHAOS] -->
-          <div class="md:col-span-4 flex flex-col items-center text-center p-4 c-border bg-black/80 relative">
+          <!-- LEFT FIGHTER: RED TEAM BOT (USING USER'S EXACT UPLOADED BOT GRAPHIC) -->
+          <div class="md:col-span-4 flex flex-col items-center text-center p-4 c-border bg-black/90 relative">
             
-            <!-- DESIGNATED BOT NAME ON TOP (AS REQUESTED BY USER) -->
-            <div class="w-full border-b border-red-900 pb-2 mb-3">
-              <div class="font-pixel text-xs text-red-500 uppercase tracking-tight">
-                [RED-01 // AKIRA-CHAOS]
-              </div>
-              <div class="text-[9px] font-mono text-zinc-400 mt-1 uppercase">
-                CLASS: SABOTEUR MECHA // AGENT: @chaos-red
-              </div>
+            <!-- SQUAD ROLE SELECTOR TABS -->
+            <div class="w-full flex justify-between gap-1 mb-3 text-[9px] font-mono">
+              <button onclick="selectRedBotRole('CHAOS_LEAD')" id="tab-red-1" class="flex-1 py-1 bg-red-950 text-red-200 border border-red-600 font-bold">
+                LEAD
+              </button>
+              <button onclick="selectRedBotRole('FAULT_INJECTOR')" id="tab-red-2" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                INJECTOR
+              </button>
+              <button onclick="selectRedBotRole('TRAFFIC_FLOODER')" id="tab-red-3" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                FLOODER
+              </button>
             </div>
 
-            <!-- PIXEL BOT AVATAR (RETRO MECHA PIXEL ART CANVAS/SVG) -->
-            <div id="red-bot-container" class="relative w-36 h-36 flex items-center justify-center my-2 anim-bobble">
+            <!-- BOT CONTAINER WITH USER'S EXACT CUT-OUT GRAPHIC -->
+            <div id="red-bot-wrapper" class="relative w-52 h-64 anim-bot-idle transition-all duration-300 flex items-center justify-center">
+              <img id="red-bot-img" src="/dashboard/assets/bot_chaos_red.png" alt="CHAOS-RED Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_15px_rgba(255,31,61,0.25)]" />
               
-              <!-- Retro Pixel Art Mecha Red (Pure Geometric Pixels) -->
-              <svg viewBox="0 0 64 64" class="w-32 h-32 pixelated" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Mecha Crown Horns -->
-                <rect x="14" y="8" width="4" height="12" fill="#ff1f3d"/>
-                <rect x="46" y="8" width="4" height="12" fill="#ff1f3d"/>
-                <rect x="18" y="16" width="6" height="4" fill="#ff6b81"/>
-                <rect x="40" y="16" width="6" height="4" fill="#ff6b81"/>
-                <rect x="30" y="4" width="4" height="8" fill="#ffe600"/>
-                <!-- Head Frame -->
-                <rect x="20" y="20" width="24" height="20" fill="#20050a"/>
-                <rect x="22" y="22" width="20" height="16" fill="#400914"/>
-                <!-- Visor / Red Optical Beam -->
-                <rect id="red-visor" x="24" y="26" width="16" height="4" fill="#ff1f3d"/>
-                <rect x="28" y="27" width="8" height="2" fill="#ffffff"/>
-                <!-- Cheeks & Chin Vent -->
-                <rect x="24" y="34" width="16" height="2" fill="#ff1f3d"/>
-                <rect x="28" y="37" width="8" height="2" fill="#20050a"/>
-                <!-- Shoulders & Cannon Bay -->
-                <rect x="8" y="32" width="10" height="14" fill="#600f1e"/>
-                <rect x="46" y="32" width="10" height="14" fill="#600f1e"/>
-                <rect x="6" y="28" width="4" height="8" fill="#ff1f3d"/>
-                <rect x="54" y="28" width="4" height="8" fill="#ff1f3d"/>
-                <!-- Torso Core Reactor -->
-                <rect x="22" y="42" width="20" height="14" fill="#20050a"/>
-                <rect x="28" y="45" width="8" height="6" fill="#ff1f3d" class="animate-pulse"/>
-                <rect x="30" y="47" width="4" height="2" fill="#ffffff"/>
-                <!-- Arms / Weapons -->
-                <rect x="10" y="46" width="6" height="12" fill="#ff1f3d"/>
-                <rect x="48" y="46" width="6" height="12" fill="#ff1f3d"/>
-                <!-- Weapon Cannon Muzzle -->
-                <rect x="54" y="42" width="6" height="4" fill="#ffe600"/>
-              </svg>
+              <!-- Dynamic Live Speech / Action Overlay when active -->
+              <div id="red-action-bubble" class="hidden absolute top-[4%] left-[2%] w-[96%] bg-red-950/95 border-2 border-red-500 p-1.5 text-center z-30 shadow-lg">
+                <span id="red-action-text" class="text-[10px] font-mono font-black text-white tracking-wider uppercase">
+                  INJECTING NULL_CRASH!
+                </span>
+              </div>
 
-              <!-- Attack Beam Emitter (Shown during strike) -->
-              <div id="red-beam" class="hidden absolute top-16 left-28 w-44 h-3 bg-gradient-to-r from-red-600 via-amber-400 to-transparent z-20 animate-pulse"></div>
+              <!-- Animated Attack Beam Emitter -->
+              <div id="red-attack-beam" class="hidden absolute top-[52%] left-[82%] w-56 h-3.5 bg-gradient-to-r from-red-600 via-amber-400 to-transparent z-20 animate-pulse pointer-events-none"></div>
             </div>
 
-            <!-- Current Action Bubble -->
-            <div class="mt-2 w-full bg-zinc-950 border border-zinc-800 p-2 text-left">
+            <!-- LIVE BOT ACTION & FIXING MESSAGE BUBBLE -->
+            <div class="mt-2 w-full bg-zinc-950 border border-zinc-800 p-2.5 text-left">
               <div class="flex justify-between items-center text-[9px] font-mono text-zinc-500 mb-1">
-                <span>ACTION STATE:</span>
-                <span id="red-action-tag" class="text-zinc-300 font-bold">ARMED // IDLE</span>
+                <span>BOT DESIGNATION:</span>
+                <span id="red-bot-status" class="text-red-400 font-bold uppercase">CHAOS-RED // SABOTEUR</span>
               </div>
-              <p id="red-action-desc" class="text-[10px] font-mono text-red-400 leading-tight">
-                Scanning target-service endpoints for unguarded object dereferences.
+              <p id="red-bot-speech" class="text-[10px] font-mono text-zinc-300 leading-snug">
+                Scanning checkout.js AST nodes for unguarded coupon property access.
               </p>
             </div>
 
-            <!-- Interactive Chaos Attacks Palette -->
+            <!-- Interactive Attack Controls -->
             <div class="grid grid-cols-3 gap-1.5 w-full mt-3">
-              <button onclick="injectChaosFault('null-crash')" class="bg-red-950 hover:bg-red-900 border border-red-600 text-red-300 p-1 text-[9px] font-mono font-bold">
+              <button onclick="injectChaosFault('null-crash')" class="bg-red-950 hover:bg-red-900 border border-red-600 text-red-300 p-1.5 text-[9px] font-mono font-bold">
                 NULL_PTR
               </button>
-              <button onclick="injectChaosFault('latency-bomb')" class="bg-red-950 hover:bg-red-900 border border-amber-600 text-amber-300 p-1 text-[9px] font-mono font-bold">
+              <button onclick="injectChaosFault('latency-bomb')" class="bg-red-950 hover:bg-red-900 border border-amber-600 text-amber-300 p-1.5 text-[9px] font-mono font-bold">
                 LAT_BOMB
               </button>
-              <button onclick="injectChaosFault('pool-exhaustion')" class="bg-red-950 hover:bg-red-900 border border-rose-600 text-rose-300 p-1 text-[9px] font-mono font-bold">
+              <button onclick="injectChaosFault('pool-exhaustion')" class="bg-red-950 hover:bg-red-900 border border-rose-600 text-rose-300 p-1.5 text-[9px] font-mono font-bold">
                 DB_DRAIN
               </button>
             </div>
           </div>
 
-          <!-- CENTER STAGE: THE MONOLITH // TARGET-SERVICE MICROSERVICE -->
+          <!-- CENTER STAGE: THE MONOLITH // MICROSERVICE FIXTURE INFRASTRUCTURE -->
           <div class="md:col-span-4 flex flex-col items-center text-center p-4 relative">
             
-            <!-- Target Health Status -->
-            <div class="text-[10px] font-mono tracking-widest text-zinc-400 mb-2">
-              TARGET-SERVICE (PORT:4000)
+            <div class="text-[10px] font-mono tracking-widest text-zinc-400 mb-2 font-bold uppercase">
+              // ACTIVE BATTLEGROUND FIXTURE
             </div>
 
             <!-- Server Core Integrity Bar -->
-            <div class="w-full bg-zinc-900 border border-zinc-700 h-4 p-0.5 mb-3">
+            <div class="w-full bg-zinc-900 border border-zinc-700 h-4 p-0.5 mb-2">
               <div id="server-health-bar" class="h-full bg-[#00ff66] transition-all duration-300 w-full"></div>
             </div>
             
             <div class="flex justify-between w-full text-[10px] font-mono mb-4 px-1">
-              <span id="server-status-label" class="text-[#00ff66] font-extrabold">SLO: 100% HEALTHY</span>
+              <span id="server-status-label" class="text-[#00ff66] font-extrabold">SLO: 100% NOMINAL</span>
               <span id="server-http-code" class="text-zinc-400 font-bold">HTTP 200 OK</span>
             </div>
 
-            <!-- Pixel Server Rack (The Target Service) -->
-            <div id="server-rack" class="relative w-32 h-44 bg-zinc-950 border-2 border-zinc-700 p-2 flex flex-col justify-between shadow-2xl">
+            <!-- Server Rack Visual Monolith -->
+            <div id="server-rack" class="relative w-36 h-48 bg-zinc-950 border-2 border-zinc-700 p-2.5 flex flex-col justify-between shadow-2xl transition-all duration-300">
               
-              <!-- Server Bay 1 -->
-              <div class="border border-zinc-800 p-1 bg-black/60 flex items-center justify-between">
-                <div class="flex gap-1">
-                  <span id="srv-led-1" class="w-2 h-2 bg-[#00ff66] rounded-none animate-ping"></span>
-                  <span class="w-2 h-2 bg-cyan-400 rounded-none"></span>
+              <!-- Fixture Slot 1: Checkout -->
+              <div id="monolith-slot-1" class="border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between">
+                <div class="flex items-center gap-1.5">
+                  <span id="monolith-led-1" class="w-2 h-2 bg-[#00ff66] rounded-none animate-ping"></span>
+                  <span class="text-[8px] font-mono text-zinc-300">CHECKOUT_API</span>
                 </div>
-                <span class="text-[8px] font-mono text-zinc-500">API/CHECKOUT</span>
+                <span id="monolith-badge-1" class="text-[8px] font-mono text-zinc-500 font-bold">200 OK</span>
               </div>
 
-              <!-- Server Bay 2 -->
-              <div class="border border-zinc-800 p-1 bg-black/60 flex items-center justify-between">
-                <div class="flex gap-1">
-                  <span id="srv-led-2" class="w-2 h-2 bg-[#00ff66] rounded-none"></span>
-                  <span class="w-2 h-2 bg-zinc-600 rounded-none"></span>
+              <!-- Fixture Slot 2: Inventory -->
+              <div id="monolith-slot-2" class="border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between">
+                <div class="flex items-center gap-1.5">
+                  <span id="monolith-led-2" class="w-2 h-2 bg-[#00ff66] rounded-none"></span>
+                  <span class="text-[8px] font-mono text-zinc-300">INVENTORY_API</span>
                 </div>
-                <span class="text-[8px] font-mono text-zinc-500">POST_PROCESS</span>
+                <span id="monolith-badge-2" class="text-[8px] font-mono text-zinc-500 font-bold">200 OK</span>
               </div>
 
-              <!-- Server Bay 3 -->
-              <div class="border border-zinc-800 p-1 bg-black/60 flex items-center justify-between">
-                <div class="flex gap-1">
-                  <span id="srv-led-3" class="w-2 h-2 bg-[#00ff66] rounded-none"></span>
-                  <span class="w-2 h-2 bg-amber-400 rounded-none"></span>
+              <!-- Fixture Slot 3: DB Pool -->
+              <div id="monolith-slot-3" class="border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between">
+                <div class="flex items-center gap-1.5">
+                  <span id="monolith-led-3" class="w-2 h-2 bg-[#00ff66] rounded-none"></span>
+                  <span class="text-[8px] font-mono text-zinc-300">DB_POOL</span>
                 </div>
-                <span class="text-[8px] font-mono text-zinc-500">DB_POOL[25]</span>
+                <span id="monolith-badge-3" class="text-[8px] font-mono text-zinc-500 font-bold">25 SLOTS</span>
               </div>
 
               <!-- Central Diagnostic Pulse Screen -->
-              <div id="server-screen" class="border border-zinc-800 bg-zinc-900/90 h-10 flex items-center justify-center font-mono text-[9px] text-[#00ff66]">
-                NOMINAL_FLOW
+              <div id="server-screen" class="border border-zinc-800 bg-zinc-900/90 h-10 flex items-center justify-center font-mono text-[9px] text-[#00ff66] font-bold">
+                SYSTEM_NOMINAL
               </div>
 
               <!-- Glitch Explosion Overlay on Server -->
-              <div id="server-sparks" class="hidden absolute -top-4 -left-4 w-40 h-48 pointer-events-none z-30 flex items-center justify-center">
-                <div class="text-2xl font-black text-red-500 glitch-active">ERR 500</div>
+              <div id="server-sparks" class="hidden absolute -top-4 -left-4 w-44 h-52 pointer-events-none z-30 flex items-center justify-center">
+                <div class="text-2xl font-black text-red-500 glitch-flash bg-black/80 px-2 border border-red-600">BREACHED</div>
               </div>
             </div>
 
@@ -629,80 +584,57 @@
             </button>
           </div>
 
-          <!-- RIGHT FIGHTER: BLUE TEAM PIXEL BOT [AEGIS-SRE] -->
-          <div class="md:col-span-4 flex flex-col items-center text-center p-4 c-border bg-black/80 relative">
+          <!-- RIGHT FIGHTER: BLUE TEAM BOT (USING USER'S EXACT UPLOADED BOT GRAPHIC) -->
+          <div class="md:col-span-4 flex flex-col items-center text-center p-4 c-border bg-black/90 relative">
             
-            <!-- DESIGNATED BOT NAME ON TOP (AS REQUESTED BY USER) -->
-            <div class="w-full border-b border-cyan-900 pb-2 mb-3">
-              <div class="font-pixel text-xs text-cyan-400 uppercase tracking-tight">
-                [BLUE-02 // AEGIS-SRE]
-              </div>
-              <div class="text-[9px] font-mono text-zinc-400 mt-1 uppercase">
-                CLASS: SENTINEL GUARDIAN // AGENT: @sre-blue
-              </div>
+            <!-- SQUAD ROLE SELECTOR TABS -->
+            <div class="w-full flex justify-between gap-1 mb-3 text-[9px] font-mono">
+              <button onclick="selectBlueBotRole('SRE_COMMANDER')" id="tab-blue-1" class="flex-1 py-1 bg-cyan-950 text-cyan-200 border border-cyan-500 font-bold">
+                LEAD
+              </button>
+              <button onclick="selectBlueBotRole('LOG_ANALYZER')" id="tab-blue-2" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                ANALYZER
+              </button>
+              <button onclick="selectBlueBotRole('AUTO_PATCHER')" id="tab-blue-3" class="flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                PATCHER
+              </button>
             </div>
 
-            <!-- PIXEL BOT AVATAR (RETRO MECHA PIXEL ART CANVAS/SVG) -->
-            <div id="blue-bot-container" class="relative w-36 h-36 flex items-center justify-center my-2 anim-bobble">
+            <!-- BOT CONTAINER WITH USER'S EXACT CUT-OUT GRAPHIC -->
+            <div id="blue-bot-wrapper" class="relative w-52 h-64 anim-bot-idle transition-all duration-300 flex items-center justify-center">
+              <img id="blue-bot-img" src="/dashboard/assets/bot_sre_blue.png" alt="@SRE-BLUE Bot" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_15px_rgba(0,240,255,0.25)]" />
               
-              <!-- Retro Pixel Art Mecha Blue (Pure Geometric Pixels) -->
-              <svg viewBox="0 0 64 64" class="w-32 h-32 pixelated" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Mecha V-Fin Crown Antenna -->
-                <rect x="30" y="4" width="4" height="12" fill="#00f0ff"/>
-                <rect x="18" y="10" width="8" height="4" fill="#00f0ff"/>
-                <rect x="38" y="10" width="8" height="4" fill="#00f0ff"/>
-                <rect x="12" y="6" width="6" height="4" fill="#ffffff"/>
-                <rect x="46" y="6" width="6" height="4" fill="#ffffff"/>
-                <!-- Head Frame -->
-                <rect x="20" y="18" width="24" height="22" fill="#051525"/>
-                <rect x="22" y="20" width="20" height="18" fill="#082b4a"/>
-                <!-- Dual Glowing Blue Optics -->
-                <rect x="24" y="26" width="6" height="4" fill="#00f0ff"/>
-                <rect x="34" y="26" width="6" height="4" fill="#00f0ff"/>
-                <rect x="26" y="27" width="2" height="2" fill="#ffffff"/>
-                <rect x="36" y="27" width="2" height="2" fill="#ffffff"/>
-                <!-- Faceplate / Grill -->
-                <rect x="26" y="34" width="12" height="2" fill="#00f0ff"/>
-                <rect x="28" y="37" width="8" height="2" fill="#051525"/>
-                <!-- Shoulders & Shield Generator -->
-                <rect x="8" y="32" width="10" height="14" fill="#0e3d66"/>
-                <rect x="46" y="32" width="10" height="14" fill="#0e3d66"/>
-                <rect x="6" y="28" width="4" height="8" fill="#00f0ff"/>
-                <rect x="54" y="28" width="4" height="8" fill="#00f0ff"/>
-                <!-- Torso Core Shield Matrix -->
-                <rect x="22" y="42" width="20" height="14" fill="#051525"/>
-                <rect x="28" y="45" width="8" height="6" fill="#00f0ff" class="animate-pulse"/>
-                <rect x="30" y="47" width="4" height="2" fill="#ffffff"/>
-                <!-- Arms / Healing Nanobot Emitter -->
-                <rect x="10" y="46" width="6" height="12" fill="#00f0ff"/>
-                <rect x="48" y="46" width="6" height="12" fill="#00f0ff"/>
-                <rect x="4" y="42" width="6" height="4" fill="#00ff66"/>
-              </svg>
+              <!-- Dynamic Live Speech / Action Overlay when active -->
+              <div id="blue-action-bubble" class="hidden absolute top-[4%] left-[2%] w-[96%] bg-cyan-950/95 border-2 border-cyan-400 p-1.5 text-center z-30 shadow-lg">
+                <span id="blue-action-text" class="text-[10px] font-mono font-black text-white tracking-wider uppercase">
+                  DEPLOYING HOTPATCH!
+                </span>
+              </div>
 
-              <!-- Repair Nanobeam Emitter (Shown during healing) -->
-              <div id="blue-beam" class="hidden absolute top-16 right-28 w-44 h-3 bg-gradient-to-l from-cyan-400 via-[#00ff66] to-transparent z-20 animate-pulse"></div>
+              <!-- Animated Repair Beam Emitter -->
+              <div id="blue-repair-beam" class="hidden absolute top-[52%] right-[82%] w-56 h-3.5 bg-gradient-to-l from-cyan-400 via-[#00ff66] to-transparent z-20 animate-pulse pointer-events-none"></div>
             </div>
 
-            <!-- Current Action Bubble -->
-            <div class="mt-2 w-full bg-zinc-950 border border-zinc-800 p-2 text-left">
+            <!-- LIVE BOT ACTION & FIXING MESSAGE BUBBLE -->
+            <div class="mt-2 w-full bg-zinc-950 border border-zinc-800 p-2.5 text-left">
               <div class="flex justify-between items-center text-[9px] font-mono text-zinc-500 mb-1">
-                <span>ACTION STATE:</span>
-                <span id="blue-action-tag" class="text-zinc-300 font-bold">PATROL // NOMINAL</span>
+                <span>BOT DESIGNATION:</span>
+                <span id="blue-bot-status" class="text-cyan-400 font-bold uppercase">@SRE-BLUE // SENTINEL</span>
               </div>
-              <p id="blue-action-desc" class="text-[10px] font-mono text-cyan-400 leading-tight">
-                Monitoring structured JSON telemetry sink. Ready to auto-diagnose on @sre-blue tag.
+              <p id="blue-bot-speech" class="text-[10px] font-mono text-zinc-300 leading-snug">
+                Monitoring logs/app.log sink. Ready to parse stack traces and dispatch hot-patch.
               </p>
             </div>
 
-            <!-- Interactive SRE Healing Palette -->
+            <!-- Interactive Defense Controls -->
             <div class="grid grid-cols-3 gap-1.5 w-full mt-3">
-              <button onclick="triggerTriageProbe()" class="bg-cyan-950 hover:bg-cyan-900 border border-cyan-500 text-cyan-200 p-1 text-[9px] font-mono font-bold">
+              <button onclick="triggerTriageProbe()" class="bg-cyan-950 hover:bg-cyan-900 border border-cyan-500 text-cyan-200 p-1.5 text-[9px] font-mono font-bold">
                 TRIAGE
               </button>
-              <button onclick="applyAutoHeal()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#d4ff00] text-[#d4ff00] p-1 text-[9px] font-mono font-bold">
+              <button onclick="applyAutoHeal()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#d4ff00] text-[#d4ff00] p-1.5 text-[9px] font-mono font-bold">
                 HOTPATCH
               </button>
-              <button onclick="verifyRecoverySuite()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#00ff66] text-[#00ff66] p-1 text-[9px] font-mono font-bold">
+              <button onclick="verifyRecoverySuite()" class="bg-cyan-950 hover:bg-cyan-900 border border-[#00ff66] text-[#00ff66] p-1.5 text-[9px] font-mono font-bold">
                 VERIFY[5]
               </button>
             </div>
@@ -712,10 +644,10 @@
       </div>
     </section>
 
-    <!-- SECTION /04, /05, /06: CONTROL MATRIX, SYSTEM STATUS, COMMS (MATCHING REFERENCE POSTER BOTTOM) -->
+    <!-- SECTION /04, /05, /06: CONTROL MATRIX, SYSTEM STATUS, COMMS (REFERENCE DESIGN MATCH) -->
     <section class="border-b border-zinc-800 grid grid-cols-1 md:grid-cols-3">
       
-      <!-- /04 JOIN THE RESISTANCE / INCIDENT CONTROL (Matching Reference Section /04) -->
+      <!-- /04 INCIDENT CONTROL (Reference Match) -->
       <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] mb-4">
@@ -724,26 +656,31 @@
           </div>
 
           <div class="text-sm font-black uppercase text-white mb-2">
-            JOIN THE RESISTANCE
+            SLO RECOVERY RUNBOOK
           </div>
           <p class="text-xs text-zinc-400 leading-relaxed mb-6">
-            Cyber Brutalism is more than a style. It's a statement. Let's build the autonomous self-healing future together.
+            Autonomous gameday incident loop. Human authorization gates production mutations.
           </p>
 
           <!-- Kinetic Status Block -->
           <div class="bg-zinc-950 border border-zinc-800 p-3 mb-4">
-            <div class="text-[10px] text-zinc-500 font-mono uppercase mb-1">INCIDENT STOPWATCH:</div>
+            <div class="text-[10px] text-zinc-500 font-mono uppercase mb-1">OUTAGE TIMER (MTTR):</div>
             <div id="incident-timer" class="font-mono text-2xl font-black text-white">00:00:00</div>
+          </div>
+
+          <div class="text-[10px] font-mono text-zinc-500 space-y-1">
+            <div>TARGET SLO: <span class="text-white font-bold">&lt; 30.0s RECOVERY</span></div>
+            <div>VERIFICATION: <span class="text-emerald-400 font-bold">5 SEQUENTIAL PROBES</span></div>
           </div>
         </div>
 
-        <button onclick="triggerSimulatedBattle()" class="btn-lime w-full py-3 text-xs uppercase flex items-center justify-center gap-2">
-          <span>LET'S BUILD</span>
+        <button onclick="applyAutoHeal()" class="btn-lime w-full py-3 text-xs uppercase flex items-center justify-center gap-2 mt-4">
+          <span>AUTHORIZE HEAL</span>
           <span class="font-bold">↗</span>
         </button>
       </div>
 
-      <!-- /05 SYSTEM STATUS (EXACTLY MATCHING REFERENCE POSTER SECTION /05) -->
+      <!-- /05 SYSTEM STATUS (EXACT 100% REPRODUCTION OF REFERENCE POSTER) -->
       <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] mb-4">
@@ -751,7 +688,7 @@
             <span class="font-extrabold tracking-widest uppercase text-white">SYSTEM STATUS</span>
           </div>
 
-          <!-- Status Bar Rows Exactly Matching Reference Poster -->
+          <!-- Status Rows Matching Reference Poster 1:1 -->
           <div class="space-y-3 text-xs font-mono">
             
             <!-- CPU_USAGE -->
@@ -759,16 +696,16 @@
               <span class="text-zinc-400">CPU_USAGE</span>
               <div class="flex items-center gap-2">
                 <div class="w-24 bg-zinc-900 border border-zinc-800 h-2 p-0.5">
-                  <div id="bar-cpu" class="h-full bg-[#d4ff00] w-[73%]"></div>
+                  <div id="bar-cpu" class="h-full bg-[#d4ff00] w-[14%] transition-all"></div>
                 </div>
-                <span id="val-cpu" class="text-white text-[10px] w-8 text-right">73%</span>
+                <span id="val-cpu" class="text-white text-[10px] w-8 text-right">14%</span>
               </div>
             </div>
 
             <!-- MEMORY -->
             <div class="flex items-center justify-between">
               <span class="text-zinc-400">MEMORY</span>
-              <span class="text-white">8.6 GB / 16 GB</span>
+              <span class="text-white font-bold">48.2 MB / 512 MB</span>
             </div>
 
             <!-- P99 LATENCY -->
@@ -797,22 +734,22 @@
           </div>
         </div>
 
-        <!-- Big Operational Banner (Reference Exact Text) -->
+        <!-- Big Operational Banner (Reference Exact Match) -->
         <div id="banner-operational" class="mt-6 border border-zinc-700 bg-zinc-950 p-3 text-center text-xs font-black tracking-widest text-[#00ff66] uppercase">
           ALL SYSTEMS OPERATIONAL
         </div>
       </div>
 
-      <!-- /06 SUBSCRIBE TO SIGNAL / TACTICAL BOTS FEED (Matching Reference Section /06) -->
+      <!-- /06 SWITCH COMMS STREAM (Reference Match) -->
       <div class="p-6 sm:p-8 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] mb-4">
             <span class="font-mono text-zinc-400">/06</span>
-            <span class="font-extrabold tracking-widest uppercase text-white">SUBSCRIBE TO SIGNAL</span>
+            <span class="font-extrabold tracking-widest uppercase text-white">SWITCH MATTERMOST COMMS</span>
           </div>
 
           <p class="text-xs text-zinc-400 mb-3 leading-relaxed">
-            Live multi-agent tactical transmission feed from Switch room <code class="text-white">#chaos-gameday</code>:
+            Live multi-agent tactical message feed from Switch room <code class="text-white">#chaos-gameday</code>:
           </p>
 
           <!-- Comms Log Feed Box -->
@@ -821,9 +758,9 @@
           </div>
         </div>
 
-        <!-- Subscribe Input Bar (Direct reference match) -->
+        <!-- Transaction Probe Bar -->
         <div class="mt-4 flex gap-1">
-          <input type="text" id="custom-probe-input" placeholder="ENTER TRANSACTION SKU" value="SW-ENT-01" class="bg-zinc-950 border border-zinc-800 px-3 py-2 text-xs font-mono text-white flex-1 focus:outline-none focus:border-zinc-500" />
+          <input type="text" id="custom-probe-input" placeholder="ENTER SKU" value="SW-ENT-01" class="bg-zinc-950 border border-zinc-800 px-3 py-2 text-xs font-mono text-white flex-1 focus:outline-none focus:border-zinc-500" />
           <button onclick="sendDirectProbe()" class="btn-lime px-3 py-2 text-xs font-black uppercase flex items-center gap-1">
             <span>PROBE</span>
             <span>↗</span>
@@ -832,14 +769,14 @@
       </div>
     </section>
 
-    <!-- LIVE TELEMETRY & STRUCTURED LOG STREAMS -->
+    <!-- SECTION /07: LIVE TELEMETRY & STRUCTURED APPLICATION LOGS -->
     <section id="telemetry" class="border-b border-zinc-800 grid grid-cols-1 md:grid-cols-2">
       
-      <!-- HTTP PROBE STREAM -->
+      <!-- HTTP TRANSACTION BUFFER -->
       <div class="p-6 border-b md:border-b-0 md:border-r border-zinc-800">
         <div class="flex justify-between items-center text-xs font-mono text-zinc-400 mb-3">
           <span class="font-bold text-white uppercase">// RECENT HTTP TRANSACTIONS</span>
-          <span class="text-[10px] text-zinc-500">LIVE BUFFER</span>
+          <span class="text-[10px] text-zinc-500">LIVE SINK</span>
         </div>
         <div id="events-list" class="space-y-1 text-xs font-mono max-h-44 overflow-y-auto pr-1"></div>
       </div>
@@ -854,63 +791,60 @@
       </div>
     </section>
 
-    <!-- FOOTER NAV (MATCHING REFERENCE POSTER FOOTER) -->
+    <!-- FOOTER NAV (REFERENCE MATCH) -->
     <footer class="p-6 sm:p-8 bg-black grid grid-cols-2 md:grid-cols-5 gap-6 text-xs text-zinc-400 border-b border-zinc-800">
       
       <!-- Brand & Copyright -->
       <div class="col-span-2 md:col-span-1 space-y-2">
         <div class="bg-[#d4ff00] text-black font-extrabold px-2.5 py-0.5 inline-block text-xs">
-          CYBR_
+          CHAOS_
         </div>
         <div class="text-[10px] text-zinc-500 font-mono leading-tight">
-          © 2024 CYBR STUDIO<br />
-          ALL RIGHTS RESERVED.
+          CHAOS-ARENA STUDIO<br />
+          SWITCH MULTI-AGENT PLATFORM
         </div>
       </div>
 
       <!-- Navigation -->
       <div class="space-y-1 text-[11px] font-mono">
-        <div class="font-bold text-white uppercase mb-2">NAVIGATION</div>
-        <div>Work</div>
-        <div>Services</div>
-        <div>About</div>
-        <div>Labs</div>
-        <div>Contact</div>
+        <div class="font-bold text-white uppercase mb-2">ARENA</div>
+        <div>War Room</div>
+        <div>Fixtures</div>
+        <div>Agent Squads</div>
+        <div>Telemetry</div>
       </div>
 
       <!-- Resources -->
       <div class="space-y-1 text-[11px] font-mono">
-        <div class="font-bold text-white uppercase mb-2">RESOURCES</div>
-        <div>Manifesto</div>
-        <div>Blog</div>
-        <div>Style Guide</div>
-        <div>Newsletter</div>
-        <div>Careers</div>
+        <div class="font-bold text-white uppercase mb-2">DOCS</div>
+        <div>room.template.yaml</div>
+        <div>agent.md</div>
+        <div>scripts/</div>
+        <div>logs/app.log</div>
       </div>
 
-      <!-- Socials -->
+      <!-- Switch Ecosystem -->
       <div class="space-y-1 text-[11px] font-mono">
-        <div class="font-bold text-white uppercase mb-2">SOCIALS</div>
-        <div>X(Twitter)</div>
-        <div>Discord</div>
-        <div>GitHub</div>
-        <div>Behance</div>
-        <div>YouTube</div>
+        <div class="font-bold text-white uppercase mb-2">SWITCH</div>
+        <div>Mattermost Bridge</div>
+        <div>Console Agents</div>
+        <div>GitHub Workspace</div>
+        <div>Deterministic CLI</div>
       </div>
 
       <!-- Global Node (Reference Map Stamp) -->
       <div class="space-y-1 text-[11px] font-mono col-span-2 md:col-span-1">
-        <div class="font-bold text-white uppercase mb-2">GLOBAL NODE</div>
+        <div class="font-bold text-white uppercase mb-2">GLOBAL RUNTIME</div>
         <div class="text-zinc-500 text-[10px]">
-          LON + NY + TYO + BER
+          SWITCH + NODE.JS + DOCKER
         </div>
         <div class="pt-2 text-[9px] text-[#d4ff00]">
-          SWITCH RUNTIME: OPERATIONAL
+          TRACK 01: BEST BUSINESS WORKFLOW
         </div>
       </div>
     </footer>
 
-    <!-- BOTTOM HAZARD TAPE BAR (100% ACCURATE TO REFERENCE POSTER) -->
+    <!-- BOTTOM HAZARD TAPE BAR (REFERENCE MATCH) -->
     <div class="p-3 bg-black flex items-center justify-between overflow-hidden text-xs font-mono font-bold">
       <div class="hazard-bar h-4 w-48 sm:w-80"></div>
       <div class="px-3 text-[#d4ff00] tracking-widest uppercase">
@@ -921,13 +855,101 @@
 
   </div>
 
-  <!-- CLIENT-SIDE SCRIPT LOGIC -->
+  <!-- SCRIPT LOGIC -->
   <script>
     let incidentStartTime = null;
     let incidentInterval = null;
     let isCurrentlyOutage = false;
 
-    // LIVE RUNNING UTC CLOCK (Matching Reference Header: SYS_TIME 23:47:12 UTC+0)
+    // ACTIVE BOT ROLE SELECTION
+    let activeRedRole = 'CHAOS_LEAD';
+    let activeBlueRole = 'SRE_COMMANDER';
+
+    const RED_ROLES = {
+      CHAOS_LEAD: {
+        tag: 'CHAOS-RED',
+        img: '/dashboard/assets/bot_red_chaos_lead.png',
+        speech: 'Orchestrating multi-point chaos attack on target-service checkout fixtures.',
+        status: 'CHAOS-RED // COMMANDER'
+      },
+      FAULT_INJECTOR: {
+        tag: 'FAULT-INJECTOR',
+        img: '/dashboard/assets/bot_red_fault_injector.png',
+        speech: 'Injecting null dereference into checkout.js:11. Forcing uncaught TypeError.',
+        status: 'FAULT-INJECTOR // COURIER'
+      },
+      TRAFFIC_FLOODER: {
+        tag: 'TRAFFIC-FLOODER',
+        img: '/dashboard/assets/bot_red_traffic_flooder.png',
+        speech: 'Simulating concurrent transaction bursts to trip latency timeouts & db leaks.',
+        status: 'TRAFFIC-FLOODER // STRESSOR'
+      }
+    };
+
+    const BLUE_ROLES = {
+      SRE_COMMANDER: {
+        tag: '@SRE-BLUE',
+        img: '/dashboard/assets/bot_blue_sre_commander.png',
+        speech: 'Monitoring live P99 and error telemetry. Ready to coordinate automated hot-patching.',
+        status: '@SRE-BLUE // COMMANDER'
+      },
+      LOG_ANALYZER: {
+        tag: 'LOG-ANALYZER',
+        img: '/dashboard/assets/bot_blue_log_analyzer.png',
+        speech: 'Scanning logs/app.log sink. Isolating stack trace frames and offending AST lines.',
+        status: 'LOG-ANALYZER // HEURISTIC'
+      },
+      AUTO_PATCHER: {
+        tag: 'AUTO-PATCHER',
+        img: '/dashboard/assets/bot_blue_auto_patcher.png',
+        speech: 'Formulating surgical git diff. Restoring baseline code and verifying 5 probes.',
+        status: 'AUTO-PATCHER // OPERATOR'
+      }
+    };
+
+    function selectRedBotRole(role) {
+      activeRedRole = role;
+      const bot = RED_ROLES[role];
+      document.getElementById('red-bot-speech').textContent = bot.speech;
+      document.getElementById('red-bot-status').textContent = bot.status;
+      const redImg = document.getElementById('red-bot-img');
+      if (redImg && bot.img) {
+        redImg.src = bot.img;
+      }
+
+      // Update tabs
+      ['CHAOS_LEAD', 'FAULT_INJECTOR', 'TRAFFIC_FLOODER'].forEach((r, idx) => {
+        const btn = document.getElementById(`tab-red-${idx + 1}`);
+        if (r === role) {
+          btn.className = 'flex-1 py-1 bg-red-950 text-red-200 border border-red-600 font-bold';
+        } else {
+          btn.className = 'flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white';
+        }
+      });
+    }
+
+    function selectBlueBotRole(role) {
+      activeBlueRole = role;
+      const bot = BLUE_ROLES[role];
+      document.getElementById('blue-bot-speech').textContent = bot.speech;
+      document.getElementById('blue-bot-status').textContent = bot.status;
+      const blueImg = document.getElementById('blue-bot-img');
+      if (blueImg && bot.img) {
+        blueImg.src = bot.img;
+      }
+
+      // Update tabs
+      ['SRE_COMMANDER', 'LOG_ANALYZER', 'AUTO_PATCHER'].forEach((r, idx) => {
+        const btn = document.getElementById(`tab-blue-${idx + 1}`);
+        if (r === role) {
+          btn.className = 'flex-1 py-1 bg-cyan-950 text-cyan-200 border border-cyan-500 font-bold';
+        } else {
+          btn.className = 'flex-1 py-1 bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white';
+        }
+      });
+    }
+
+    // LIVE RUNNING UTC CLOCK
     function updateClock() {
       const now = new Date();
       const h = String(now.getUTCHours()).padStart(2, '0');
@@ -957,11 +979,19 @@
       // KPI elements
       const valLatency = document.getElementById('val-latency');
       const valErrors = document.getElementById('val-errors');
+      const heroLatency = document.getElementById('hero-latency');
+      const heroErrors = document.getElementById('hero-errors');
+      const heroBadge = document.getElementById('hero-telemetry-badge');
+      const barCpu = document.getElementById('bar-cpu');
+      const valCpu = document.getElementById('val-cpu');
+
       const p99 = summary.p99_latency_ms || 12;
       const errorRate = summary.error_rate_percent || 0;
 
       valLatency.textContent = `${p99} MS`;
       valErrors.textContent = `${errorRate}%`;
+      heroLatency.textContent = `${p99}ms`;
+      heroErrors.textContent = `${errorRate}%`;
 
       // Status components
       const bannerOperational = document.getElementById('banner-operational');
@@ -972,13 +1002,25 @@
       const serverSparks = document.getElementById('server-sparks');
       const battleHeadline = document.getElementById('battle-headline');
 
-      // Bot action badges
-      const redActionTag = document.getElementById('red-action-tag');
-      const redActionDesc = document.getElementById('red-action-desc');
-      const blueActionTag = document.getElementById('blue-action-tag');
-      const blueActionDesc = document.getElementById('blue-action-desc');
-      const redBeam = document.getElementById('red-beam');
-      const blueBeam = document.getElementById('blue-beam');
+      // Bot action elements
+      const redActionBubble = document.getElementById('red-action-bubble');
+      const redActionText = document.getElementById('red-action-text');
+      const redBotSpeech = document.getElementById('red-bot-speech');
+      const redBotStatus = document.getElementById('red-bot-status');
+
+      const blueActionBubble = document.getElementById('blue-action-bubble');
+      const blueActionText = document.getElementById('blue-action-text');
+      const blueBotSpeech = document.getElementById('blue-bot-speech');
+      const blueBotStatus = document.getElementById('blue-bot-status');
+
+      const redBeam = document.getElementById('red-attack-beam');
+      const blueBeam = document.getElementById('blue-repair-beam');
+
+      // Monolith slot elements
+      const monolithSlot1 = document.getElementById('monolith-slot-1');
+      const monolithBadge1 = document.getElementById('monolith-badge-1');
+      const monolithLed1 = document.getElementById('monolith-led-1');
+      const fixStatus1 = document.getElementById('fix-status-1');
 
       if (isOutage) {
         if (!isCurrentlyOutage) {
@@ -986,11 +1028,17 @@
           startIncidentTimer();
         }
 
-        bannerOperational.className = 'mt-6 border border-red-600 bg-red-950/80 p-3 text-center text-xs font-black tracking-widest text-red-500 uppercase animate-pulse';
-        bannerOperational.textContent = 'CRITICAL PRODUCTION OUTAGE DETECTED';
+        bannerOperational.className = 'mt-6 border border-red-600 bg-red-950 p-3 text-center text-xs font-black tracking-widest text-red-500 uppercase animate-pulse';
+        bannerOperational.textContent = 'CRITICAL OUTAGE DETECTED';
 
         valLatency.className = 'text-red-500 font-bold';
         valErrors.className = 'text-red-500 font-bold';
+        heroErrors.className = 'text-red-500 font-bold';
+        heroBadge.className = 'text-red-500 font-bold';
+        heroBadge.textContent = 'SLO BREACHED // OUTAGE';
+
+        barCpu.className = 'h-full bg-red-600 w-[88%] transition-all';
+        valCpu.textContent = '88%';
 
         serverBar.className = 'h-full bg-red-600 transition-all duration-300';
         serverBar.style.width = '12%';
@@ -1003,17 +1051,28 @@
         serverScreen.textContent = `FATAL: ${(data.active_fault || 'CRASH').toUpperCase()}`;
         serverSparks.classList.remove('hidden');
 
-        battleHeadline.className = 'font-pixel text-[10px] sm:text-xs text-red-500 tracking-wider text-center animate-pulse';
-        battleHeadline.textContent = `[ATTACK IN PROGRESS] >> AKIRA STRIKING // ${(data.active_fault || 'CHAOS').toUpperCase()}`;
+        monolithSlot1.className = 'border border-red-600 p-1.5 bg-red-950/80 flex items-center justify-between animate-pulse';
+        monolithBadge1.textContent = 'HTTP 500';
+        monolithBadge1.className = 'text-[8px] font-mono text-red-400 font-black';
+        monolithLed1.className = 'w-2 h-2 bg-red-500 rounded-none animate-ping';
+        fixStatus1.className = 'text-[9px] px-1.5 py-0.5 bg-red-950 text-red-400 border border-red-600 font-mono font-bold animate-pulse';
+        fixStatus1.textContent = '500 ERROR';
 
-        redActionTag.textContent = 'STRIKE DEPLOYED';
-        redActionTag.className = 'text-red-500 font-black animate-pulse';
-        redActionDesc.textContent = `Injecting ${(data.active_fault || 'chaos fault')} into checkout.js. Forcing HTTP 500s.`;
+        battleHeadline.className = 'text-xs text-red-500 font-mono font-bold tracking-wider text-center animate-pulse';
+        battleHeadline.textContent = `[ATTACK ACTIVE] >> RED CORRUPTED FIXTURE // ${(data.active_fault || 'CHAOS').toUpperCase()}`;
+
+        redActionBubble.classList.remove('hidden');
+        redActionText.textContent = `INJECTING ${(data.active_fault || 'FAULT').toUpperCase()}!`;
+        redBotStatus.textContent = 'CHAOS-RED // ATTACKING';
+        redBotStatus.className = 'text-red-500 font-black animate-pulse';
+        redBotSpeech.textContent = `Target breached! Injected ${(data.active_fault || 'fault')} into checkout.js. Customers receiving 500 errors!`;
         redBeam.classList.remove('hidden');
 
-        blueActionTag.textContent = 'TRIAGE & REPAIR';
-        blueActionTag.className = 'text-amber-400 font-bold animate-pulse';
-        blueActionDesc.textContent = 'Outage detected. Reading stack trace at checkout.js:11. Formulating patch.';
+        blueActionBubble.classList.remove('hidden');
+        blueActionText.textContent = 'TRIAGING EXCEPTION!';
+        blueBotStatus.textContent = '@SRE-BLUE // TRIAGING';
+        blueBotStatus.className = 'text-amber-400 font-bold animate-pulse';
+        blueBotSpeech.textContent = 'Exception detected. Parsing stack trace at checkout.js:11. Formulating surgical hot-patch.';
         blueBeam.classList.add('hidden');
       } else {
         if (isCurrentlyOutage) {
@@ -1026,38 +1085,53 @@
 
         valLatency.className = 'text-[#00ff66] font-bold';
         valErrors.className = 'text-[#00ff66] font-bold';
+        heroErrors.className = 'text-[#00ff66] font-bold';
+        heroBadge.className = 'text-[#00ff66] font-bold';
+        heroBadge.textContent = 'SLO 100% NOMINAL';
+
+        barCpu.className = 'h-full bg-[#d4ff00] w-[14%] transition-all';
+        valCpu.textContent = '14%';
 
         serverBar.className = 'h-full bg-[#00ff66] transition-all duration-300';
         serverBar.style.width = '100%';
-        serverStatusLabel.textContent = 'SLO: 100% HEALTHY';
+        serverStatusLabel.textContent = 'SLO: 100% NOMINAL';
         serverStatusLabel.className = 'text-[#00ff66] font-extrabold';
         serverHttpCode.textContent = 'HTTP 200 OK';
         serverHttpCode.className = 'text-zinc-400 font-bold';
 
-        serverScreen.className = 'border border-zinc-800 bg-zinc-900/90 h-10 flex items-center justify-center font-mono text-[9px] text-[#00ff66]';
-        serverScreen.textContent = 'NOMINAL_FLOW';
+        serverScreen.className = 'border border-zinc-800 bg-zinc-900/90 h-10 flex items-center justify-center font-mono text-[9px] text-[#00ff66] font-bold';
+        serverScreen.textContent = 'SYSTEM_NOMINAL';
         serverSparks.classList.add('hidden');
 
-        battleHeadline.className = 'font-pixel text-[10px] sm:text-xs text-[#d4ff00] tracking-wider text-center';
-        battleHeadline.textContent = '[ARENA READY] >> TARGET-SERVICE ARMED AT PORT 4000';
+        monolithSlot1.className = 'border border-zinc-800 p-1.5 bg-black/60 flex items-center justify-between';
+        monolithBadge1.textContent = '200 OK';
+        monolithBadge1.className = 'text-[8px] font-mono text-zinc-500 font-bold';
+        monolithLed1.className = 'w-2 h-2 bg-[#00ff66] rounded-none animate-ping';
+        fixStatus1.className = 'text-[9px] px-1.5 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-600 font-mono font-bold';
+        fixStatus1.textContent = '200 OK';
 
-        redActionTag.textContent = 'ARMED // IDLE';
-        redActionTag.className = 'text-zinc-400 font-bold';
-        redActionDesc.textContent = 'Scanning target-service endpoints for unguarded object dereferences.';
+        battleHeadline.className = 'text-xs text-[#d4ff00] font-mono font-bold tracking-wider text-center';
+        battleHeadline.textContent = '[BATTLEGROUND ONLINE] ALL FIXTURES HEALTHY // AGENTS PATROLLING';
+
+        redActionBubble.classList.add('hidden');
+        redBotStatus.textContent = RED_ROLES[activeRedRole].status;
+        redBotStatus.className = 'text-red-400 font-bold uppercase';
+        redBotSpeech.textContent = RED_ROLES[activeRedRole].speech;
         redBeam.classList.add('hidden');
 
-        blueActionTag.textContent = 'PATROL // NOMINAL';
-        blueActionTag.className = 'text-cyan-400 font-bold';
-        blueActionDesc.textContent = 'Monitoring structured JSON telemetry sink. Ready to auto-diagnose on @sre-blue tag.';
+        blueActionBubble.classList.add('hidden');
+        blueBotStatus.textContent = BLUE_ROLES[activeBlueRole].status;
+        blueBotStatus.className = 'text-cyan-400 font-bold uppercase';
+        blueBotSpeech.textContent = BLUE_ROLES[activeBlueRole].speech;
         blueBeam.classList.add('hidden');
       }
 
-      // Render Comms Feed (Tactical Anime dialogue)
+      // Render Comms Feed (Tactical Dialogue)
       const warLogs = data.war_logs || [];
       const commsHtml = warLogs.slice(-10).map(w => {
         let senderColor = 'text-zinc-400';
-        if (w.sender.includes('AKIRA') || w.sender.includes('RED')) senderColor = 'text-red-400 font-bold';
-        if (w.sender.includes('AEGIS') || w.sender.includes('BLUE')) senderColor = 'text-cyan-400 font-bold';
+        if (w.sender.includes('CHAOS') || w.sender.includes('RED')) senderColor = 'text-red-400 font-bold';
+        if (w.sender.includes('SRE') || w.sender.includes('BLUE')) senderColor = 'text-cyan-400 font-bold';
         if (w.sender.includes('OPERATOR')) senderColor = 'text-[#d4ff00] font-bold';
 
         const time = (w.timestamp || '').slice(11, 19);
@@ -1069,7 +1143,9 @@
           <div class="text-zinc-300 text-[10px]">${escapeHtml(w.text)}</div>
         </div>`;
       }).join('');
-      document.getElementById('comms-feed').innerHTML = commsHtml || '<div class="text-zinc-600">[AWAITING COMMS]</div>';
+      const commsBox = document.getElementById('comms-feed');
+      commsBox.innerHTML = commsHtml || '<div class="text-zinc-600">[AWAITING COMMS]</div>';
+      commsBox.scrollTop = commsBox.scrollHeight;
 
       // Render Probes
       const events = summary.recent_events || [];
@@ -1101,8 +1177,24 @@
 
     // ACTIONS: INJECT CHAOS (RED TEAM)
     async function injectChaosFault(mode) {
-      const redBeam = document.getElementById('red-beam');
+      if (mode === 'null-crash') {
+        selectRedBotRole('FAULT_INJECTOR');
+      } else if (mode === 'latency-bomb' || mode === 'pool-exhaustion') {
+        selectRedBotRole('TRAFFIC_FLOODER');
+      }
+
+      const redWrapper = document.getElementById('red-bot-wrapper');
+      const redBeam = document.getElementById('red-attack-beam');
+      
+      // Animate bot forward movement toward fixture
+      redWrapper.classList.remove('anim-bot-idle');
+      redWrapper.classList.add('anim-bot-attack');
       redBeam.classList.remove('hidden');
+
+      setTimeout(() => {
+        redWrapper.classList.remove('anim-bot-attack');
+        redWrapper.classList.add('anim-bot-idle');
+      }, 850);
 
       try {
         await fetch('/api/arena/inject', {
@@ -1118,8 +1210,20 @@
 
     // ACTIONS: AUTO-HEAL (BLUE TEAM)
     async function applyAutoHeal() {
-      const blueBeam = document.getElementById('blue-beam');
+      selectBlueBotRole('AUTO_PATCHER');
+
+      const blueWrapper = document.getElementById('blue-bot-wrapper');
+      const blueBeam = document.getElementById('blue-repair-beam');
+
+      // Animate bot forward movement toward fixture
+      blueWrapper.classList.remove('anim-bot-idle');
+      blueWrapper.classList.add('anim-bot-heal');
       blueBeam.classList.remove('hidden');
+
+      setTimeout(() => {
+        blueWrapper.classList.remove('anim-bot-heal');
+        blueWrapper.classList.add('anim-bot-idle');
+      }, 850);
 
       try {
         await fetch('/api/arena/heal', {
@@ -1133,6 +1237,7 @@
     }
 
     async function triggerTriageProbe() {
+      selectBlueBotRole('LOG_ANALYZER');
       await sendDirectProbe();
       await refreshArenaStatus();
     }
@@ -1158,6 +1263,8 @@
     async function resetArena() {
       try {
         await fetch('/api/arena/reset', { method: 'POST' });
+        selectRedBotRole('CHAOS_LEAD');
+        selectBlueBotRole('SRE_COMMANDER');
         resetIncidentTimer();
         await refreshArenaStatus();
       } catch (e) {
@@ -1167,7 +1274,7 @@
 
     // SIMULATED AUTOMATED MULTI-AGENT CLASH
     async function triggerSimulatedBattle() {
-      // Step 1: Red launches attack
+      // Step 1: Red attacks
       await injectChaosFault('null-crash');
       await refreshArenaStatus();
 

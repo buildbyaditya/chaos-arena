@@ -223,7 +223,7 @@ router.get('/status', (req, res) => {
     active_fault: activeFault,
     red_unit: {
       id: 'UNIT-01',
-      name: 'AKIRA-CHAOS',
+      name: 'CHAOS-RED',
       type: 'SABOTEUR MECHA',
       status: isOutage ? 'STRIKE_ENGAGED' : 'ARMED_IDLE',
       aggression: isOutage ? 100 : 35,
@@ -231,7 +231,7 @@ router.get('/status', (req, res) => {
     },
     blue_unit: {
       id: 'UNIT-02',
-      name: 'AEGIS-SRE',
+      name: '@SRE-BLUE',
       type: 'SENTINEL GUARDIAN',
       status: isOutage ? 'DEFENSE_TRIAGE' : 'PATROL_NOMINAL',
       shield_matrix: integrity,
@@ -253,16 +253,16 @@ router.post('/inject', (req, res) => {
   activeFault = mode === 'reset' ? 'NONE' : mode;
 
   if (mode === 'reset') {
-    addWarLog('UNIT-02: AEGIS-BLUE', 'HEAL', `[RESTORE] BASELINE PROTOCOL ENGAGED. CODE MUTATIONS REVERTED.`);
+    addWarLog('@SRE-BLUE', 'HEAL', `[RESTORE] BASELINE PROTOCOL ENGAGED. CODE MUTATIONS REVERTED.`);
   } else if (mode === 'null-crash') {
-    addWarLog('UNIT-01: AKIRA-RED', 'ATTACK', `[STRIKE: NULL_DEREF] UNGUARDED COUPON.CODE ACCESSED WITHOUT NULL-CHECK.`);
-    addWarLog('UNIT-02: AEGIS-BLUE', 'TRIAGE', `[ALERT: RADAR] TYPEERROR DETECTED AT checkout.js:11. EXCEPTION SINK TRIGGERED.`);
+    addWarLog('CHAOS-RED', 'ATTACK', `[STRIKE: NULL_DEREF] UNGUARDED COUPON.CODE ACCESSED WITHOUT NULL-CHECK.`);
+    addWarLog('@SRE-BLUE', 'TRIAGE', `[ALERT: RADAR] TYPEERROR DETECTED AT checkout.js:11. EXCEPTION SINK TRIGGERED.`);
   } else if (mode === 'latency-bomb') {
-    addWarLog('UNIT-01: AKIRA-RED', 'ATTACK', `[STRIKE: SYNAPSE_DELAY] 2600MS CPU SPIN-LOOP DEPLOYED. GATEWAY 504 TIMEOUT FORCED.`);
-    addWarLog('UNIT-02: AEGIS-BLUE', 'TRIAGE', `[ALERT: RADAR] P99 LATENCY COLLAPSED EXCEEDING 2500MS SLO.`);
+    addWarLog('CHAOS-RED', 'ATTACK', `[STRIKE: SYNAPSE_DELAY] 2600MS CPU SPIN-LOOP DEPLOYED. GATEWAY 504 TIMEOUT FORCED.`);
+    addWarLog('@SRE-BLUE', 'TRIAGE', `[ALERT: RADAR] P99 LATENCY COLLAPSED EXCEEDING 2500MS SLO.`);
   } else if (mode === 'pool-exhaustion') {
-    addWarLog('UNIT-01: AKIRA-RED', 'ATTACK', `[STRIKE: DB_DRAIN] MAX_POOL_CONNECTIONS COLLAPSED TO 0. HTTP 503 DB_EXHAUSTED.`);
-    addWarLog('UNIT-02: AEGIS-BLUE', 'TRIAGE', `[ALERT: RADAR] DATABASE RESOURCE STARVATION CONFIRMED.`);
+    addWarLog('CHAOS-RED', 'ATTACK', `[STRIKE: DB_DRAIN] MAX_POOL_CONNECTIONS COLLAPSED TO 0. HTTP 503 DB_EXHAUSTED.`);
+    addWarLog('@SRE-BLUE', 'TRIAGE', `[ALERT: RADAR] DATABASE RESOURCE STARVATION CONFIRMED.`);
   }
 
   res.status(200).json({
@@ -289,8 +289,8 @@ router.post('/inject', (req, res) => {
 
 router.post('/heal', (req, res) => {
   activeFault = 'NONE';
-  addWarLog('OPERATOR-COMMAND', 'RADIO', `[OVERRIDE] HUMAN SIGN-OFF GRANTED: "@sre-blue heal". DEPLOYING SURGICAL DIFF.`);
-  addWarLog('UNIT-02: AEGIS-BLUE', 'HEAL', `[HOT-PATCH] checkout.js RESTORED TO HEALTHY BASELINE.`);
+  addWarLog('SWITCH-OPERATOR', 'RADIO', `[OVERRIDE] HUMAN SIGN-OFF GRANTED: "@sre-blue heal". DEPLOYING SURGICAL DIFF.`);
+  addWarLog('@SRE-BLUE', 'HEAL', `[HOT-PATCH] checkout.js RESTORED TO HEALTHY BASELINE.`);
 
   res.status(200).json({
     ok: true,
@@ -308,7 +308,7 @@ router.post('/heal', (req, res) => {
           const p = await fireLocalProbe();
           if (p.statusCode === 200 && p.latency < 250) passed++;
         }
-        addWarLog('UNIT-02: AEGIS-BLUE', 'DEFENSE', `[VERIFICATION] MTTR SCORECARD: ${passed}/5 PROBES PASSED. ALL LATENCIES < 50MS. SLO RECOVERED.`);
+        addWarLog('@SRE-BLUE', 'DEFENSE', `[VERIFICATION] MTTR SCORECARD: ${passed}/5 PROBES PASSED. ALL LATENCIES < 50MS. SLO RECOVERED.`);
       }, 700);
     } catch (e) {
       console.error(e);

@@ -44,4 +44,4 @@ We are building **ChaosArena** for the **Flip the Switch Hackathon**. Our goal i
 3. **Make Diagnostic Scripts Deterministic:**
    - `scripts/check-health.sh`: Hits `/health` and `/api/checkout` with test payloads, printing HTTP status codes and response times.
    - `scripts/tail-logs.sh`: Prints the last 25 lines of `logs/app.log`.
-   - `scripts/verify-recovery.sh`: Runs 5 test requests across all endpoints and outputs `✅ ALL CHECKS PASSED` or `❌ CHECKS FAILED`.
+   - `scripts/verify-recovery.sh`: Runs 5 test requests across all endpoints and outputs `[SYS_OK] ALL CHECKS PASSED` or ` CHECKS FAILED`.
