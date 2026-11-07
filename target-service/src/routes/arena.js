@@ -194,6 +194,53 @@ function fireLocalProbe(payload = { items: [{ sku: 'BLADE-HEX-01', qty: 1, price
   });
 }
 
+function fireInventoryProbe() {
+  return new Promise((resolve) => {
+    const start = Date.now();
+    const req = http.request(
+      {
+        hostname: '127.0.0.1',
+        port: process.env.PORT || 4000,
+        path: '/api/inventory',
+        method: 'GET',
+        timeout: 4000
+      },
+      (res) => {
+        let body = '';
+        res.on('data', (chunk) => (body += chunk));
+        res.on('end', () => {
+          let parsed = null;
+          try {
+            parsed = JSON.parse(body);
+          } catch {}
+          resolve({
+            statusCode: res.statusCode,
+            latency: Date.now() - start,
+            data: parsed,
+            body
+          });
+        });
+      }
+    );
+    req.on('error', (err) => {
+      resolve({
+        statusCode: 500,
+        latency: Date.now() - start,
+        error: err.message
+      });
+    });
+    req.on('timeout', () => {
+      req.destroy();
+      resolve({
+        statusCode: 504,
+        latency: Date.now() - start,
+        error: 'Timeout'
+      });
+    });
+    req.end();
+  });
+}
+
 router.get('/status', (req, res) => {
   const summary = getMetricsSummary();
   const combat = getCombatState();
@@ -229,16 +276,36 @@ router.get('/status', (req, res) => {
   const isOutage = summary.status === 'CRITICAL_OUTAGE' || activeFault !== 'NONE';
   const integrity = isOutage ? Math.max(10, 100 - (summary.error_rate_percent || 80)) : 100;
 
+  const poolSlots = activeFault === 'pool-exhaustion' ? 0 : 25;
+  const poolStatus = activeFault === 'pool-exhaustion' ? '0 / 25 EXHAUSTED' : '25 / 25 NOMINAL';
+  const checkoutStatus = activeFault === 'null-crash' ? '500 ERROR' : (activeFault === 'latency-bomb' ? '504 TIMEOUT' : (activeFault === 'pool-exhaustion' ? '503 POOL DRAIN' : '200 OK'));
+  const inventoryStatus = activeFault === 'latency-bomb' ? '504 TIMEOUT' : '200 OK';
+
   res.status(200).json({
     metrics: summary,
     service_integrity: integrity,
     active_fault: activeFault,
     combat_state: combat,
+    fixtures: {
+      checkout: { path: '/api/checkout', status: checkoutStatus, code: checkoutStatus.startsWith('200') ? 200 : (activeFault === 'latency-bomb' ? 504 : (activeFault === 'pool-exhaustion' ? 503 : 500)) },
+      inventory: { path: '/api/inventory', status: inventoryStatus, code: inventoryStatus.startsWith('200') ? 200 : 504, total_skus: 5, warehouse: 'ap-south-switch-mesh' },
+      db_pool: { config: 'MAX_POOL_CONNECTIONS', max_slots: 25, available_slots: poolSlots, status: poolStatus }
+    },
     red_unit: combat.red_unit,
     blue_unit: combat.blue_unit,
     war_logs: combat.war_logs.slice(-25),
     recent_logs: recentLogs.reverse()
   });
+});
+
+router.post('/probe-inventory', async (req, res) => {
+  const result = await fireInventoryProbe();
+  if (result.statusCode >= 500) {
+    addWarLog('TELEMETRY-SINK', 'RADIO', `[FAIL] PROBE EXECUTED: GET /api/inventory -> HTTP ${result.statusCode} (${result.latency}ms)`);
+  } else {
+    addWarLog('TELEMETRY-SINK', 'RADIO', `[PASS] PROBE EXECUTED: GET /api/inventory -> HTTP ${result.statusCode} (${result.latency}ms) [5 SKUS NOMINAL]`);
+  }
+  res.status(200).json({ ok: true, result });
 });
 
 router.post('/inject', (req, res) => {
