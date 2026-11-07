@@ -155,6 +155,31 @@ npm run logs
 npm run verify
 ```
 
+### 5. Verified Execution Output (Post-Heal Recovery & Scorecard)
+
+```text
+=== ChaosArena SRE Diagnostic Probe [UNIT-02 // SRE-BLUE] ===
+GET  /api/inventory -> HTTP 200 (25ms)
+POST /api/checkout  -> HTTP 200 (30ms)
+STATUS: [+] ALL ENDPOINTS HEALTHY // SLO WITHIN NOMINAL BOUNDS
+
+=== Running Post-Patch Recovery Verification Suite (5 Probes) ===
+  [Probe 1/5] PASS -> HTTP 200 in 25ms
+  [Probe 2/5] PASS -> HTTP 200 in 26ms
+  [Probe 3/5] PASS -> HTTP 200 in 26ms
+  [Probe 4/5] PASS -> HTTP 200 in 29ms
+  [Probe 5/5] PASS -> HTTP 200 in 26ms
+
+========================================
+  MTTR RECOVERY SCORECARD
+========================================
+  Probes Passed: 5 / 5
+  Status: [+] FULL RECOVERY CONFIRMED
+  All endpoints returning HTTP 200
+  All latencies under 250ms SLO
+========================================
+```
+
 ---
 
 ## [SWITCH SETUP] ROOM & MULTI-AGENT WIRING
@@ -209,7 +234,7 @@ chaos-arena/
 
 ---
 
-Live Demo @ 
+Live Demo @ https://buildbyaditya.github.io/chaos-arena/
 
 Built with Switch, Express.js, and Tailwind CSS for the WeMakeDevs Flip the Switch Hackathon.  
 GitHub Repository: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)
