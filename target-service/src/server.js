@@ -114,10 +114,15 @@ app.post('/api/combat-event', (req, res) => {
 
 // Serve static assets for dashboard (bot sprites, transparent role mechas)
 app.use('/dashboard/assets', express.static(path.join(__dirname, '../../dashboard/assets')));
+app.use('/assets', express.static(path.join(__dirname, '../../assets')));
 
-// GET /dashboard - Cyberbrutalist Tactical War Room Monitor
-app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../dashboard/index.html'));
+// GET / and GET /dashboard - Cyberbrutalist Tactical War Room Monitor
+app.get(['/', '/dashboard'], (req, res) => {
+  if (fs.existsSync(path.join(__dirname, '../../index.html'))) {
+    res.sendFile(path.join(__dirname, '../../index.html'));
+  } else {
+    res.sendFile(path.join(__dirname, '../../dashboard/index.html'));
+  }
 });
 
 // Mount business routes and arena simulation endpoints

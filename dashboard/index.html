@@ -433,7 +433,7 @@
               <!-- Bot 1: Fault Injector -->
               <div id="card-red-injector" class="flex flex-col items-center text-center p-1.5 border border-[#281018] bg-[#10060c] hover:border-[#ff003c] transition cursor-pointer" onclick="injectChaosFault('null-crash')">
                 <div id="wrap-red-injector" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="/dashboard/assets/bot_red_fault_injector.png" alt="FAULT-INJECTOR Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
+                  <img src="assets/bot_red_fault_injector.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_red_fault_injector.png';}" alt="FAULT-INJECTOR Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
                   <div id="bubble-red-injector" class="hidden absolute top-0 left-0 right-0 bg-[#ff003c] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     INJECTING NULL
                   </div>
@@ -445,7 +445,7 @@
               <!-- Bot 2: Chaos Lead -->
               <div id="card-red-lead" class="flex flex-col items-center text-center p-1.5 border-2 border-[#ff003c] bg-[#14060f] hover:shadow-lg transition cursor-pointer" onclick="injectChaosFault('null-crash')">
                 <div id="wrap-red-lead" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
-                  <img src="/dashboard/assets/bot_red_chaos_lead.png" alt="CHAOS-RED Lead Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(255,0,60,0.45)]" />
+                  <img src="assets/bot_red_chaos_lead.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_red_chaos_lead.png';}" alt="CHAOS-RED Lead Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(255,0,60,0.45)]" />
                   <div id="bubble-red-lead" class="hidden absolute top-0 left-0 right-0 bg-[#ff003c] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     CHAOS LEAD
                   </div>
@@ -457,7 +457,7 @@
               <!-- Bot 3: Traffic Flooder -->
               <div id="card-red-flooder" class="flex flex-col items-center text-center p-1.5 border border-[#281018] bg-[#10060c] hover:border-[#ff003c] transition cursor-pointer" onclick="injectChaosFault('latency-bomb')">
                 <div id="wrap-red-flooder" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="/dashboard/assets/bot_red_traffic_flooder.png" alt="TRAFFIC-FLOODER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
+                  <img src="assets/bot_red_traffic_flooder.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_red_traffic_flooder.png';}" alt="TRAFFIC-FLOODER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
                   <div id="bubble-red-flooder" class="hidden absolute top-0 left-0 right-0 bg-[#ff003c] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     FLOODING POOL
                   </div>
@@ -635,7 +635,7 @@
               <!-- Bot 1: Log Analyzer -->
               <div id="card-blue-analyzer" class="flex flex-col items-center text-center p-1.5 border border-[#102028] bg-[#061014] hover:border-[#00f0ff] transition cursor-pointer" onclick="triggerTriageProbe()">
                 <div id="wrap-blue-analyzer" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="/dashboard/assets/bot_blue_log_analyzer.png" alt="LOG-ANALYZER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]" />
+                  <img src="assets/bot_blue_log_analyzer.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_blue_log_analyzer.png';}" alt="LOG-ANALYZER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]" />
                   <div id="bubble-blue-analyzer" class="hidden absolute top-0 left-0 right-0 bg-[#00f0ff] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     SCANNING STACK
                   </div>
@@ -647,7 +647,7 @@
               <!-- Bot 2: SRE Commander -->
               <div id="card-blue-lead" class="flex flex-col items-center text-center p-1.5 border-2 border-[#00f0ff] bg-[#06141a] hover:shadow-lg transition cursor-pointer" onclick="triggerTriageProbe()">
                 <div id="wrap-blue-lead" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
-                  <img src="/dashboard/assets/bot_blue_sre_commander.png" alt="@SRE-BLUE Commander Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(0,240,255,0.45)]" />
+                  <img src="assets/bot_blue_sre_commander.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_blue_sre_commander.png';}" alt="@SRE-BLUE Commander Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(0,240,255,0.45)]" />
                   <div id="bubble-blue-lead" class="hidden absolute top-0 left-0 right-0 bg-[#00f0ff] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     AWAITING AUTH
                   </div>
@@ -659,7 +659,7 @@
               <!-- Bot 3: Auto Patcher -->
               <div id="card-blue-patcher" class="flex flex-col items-center text-center p-1.5 border border-[#102028] bg-[#061014] hover:border-[#00ff66] transition cursor-pointer" onclick="applyAutoHeal()">
                 <div id="wrap-blue-patcher" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="/dashboard/assets/bot_blue_auto_patcher.png" alt="AUTO-PATCHER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,255,102,0.3)]" />
+                  <img src="assets/bot_blue_auto_patcher.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_blue_auto_patcher.png';}" alt="AUTO-PATCHER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,255,102,0.3)]" />
                   <div id="bubble-blue-patcher" class="hidden absolute top-0 left-0 right-0 bg-[#00ff66] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     DEPLOYING FIX
                   </div>
@@ -1025,15 +1025,153 @@
     setInterval(updateClock, 1000);
     updateClock();
 
+    // IN-BROWSER RESILIENT SIMULATION ENGINE (FOR GITHUB PAGES & VERCEL STATIC DEPLOYMENTS)
+    let isStandaloneMode = false;
+    let localSimState = {
+      active_fault: 'NONE',
+      metrics: {
+        status: 'HEALTHY',
+        p99_latency_ms: 12,
+        error_rate_percent: 0,
+        total_requests: 94,
+        recent_events: [
+          { timestamp: new Date().toISOString(), method: 'GET', path: '/api/inventory', status: 200, latency_ms: 9 },
+          { timestamp: new Date().toISOString(), method: 'POST', path: '/api/checkout', status: 200, latency_ms: 14 }
+        ]
+      },
+      combat_state: {
+        phase: 'PHASE_00_STANDBY',
+        mttr_start_time: null,
+        mttr_elapsed_ms: 0,
+        last_fault: null,
+        history: [
+          { timestamp: new Date().toISOString(), phase: 'PHASE_00_STANDBY', sender: 'SWITCH-CORE', text: '[SYS_NOMINAL] Tactical telemetry bus initialized. Standby for gameday.' }
+        ]
+      },
+      fixtures: {
+        checkout: { path: '/api/checkout', method: 'POST', status: 'ONLINE', http_status: 200, latency_ms: 14, last_error: null, baseline_code_active: true },
+        inventory: { path: '/api/inventory', method: 'GET', status: 'ONLINE', http_status: 200, latency_ms: 9, items_count: 5 },
+        pool: { name: 'DB_CONNECTION_POOL', total_slots: 25, active_connections: 3, max_allowed: 25, status: 'NOMINAL', saturation_percent: 12 }
+      },
+      recent_logs: [
+        { timestamp: new Date().toISOString(), level: 'INFO', message: 'Target Service listening on port 4000 (Dashboard: /dashboard)', context: { status: 'READY' } },
+        { timestamp: new Date().toISOString(), level: 'INFO', message: 'POST /api/checkout -> 200 (14ms)', context: { method: 'POST', path: '/api/checkout', status: 200 } }
+      ]
+    };
+
+    function simulateLocalFault(mode) {
+      const now = new Date().toISOString();
+      localSimState.active_fault = mode;
+      localSimState.combat_state.phase = 'PHASE_01_RED_STRIKE';
+      localSimState.combat_state.last_fault = mode;
+      localSimState.metrics.status = 'CRITICAL_OUTAGE';
+      localSimState.metrics.error_rate_percent = 100;
+
+      if (mode === 'null-crash') {
+        localSimState.metrics.p99_latency_ms = 48;
+        localSimState.fixtures.checkout.status = 'COMPROMISED';
+        localSimState.fixtures.checkout.http_status = 500;
+        localSimState.fixtures.checkout.last_error = 'TypeError: Cannot read properties of null (reading trim)';
+        localSimState.fixtures.checkout.baseline_code_active = false;
+        localSimState.recent_logs.unshift({
+          timestamp: now,
+          level: 'ERROR',
+          message: 'Unhandled exception in POST /api/checkout: Cannot read properties of null (reading trim)',
+          context: { error: 'TypeError: Cannot read properties of null (reading trim)', stack: 'TypeError: Cannot read properties of null\n    at /target-service/src/routes/checkout.js:11:32' }
+        });
+        localSimState.combat_state.history.unshift({
+          timestamp: now,
+          phase: 'PHASE_01_RED_STRIKE',
+          sender: 'UNIT-01 // CHAOS-RED',
+          text: '[BREACH_DETECTED] Surgical AST mutation deployed. POST /api/checkout returning 500 TypeError. @sre-blue investigate!'
+        });
+      } else if (mode === 'latency-bomb') {
+        localSimState.metrics.p99_latency_ms = 2640;
+        localSimState.fixtures.checkout.status = 'DEGRADED';
+        localSimState.fixtures.checkout.http_status = 504;
+        localSimState.fixtures.checkout.last_error = 'Gateway Timeout: Execution time 2640ms exceeded 2000ms threshold';
+        localSimState.recent_logs.unshift({
+          timestamp: now,
+          level: 'WARN',
+          message: 'Gateway Timeout: POST /api/checkout execution stalled for 2640ms',
+          context: { latency_ms: 2640, status: 504 }
+        });
+        localSimState.combat_state.history.unshift({
+          timestamp: now,
+          phase: 'PHASE_01_RED_STRIKE',
+          sender: 'UNIT-01 // CHAOS-RED',
+          text: '[BREACH_DETECTED] Latency bomb injected into event loop. P99 latency spiked to 2640ms. @sre-blue investigate!'
+        });
+      } else if (mode === 'pool-exhaustion') {
+        localSimState.metrics.p99_latency_ms = 180;
+        localSimState.fixtures.checkout.status = 'COMPROMISED';
+        localSimState.fixtures.checkout.http_status = 503;
+        localSimState.fixtures.checkout.last_error = 'Service Unavailable: Connection pool exhausted (25/25 slots busy, max=0)';
+        localSimState.fixtures.pool.status = 'EXHAUSTED';
+        localSimState.fixtures.pool.active_connections = 25;
+        localSimState.fixtures.pool.max_allowed = 0;
+        localSimState.fixtures.pool.saturation_percent = 100;
+        localSimState.recent_logs.unshift({
+          timestamp: now,
+          level: 'ERROR',
+          message: 'Connection pool exhausted: MAX_POOL_CONNECTIONS reached (0/0 allowed)',
+          context: { pool_status: 'EXHAUSTED', active: 25, limit: 0 }
+        });
+        localSimState.combat_state.history.unshift({
+          timestamp: now,
+          phase: 'PHASE_01_RED_STRIKE',
+          sender: 'UNIT-01 // CHAOS-RED',
+          text: '[BREACH_DETECTED] Connection pool capacity dropped to zero. Influx blocked with 503 errors. @sre-blue investigate!'
+        });
+      }
+    }
+
+    function simulateLocalHeal() {
+      const now = new Date().toISOString();
+      localSimState.active_fault = 'NONE';
+      localSimState.combat_state.phase = 'PHASE_04_HEAL_VERIFIED';
+      localSimState.metrics.status = 'HEALTHY';
+      localSimState.metrics.error_rate_percent = 0;
+      localSimState.metrics.p99_latency_ms = 14;
+      localSimState.fixtures.checkout.status = 'ONLINE';
+      localSimState.fixtures.checkout.http_status = 200;
+      localSimState.fixtures.checkout.last_error = null;
+      localSimState.fixtures.checkout.baseline_code_active = true;
+      localSimState.fixtures.pool.status = 'NOMINAL';
+      localSimState.fixtures.pool.active_connections = 3;
+      localSimState.fixtures.pool.max_allowed = 25;
+      localSimState.fixtures.pool.saturation_percent = 12;
+
+      localSimState.recent_logs.unshift({
+        timestamp: now,
+        level: 'INFO',
+        message: '[HEAL_VERIFIED] Baseline AST restored. All 5 probes confirmed HTTP 200 (< 25ms)',
+        context: { status: 200, checks_passed: '5/5' }
+      });
+
+      localSimState.combat_state.history.unshift({
+        timestamp: now,
+        phase: 'PHASE_04_HEAL_VERIFIED',
+        sender: 'UNIT-02 // SRE-BLUE',
+        text: '[HEAL_VERIFIED] Hotpatch applied with human authorization. 5/5 verification probes passed. SLO 100% restored.'
+      });
+    }
+
     // PERIODIC STATUS POLLER
     async function refreshArenaStatus() {
       try {
-        const res = await fetch('/api/arena/status');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1200);
+        const res = await fetch('/api/arena/status', { signal: controller.signal });
+        clearTimeout(timeoutId);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
+        isStandaloneMode = false;
         renderArena(data);
       } catch (err) {
-        console.error('Arena status poll failed', err);
+        // Fallback to in-browser tactical state for GitHub Pages and Vercel
+        isStandaloneMode = true;
+        renderArena(localSimState);
       }
     }
 
@@ -1395,14 +1533,16 @@
       appendHealingStream(`[STRIKE] Injecting chaos mode: ${mode}...`);
 
       try {
-        await fetch('/api/arena/inject', {
+        const res = await fetch('/api/arena/inject', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ mode })
         });
+        if (!res.ok) throw new Error('API unavailable');
         setTimeout(refreshArenaStatus, 400);
       } catch (err) {
-        console.error('Chaos injection failed', err);
+        simulateLocalFault(mode);
+        renderArena(localSimState);
       }
     }
 
@@ -1441,6 +1581,7 @@
             headers: { 'Content-Type': 'application/json' }
           });
         } catch (err) {}
+        simulateLocalHeal();
 
         // Step 4: Run 5 verification probes sequentially with real pacing
         let passed = 0;
@@ -1482,6 +1623,16 @@
         }, 1600);
       }
 
+      if (isStandaloneMode || localSimState.active_fault !== 'NONE') {
+        localSimState.combat_state.phase = 'PHASE_02_BLUE_SCANNING';
+        localSimState.combat_state.history.unshift({
+          timestamp: new Date().toISOString(),
+          phase: 'PHASE_02_BLUE_SCANNING',
+          sender: 'UNIT-02 // SRE-BLUE',
+          text: '[BLUE_SCANNING] SRE diagnostic sweep executing ./scripts/check-health.sh... Fault isolated at checkout.js:11.'
+        });
+      }
+
       await sendDirectProbe();
       await refreshArenaStatus();
     }
@@ -1499,12 +1650,16 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ items: [{ sku, qty: 1, price: 1250 }] })
         });
+        if (!res.ok) throw new Error('Probe failed');
         const data = await res.json();
         const code = (data.result || {}).statusCode || 200;
         appendHealingStream(`[PROBE RESULT] /api/checkout returned HTTP ${code}`);
         await refreshArenaStatus();
       } catch (e) {
-        console.error(e);
+        const isFault = localSimState.active_fault !== 'NONE';
+        const code = isFault ? (localSimState.active_fault === 'latency-bomb' ? 504 : (localSimState.active_fault === 'pool-exhaustion' ? 503 : 500)) : 200;
+        appendHealingStream(`[PROBE RESULT] /api/checkout returned HTTP ${code}`);
+        renderArena(localSimState);
       }
     }
 
@@ -1515,13 +1670,15 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }
         });
+        if (!res.ok) throw new Error('Inventory probe failed');
         const data = await res.json();
         const code = (data.result || {}).statusCode || 200;
         const latency = (data.result || {}).latency || 12;
         appendHealingStream(`[PROBE RESULT] /api/inventory returned HTTP ${code} (${latency}ms)`);
         await refreshArenaStatus();
       } catch (e) {
-        console.error(e);
+        appendHealingStream('[PROBE RESULT] /api/inventory returned HTTP 200 (9ms)');
+        renderArena(localSimState);
       }
     }
 
@@ -1529,13 +1686,12 @@
       appendHealingStream('[RESET] Purging telemetry and restoring clean baseline...');
       try {
         await fetch('/api/arena/reset', { method: 'POST' });
-        resetIncidentTimer();
-        stopKlaxonAlarm();
-        document.getElementById('recovery-step-indicator').textContent = 'BASELINE RESTORED';
-        await refreshArenaStatus();
-      } catch (e) {
-        console.error(e);
-      }
+      } catch (e) {}
+      simulateLocalHeal();
+      resetIncidentTimer();
+      stopKlaxonAlarm();
+      document.getElementById('recovery-step-indicator').textContent = 'BASELINE RESTORED';
+      renderArena(localSimState);
     }
 
     // FULL CHOREOGRAPHED SRE GAMEDAY SIMULATION
@@ -1559,6 +1715,8 @@
             })
           });
         } catch (e) {}
+        localSimState.combat_state.phase = 'PHASE_02_BLUE_SCANNING';
+        renderArena(localSimState);
 
         await triggerTriageProbe();
 
@@ -1575,6 +1733,14 @@
               })
             });
           } catch (e) {}
+          localSimState.combat_state.phase = 'PHASE_03_AUTH_REQUIRED';
+          localSimState.combat_state.history.unshift({
+            timestamp: new Date().toISOString(),
+            phase: 'PHASE_03_AUTH_REQUIRED',
+            sender: 'UNIT-02 // SRE-BLUE',
+            text: '[AUTH_REQUIRED] TypeError isolated at checkout.js:11. Awaiting operator confirmation: "@sre-blue heal"'
+          });
+          renderArena(localSimState);
           await refreshArenaStatus();
 
           // Step 4: Operator grants approval -> SRE-Blue deploys slowed multi-stage hotpatch after 2.8s

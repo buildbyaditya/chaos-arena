@@ -13,6 +13,7 @@
     "url": "https://github.com/buildbyaditya/chaos-arena/issues"
   },
   "scripts": {
+    "build": "echo [DEPLOY_READY] ChaosArena static war-room build complete",
     "start": "node --watch target-service/src/server.js",
     "health": "bash ./scripts/check-health.sh",
     "logs": "bash ./scripts/tail-logs.sh",
