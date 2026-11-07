@@ -974,7 +974,9 @@
 
     function renderArena(data) {
       const summary = data.metrics || {};
-      const isOutage = summary.status === 'CRITICAL_OUTAGE' || data.active_fault !== 'NONE';
+      const combat = data.combat_state || {};
+      const phase = combat.phase || 'PHASE_00_STANDBY';
+      const isOutage = summary.status === 'CRITICAL_OUTAGE' || data.active_fault !== 'NONE' || phase === 'PHASE_01_RED_STRIKE' || phase === 'PHASE_02_BLUE_SCANNING' || phase === 'PHASE_03_AUTH_REQUIRED';
 
       // KPI elements
       const valLatency = document.getElementById('val-latency');
@@ -985,8 +987,8 @@
       const barCpu = document.getElementById('bar-cpu');
       const valCpu = document.getElementById('val-cpu');
 
-      const p99 = summary.p99_latency_ms || 12;
-      const errorRate = summary.error_rate_percent || 0;
+      const p99 = summary.p99_latency_ms || (data.active_fault === 'latency-bomb' ? 2610 : 12);
+      const errorRate = summary.error_rate_percent !== undefined ? summary.error_rate_percent : (isOutage ? 100 : 0);
 
       valLatency.textContent = `${p99} MS`;
       valErrors.textContent = `${errorRate}%`;
@@ -1022,14 +1024,14 @@
       const monolithLed1 = document.getElementById('monolith-led-1');
       const fixStatus1 = document.getElementById('fix-status-1');
 
-      if (isOutage) {
+      if (phase === 'PHASE_01_RED_STRIKE' || (isOutage && phase !== 'PHASE_02_BLUE_SCANNING' && phase !== 'PHASE_03_AUTH_REQUIRED' && phase !== 'PHASE_04_HEAL_VERIFIED')) {
         if (!isCurrentlyOutage) {
           isCurrentlyOutage = true;
           startIncidentTimer();
         }
 
         bannerOperational.className = 'mt-6 border border-red-600 bg-red-950 p-3 text-center text-xs font-black tracking-widest text-red-500 uppercase animate-pulse';
-        bannerOperational.textContent = 'CRITICAL OUTAGE DETECTED';
+        bannerOperational.textContent = '[PHASE_01: RED_STRIKE] CRITICAL OUTAGE DETECTED';
 
         valLatency.className = 'text-red-500 font-bold';
         valErrors.className = 'text-red-500 font-bold';
@@ -1048,7 +1050,7 @@
         serverHttpCode.className = 'text-red-400 font-bold';
 
         serverScreen.className = 'border border-red-600 bg-red-950/90 h-10 flex items-center justify-center font-mono text-[9px] text-red-400 font-bold';
-        serverScreen.textContent = `FATAL: ${(data.active_fault || 'CRASH').toUpperCase()}`;
+        serverScreen.textContent = `FATAL: ${(data.active_fault || combat.activeFault || 'CRASH').toUpperCase()}`;
         serverSparks.classList.remove('hidden');
 
         monolithSlot1.className = 'border border-red-600 p-1.5 bg-red-950/80 flex items-center justify-between animate-pulse';
@@ -1059,13 +1061,13 @@
         fixStatus1.textContent = '500 ERROR';
 
         battleHeadline.className = 'text-xs text-red-500 font-mono font-bold tracking-wider text-center animate-pulse';
-        battleHeadline.textContent = `[ATTACK ACTIVE] >> RED CORRUPTED FIXTURE // ${(data.active_fault || 'CHAOS').toUpperCase()}`;
+        battleHeadline.textContent = `[PHASE_01: RED_STRIKE] >> CHAOS-RED CORRUPTED FIXTURE // ${(data.active_fault || combat.activeFault || 'CHAOS').toUpperCase()}`;
 
         redActionBubble.classList.remove('hidden');
-        redActionText.textContent = `INJECTING ${(data.active_fault || 'FAULT').toUpperCase()}!`;
+        redActionText.textContent = `INJECTING ${(data.active_fault || combat.activeFault || 'FAULT').toUpperCase()}!`;
         redBotStatus.textContent = 'CHAOS-RED // ATTACKING';
         redBotStatus.className = 'text-red-500 font-black animate-pulse';
-        redBotSpeech.textContent = `Target breached! Injected ${(data.active_fault || 'fault')} into checkout.js. Customers receiving 500 errors!`;
+        redBotSpeech.textContent = `Target breached! Injected ${(data.active_fault || combat.activeFault || 'fault')} into checkout.js. Customers receiving 500 errors!`;
         redBeam.classList.remove('hidden');
 
         blueActionBubble.classList.remove('hidden');
@@ -1074,14 +1076,42 @@
         blueBotStatus.className = 'text-amber-400 font-bold animate-pulse';
         blueBotSpeech.textContent = 'Exception detected. Parsing stack trace at checkout.js:11. Formulating surgical hot-patch.';
         blueBeam.classList.add('hidden');
+      } else if (phase === 'PHASE_02_BLUE_SCANNING') {
+        bannerOperational.className = 'mt-6 border border-cyan-500 bg-cyan-950/60 p-3 text-center text-xs font-black tracking-widest text-cyan-300 uppercase animate-pulse';
+        bannerOperational.textContent = '[PHASE_02: BLUE_SCANNING] DIAGNOSTIC SWEEP ACTIVE';
+
+        battleHeadline.className = 'text-xs text-cyan-400 font-mono font-bold tracking-wider text-center';
+        battleHeadline.textContent = '[PHASE_02: BLUE_SCANNING] @SRE-BLUE PROBING INVENTORY & CHECKOUT ENDPOINTS';
+
+        redBeam.classList.add('hidden');
+        blueActionBubble.classList.remove('hidden');
+        blueActionText.textContent = 'PROBING ENDPOINTS!';
+        blueBotStatus.textContent = '@SRE-BLUE // SCANNING';
+        blueBotStatus.className = 'text-cyan-400 font-bold';
+        blueBotSpeech.textContent = 'Executing ./scripts/check-health.sh. Measuring round-trip latencies and isolating failing routes.';
+      } else if (phase === 'PHASE_03_AUTH_REQUIRED') {
+        bannerOperational.className = 'mt-6 border border-amber-500 bg-amber-950/80 p-3 text-center text-xs font-black tracking-widest text-amber-300 uppercase animate-pulse';
+        bannerOperational.textContent = '[PHASE_03: AUTH_REQUIRED] DIFF READY // AWAITING OPERATOR CONFIRMATION';
+
+        battleHeadline.className = 'text-xs text-amber-400 font-mono font-bold tracking-wider text-center animate-pulse';
+        battleHeadline.textContent = '[PHASE_03: AUTH_REQUIRED] ROOT CAUSE IDENTIFIED AT checkout.js:11 // REPLY "@sre-blue heal"';
+
+        redBeam.classList.add('hidden');
+        blueActionBubble.classList.remove('hidden');
+        blueActionText.textContent = 'AWAITING SIGN-OFF!';
+        blueBotStatus.textContent = '@SRE-BLUE // DIFF READY';
+        blueBotStatus.className = 'text-amber-300 font-bold';
+        blueBotSpeech.textContent = 'Stack trace verified. Surgical diff formulated. Awaiting human operator sign-off: "@sre-blue heal".';
       } else {
+        // PHASE_00_STANDBY or PHASE_04_HEAL_VERIFIED
         if (isCurrentlyOutage) {
           isCurrentlyOutage = false;
           stopIncidentTimer();
         }
 
+        const mttrScore = combat.mttr_seconds ? `${combat.mttr_seconds}s` : null;
         bannerOperational.className = 'mt-6 border border-zinc-700 bg-zinc-950 p-3 text-center text-xs font-black tracking-widest text-[#00ff66] uppercase';
-        bannerOperational.textContent = 'ALL SYSTEMS OPERATIONAL';
+        bannerOperational.textContent = mttrScore ? `[PHASE_04: HEAL_VERIFIED] RECOVERED // MTTR: ${mttrScore}` : 'ALL SYSTEMS OPERATIONAL // NOMINAL';
 
         valLatency.className = 'text-[#00ff66] font-bold';
         valErrors.className = 'text-[#00ff66] font-bold';
@@ -1111,13 +1141,20 @@
         fixStatus1.textContent = '200 OK';
 
         battleHeadline.className = 'text-xs text-[#d4ff00] font-mono font-bold tracking-wider text-center';
-        battleHeadline.textContent = '[BATTLEGROUND ONLINE] ALL FIXTURES HEALTHY // AGENTS PATROLLING';
+        battleHeadline.textContent = mttrScore ? `[PHASE_04: HEAL_VERIFIED] 5/5 PROBES PASSED // MTTR: ${mttrScore}` : '[PHASE_00: STANDBY] ALL FIXTURES HEALTHY // AGENTS PATROLLING';
 
         redActionBubble.classList.add('hidden');
         redBotStatus.textContent = RED_ROLES[activeRedRole].status;
         redBotStatus.className = 'text-red-400 font-bold uppercase';
         redBotSpeech.textContent = RED_ROLES[activeRedRole].speech;
         redBeam.classList.add('hidden');
+
+        blueActionBubble.classList.add('hidden');
+        blueBotStatus.textContent = BLUE_ROLES[activeBlueRole].status;
+        blueBotStatus.className = 'text-cyan-400 font-bold uppercase';
+        blueBotSpeech.textContent = BLUE_ROLES[activeBlueRole].speech;
+        blueBeam.classList.add('hidden');
+      }
 
         blueActionBubble.classList.add('hidden');
         blueBotStatus.textContent = BLUE_ROLES[activeBlueRole].status;
@@ -1274,20 +1311,48 @@
 
     // SIMULATED AUTOMATED MULTI-AGENT CLASH
     async function triggerSimulatedBattle() {
-      // Step 1: Red attacks
+      // Step 1: Phase 01 - Red launches strike
       await injectChaosFault('null-crash');
       await refreshArenaStatus();
 
-      // Step 2: Blue runs triage probe after 1.8s
+      // Step 2: Phase 02 - Blue detects outage and runs diagnostic probe after 1.8s
       setTimeout(async () => {
+        selectBlueBotRole('LOG_ANALYZER');
+        try {
+          await fetch('/api/combat-event', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              phase: 'PHASE_02_BLUE_SCANNING',
+              sender: 'UNIT-02 // SRE-BLUE',
+              text: '[BLUE_SCANNING] SRE diagnostic sweep executing ./scripts/check-health.sh'
+            })
+          });
+        } catch (e) {}
         await sendDirectProbe();
         await refreshArenaStatus();
 
-        // Step 3: Blue applies auto-heal after 2.4s
+        // Step 3: Phase 03 - Blue isolates stack trace and awaits operator confirmation after 1.8s
         setTimeout(async () => {
-          await applyAutoHeal();
+          try {
+            await fetch('/api/combat-event', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                phase: 'PHASE_03_AUTH_REQUIRED',
+                sender: 'UNIT-02 // SRE-BLUE',
+                text: '[AUTH_REQUIRED] TypeError isolated at checkout.js:11. Awaiting operator confirmation: "@sre-blue heal"'
+              })
+            });
+          } catch (e) {}
           await refreshArenaStatus();
-        }, 2400);
+
+          // Step 4: Phase 04 - Operator grants approval -> Blue deploys hotpatch after 2.2s
+          setTimeout(async () => {
+            await applyAutoHeal();
+            await refreshArenaStatus();
+          }, 2200);
+        }, 1800);
       }, 1800);
     }
 

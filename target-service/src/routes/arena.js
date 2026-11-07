@@ -2,7 +2,15 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
-const { getMetricsSummary, addWarLog, getWarLogs, resetTelemetry, LOG_FILE } = require('../utils/logger');
+const {
+  getMetricsSummary,
+  addWarLog,
+  getWarLogs,
+  resetTelemetry,
+  updateCombatState,
+  getCombatState,
+  LOG_FILE
+} = require('../utils/logger');
 
 const router = express.Router();
 const CHECKOUT_FILE = path.join(__dirname, 'checkout.js');
@@ -16,7 +24,7 @@ const MAX_POOL_CONNECTIONS = 25;
 
 router.post('/', async (req, res, next) => {
   try {
-    const { items = [{ sku: 'SW-ENT-01', qty: 1, price: 49 }], coupon = null } = req.body || {};
+    const { items = [{ sku: 'BLADE-HEX-01', qty: 1, price: 1250 }], coupon = null } = req.body || {};
 
     if (MAX_POOL_CONNECTIONS <= 0) {
       const poolErr = new Error('DatabasePoolExhaustedError: Active connections exceeded MAX_POOL_CONNECTIONS (0)');
@@ -24,18 +32,21 @@ router.post('/', async (req, res, next) => {
       throw poolErr;
     }
 
-    // Safely normalize optional coupon code
+    // Safely normalize optional coupon code with defensive null-check
     const normalizedCoupon = coupon && coupon.code ? String(coupon.code).trim().toUpperCase() : 'NONE';
     const discountMultiplier = normalizedCoupon === 'SWITCH20' ? 0.8 : 1.0;
 
-    const subtotal = items.reduce((acc, item) => acc + (Number(item.price || 49) * Number(item.qty || 1)), 0);
+    const subtotal = items.reduce((acc, item) => acc + (Number(item.price || 1250) * Number(item.qty || 1)), 0);
     const finalTotal = Number((subtotal * discountMultiplier).toFixed(2));
 
     return res.status(200).json({
       ok: true,
       order_id: \`ORD-\${Date.now().toString().slice(-6)}\`,
       applied_coupon: normalizedCoupon,
+      subtotal_usd: subtotal,
       total_usd: finalTotal,
+      pool_slot_used: 1,
+      available_pool_slots: MAX_POOL_CONNECTIONS - 1,
       status: 'CONFIRMED'
     });
   } catch (err) {
@@ -52,19 +63,20 @@ const MAX_POOL_CONNECTIONS = 25;
 
 router.post('/', async (req, res, next) => {
   try {
-    const { items = [{ sku: 'SW-ENT-01', qty: 1, price: 49 }], coupon = null } = req.body || {};
+    const { items = [{ sku: 'BLADE-HEX-01', qty: 1, price: 1250 }], coupon = null } = req.body || {};
 
     // BUG INJECTED: Unguarded access to coupon.code when coupon is null/omitted
     const normalizedCoupon = coupon.code.trim().toUpperCase();
     const discountMultiplier = normalizedCoupon === 'SWITCH20' ? 0.8 : 1.0;
 
-    const subtotal = items.reduce((acc, item) => acc + (Number(item.price || 49) * Number(item.qty || 1)), 0);
+    const subtotal = items.reduce((acc, item) => acc + (Number(item.price || 1250) * Number(item.qty || 1)), 0);
     const finalTotal = Number((subtotal * discountMultiplier).toFixed(2));
 
     return res.status(200).json({
       ok: true,
       order_id: \`ORD-\${Date.now().toString().slice(-6)}\`,
       applied_coupon: normalizedCoupon,
+      subtotal_usd: subtotal,
       total_usd: finalTotal,
       status: 'CONFIRMED'
     });
@@ -82,7 +94,7 @@ const MAX_POOL_CONNECTIONS = 25;
 
 router.post('/', async (req, res, next) => {
   try {
-    const { items = [{ sku: 'SW-ENT-01', qty: 1, price: 49 }], coupon = null } = req.body || {};
+    const { items = [{ sku: 'BLADE-HEX-01', qty: 1, price: 1250 }], coupon = null } = req.body || {};
 
     // BUG INJECTED: Synchronous blocking CPU spin loop causing severe P99 latency degradation + 504 timeout
     const blockUntil = Date.now() + 2600;
@@ -105,7 +117,7 @@ const MAX_POOL_CONNECTIONS = 0;
 
 router.post('/', async (req, res, next) => {
   try {
-    const { items = [{ sku: 'SW-ENT-01', qty: 1, price: 49 }], coupon = null } = req.body || {};
+    const { items = [{ sku: 'BLADE-HEX-01', qty: 1, price: 1250 }], coupon = null } = req.body || {};
 
     if (MAX_POOL_CONNECTIONS <= 0) {
       const poolErr = new Error('DatabasePoolExhaustedError: Active connections exceeded MAX_POOL_CONNECTIONS (0)');
@@ -114,7 +126,7 @@ router.post('/', async (req, res, next) => {
     }
 
     const normalizedCoupon = coupon && coupon.code ? String(coupon.code).trim().toUpperCase() : 'NONE';
-    const subtotal = items.reduce((acc, item) => acc + (Number(item.price || 49) * Number(item.qty || 1)), 0);
+    const subtotal = items.reduce((acc, item) => acc + (Number(item.price || 1250) * Number(item.qty || 1)), 0);
 
     return res.status(200).json({
       ok: true,
@@ -134,7 +146,7 @@ module.exports = router;
 
 let activeFault = 'NONE';
 
-function fireLocalProbe(payload = { items: [{ sku: 'SW-ENT-01', qty: 1, price: 49 }] }) {
+function fireLocalProbe(payload = { items: [{ sku: 'BLADE-HEX-01', qty: 1, price: 1250 }] }) {
   return new Promise((resolve) => {
     const data = JSON.stringify(payload);
     const start = Date.now();
@@ -184,7 +196,7 @@ function fireLocalProbe(payload = { items: [{ sku: 'SW-ENT-01', qty: 1, price: 4
 
 router.get('/status', (req, res) => {
   const summary = getMetricsSummary();
-  const war = getWarLogs();
+  const combat = getCombatState();
 
   let recentLogs = [];
   if (fs.existsSync(LOG_FILE)) {
@@ -198,7 +210,7 @@ router.get('/status', (req, res) => {
     });
   }
 
-  // Detect active fault by reading checkout.js directly to avoid desync
+  // Detect active fault directly from file content to avoid desync
   try {
     const content = fs.readFileSync(CHECKOUT_FILE, 'utf8');
     if (content.includes('coupon.code.trim()')) {
@@ -215,29 +227,16 @@ router.get('/status', (req, res) => {
   }
 
   const isOutage = summary.status === 'CRITICAL_OUTAGE' || activeFault !== 'NONE';
-  const integrity = isOutage ? Math.max(8, 100 - (summary.error_rate_percent || 80)) : 100;
+  const integrity = isOutage ? Math.max(10, 100 - (summary.error_rate_percent || 80)) : 100;
 
   res.status(200).json({
     metrics: summary,
     service_integrity: integrity,
     active_fault: activeFault,
-    red_unit: {
-      id: 'UNIT-01',
-      name: 'CHAOS-RED',
-      type: 'SABOTEUR MECHA',
-      status: isOutage ? 'STRIKE_ENGAGED' : 'ARMED_IDLE',
-      aggression: isOutage ? 100 : 35,
-      active_payload: activeFault
-    },
-    blue_unit: {
-      id: 'UNIT-02',
-      name: '@SRE-BLUE',
-      type: 'SENTINEL GUARDIAN',
-      status: isOutage ? 'DEFENSE_TRIAGE' : 'PATROL_NOMINAL',
-      shield_matrix: integrity,
-      repair_drones: isOutage ? 'DISPATCHED' : 'STANDBY'
-    },
-    war_logs: war,
+    combat_state: combat,
+    red_unit: combat.red_unit,
+    blue_unit: combat.blue_unit,
+    war_logs: combat.war_logs.slice(-25),
     recent_logs: recentLogs.reverse()
   });
 });
@@ -253,22 +252,26 @@ router.post('/inject', (req, res) => {
   activeFault = mode === 'reset' ? 'NONE' : mode;
 
   if (mode === 'reset') {
-    addWarLog('@SRE-BLUE', 'HEAL', `[RESTORE] BASELINE PROTOCOL ENGAGED. CODE MUTATIONS REVERTED.`);
-  } else if (mode === 'null-crash') {
-    addWarLog('CHAOS-RED', 'ATTACK', `[STRIKE: NULL_DEREF] UNGUARDED COUPON.CODE ACCESSED WITHOUT NULL-CHECK.`);
-    addWarLog('@SRE-BLUE', 'TRIAGE', `[ALERT: RADAR] TYPEERROR DETECTED AT checkout.js:11. EXCEPTION SINK TRIGGERED.`);
-  } else if (mode === 'latency-bomb') {
-    addWarLog('CHAOS-RED', 'ATTACK', `[STRIKE: SYNAPSE_DELAY] 2600MS CPU SPIN-LOOP DEPLOYED. GATEWAY 504 TIMEOUT FORCED.`);
-    addWarLog('@SRE-BLUE', 'TRIAGE', `[ALERT: RADAR] P99 LATENCY COLLAPSED EXCEEDING 2500MS SLO.`);
-  } else if (mode === 'pool-exhaustion') {
-    addWarLog('CHAOS-RED', 'ATTACK', `[STRIKE: DB_DRAIN] MAX_POOL_CONNECTIONS COLLAPSED TO 0. HTTP 503 DB_EXHAUSTED.`);
-    addWarLog('@SRE-BLUE', 'TRIAGE', `[ALERT: RADAR] DATABASE RESOURCE STARVATION CONFIRMED.`);
+    updateCombatState({
+      phase: 'PHASE_00_STANDBY',
+      fault: 'NONE',
+      sender: '@SRE-BLUE',
+      text: '[SYS_NOMINAL] BASELINE RESTORATION COMPLETE. ALL FIXTURES HEALTHY.'
+    });
+  } else {
+    updateCombatState({
+      phase: 'PHASE_01_RED_STRIKE',
+      fault: mode,
+      sender: 'CHAOS-RED',
+      text: `[BREACH_DETECTED] STRIKE ENGAGED: INJECTED ${mode.toUpperCase()} INTO checkout.js!`
+    });
   }
 
   res.status(200).json({
     ok: true,
     mode,
     active_fault: activeFault,
+    combat_state: getCombatState(),
     message: `Chaos mode '${mode}' injected and hot-reload triggered.`
   });
 
@@ -289,16 +292,20 @@ router.post('/inject', (req, res) => {
 
 router.post('/heal', (req, res) => {
   activeFault = 'NONE';
-  addWarLog('SWITCH-OPERATOR', 'RADIO', `[OVERRIDE] HUMAN SIGN-OFF GRANTED: "@sre-blue heal". DEPLOYING SURGICAL DIFF.`);
-  addWarLog('@SRE-BLUE', 'HEAL', `[HOT-PATCH] checkout.js RESTORED TO HEALTHY BASELINE.`);
+  updateCombatState({
+    phase: 'PHASE_04_HEAL_VERIFIED',
+    fault: 'NONE',
+    sender: '@SRE-BLUE',
+    text: '[HEAL_VERIFIED] OPERATOR APPROVED HOTPATCH. DEPLOYING SURGICAL DIFF.'
+  });
 
   res.status(200).json({
     ok: true,
     status: 'HEAL_DISPATCHED',
+    combat_state: getCombatState(),
     message: 'Baseline restoration initiated.'
   });
 
-  // Mutate file after response is sent so request completes before hot-reload
   setTimeout(() => {
     try {
       fs.writeFileSync(CHECKOUT_FILE, TEMPLATES.baseline, 'utf8');
@@ -308,7 +315,7 @@ router.post('/heal', (req, res) => {
           const p = await fireLocalProbe();
           if (p.statusCode === 200 && p.latency < 250) passed++;
         }
-        addWarLog('@SRE-BLUE', 'DEFENSE', `[VERIFICATION] MTTR SCORECARD: ${passed}/5 PROBES PASSED. ALL LATENCIES < 50MS. SLO RECOVERED.`);
+        addWarLog('@SRE-BLUE', 'DEFENSE', `[SYS_NOMINAL] MTTR SCORECARD: ${passed}/5 PROBES PASSED. SLO RECOVERED.`);
       }, 700);
     } catch (e) {
       console.error(e);
@@ -332,7 +339,12 @@ router.post('/reset', (req, res) => {
   if (fs.existsSync(LOG_FILE)) {
     fs.writeFileSync(LOG_FILE, '');
   }
-  addWarLog('SYSTEM-OVERWATCH', 'RADIO', `[PURGE] ARENA BATTLEFIELD AND TELEMETRY RESET.`);
+  updateCombatState({
+    phase: 'PHASE_00_STANDBY',
+    fault: 'NONE',
+    sender: 'SYSTEM-OVERWATCH',
+    text: '[PURGE] ARENA BATTLEFIELD AND TELEMETRY RESET TO BASELINE.'
+  });
 
   res.status(200).json({ ok: true, message: 'Arena and telemetry reset.' });
 
