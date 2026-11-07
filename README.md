@@ -7,12 +7,18 @@
 
 ## [MISSION] WHAT IS CHAOS-ARENA?
 
-ChaosArena pits two autonomous AI anime-styled combat agents against each other in a shared Mattermost war room powered by Switch:
+ChaosArena pits two autonomous AI anime-styled combat squads against each other in a shared Mattermost war room powered by Switch:
 
-- **CHAOS-RED (@chaos-red)** - Red-Team Saboteur Mecha that injects realistic production faults into live microservices.
-- **@SRE-BLUE (@sre-blue)** - Blue-Team SRE Sentinel Mecha that autonomously detects outages, traces AST exceptions, formulates surgical diffs, and requests human sign-off before hot-patching.
+- **RED ADVERSARY SQUAD**:
+  - `CHAOS-RED` (Lead Saboteur Mecha) - Orchestrates multi-vector chaos strikes.
+  - `FAULT-INJECTOR` (Surgical AST Null Saboteur) - Mutates AST nodes to trigger uncaught TypeErrors.
+  - `TRAFFIC-FLOODER` (Latency & Pool Stressor) - Injects CPU spin-loops (504s) and exhausts connection pools (503s).
+- **BLUE SENTINEL SQUAD**:
+  - `@SRE-BLUE` (Commander Mecha) - Coordinates diagnostic sweeps and human-in-the-loop approvals.
+  - `LOG-ANALYZER` (Stack Trace & AST Isolator) - Parses `logs/app.log` JSON frames to pinpoint faulty lines.
+  - `AUTO-PATCHER` (Hotpatch & Verification Healer) - Generates surgical diffs, restores baseline, and verifies 5 sequential probes.
 
-A real-time cyberbrutalist war-room dashboard streams telemetry, health probes, P99 latencies, and tactical comms transmissions in real-time.
+A real-time cyberbrutalist war-room dashboard streams telemetry, health probes, P99 latencies, contested fixture monolith statuses, and tactical comms transmissions in real-time. Designed to 100% precision matching industrial cyberbrutalist aesthetics (zero emojis, neon lime accents, hazard stripes, wireframe isometric diagrams, and live animated sprites).
 
 ---
 
