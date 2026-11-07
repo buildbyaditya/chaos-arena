@@ -433,7 +433,7 @@
               <!-- Bot 1: Fault Injector -->
               <div id="card-red-injector" class="flex flex-col items-center text-center p-1.5 border border-[#281018] bg-[#10060c] hover:border-[#ff003c] transition cursor-pointer" onclick="injectChaosFault('null-crash')">
                 <div id="wrap-red-injector" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="assets/bot_red_fault_injector.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_red_fault_injector.png';}" alt="FAULT-INJECTOR Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
+                  <img src="dashboard/assets/bot_red_fault_injector.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='assets/bot_red_fault_injector.png';}" alt="FAULT-INJECTOR Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
                   <div id="bubble-red-injector" class="hidden absolute top-0 left-0 right-0 bg-[#ff003c] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     INJECTING NULL
                   </div>
@@ -445,7 +445,7 @@
               <!-- Bot 2: Chaos Lead -->
               <div id="card-red-lead" class="flex flex-col items-center text-center p-1.5 border-2 border-[#ff003c] bg-[#14060f] hover:shadow-lg transition cursor-pointer" onclick="injectChaosFault('null-crash')">
                 <div id="wrap-red-lead" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
-                  <img src="assets/bot_red_chaos_lead.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_red_chaos_lead.png';}" alt="CHAOS-RED Lead Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(255,0,60,0.45)]" />
+                  <img src="dashboard/assets/bot_red_chaos_lead.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='assets/bot_red_chaos_lead.png';}" alt="CHAOS-RED Lead Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(255,0,60,0.45)]" />
                   <div id="bubble-red-lead" class="hidden absolute top-0 left-0 right-0 bg-[#ff003c] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     CHAOS LEAD
                   </div>
@@ -457,7 +457,7 @@
               <!-- Bot 3: Traffic Flooder -->
               <div id="card-red-flooder" class="flex flex-col items-center text-center p-1.5 border border-[#281018] bg-[#10060c] hover:border-[#ff003c] transition cursor-pointer" onclick="injectChaosFault('latency-bomb')">
                 <div id="wrap-red-flooder" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="assets/bot_red_traffic_flooder.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_red_traffic_flooder.png';}" alt="TRAFFIC-FLOODER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
+                  <img src="dashboard/assets/bot_red_traffic_flooder.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='assets/bot_red_traffic_flooder.png';}" alt="TRAFFIC-FLOODER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(255,0,60,0.3)]" />
                   <div id="bubble-red-flooder" class="hidden absolute top-0 left-0 right-0 bg-[#ff003c] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     FLOODING POOL
                   </div>
@@ -635,7 +635,7 @@
               <!-- Bot 1: Log Analyzer -->
               <div id="card-blue-analyzer" class="flex flex-col items-center text-center p-1.5 border border-[#102028] bg-[#061014] hover:border-[#00f0ff] transition cursor-pointer" onclick="triggerTriageProbe()">
                 <div id="wrap-blue-analyzer" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="assets/bot_blue_log_analyzer.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_blue_log_analyzer.png';}" alt="LOG-ANALYZER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]" />
+                  <img src="dashboard/assets/bot_blue_log_analyzer.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='assets/bot_blue_log_analyzer.png';}" alt="LOG-ANALYZER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]" />
                   <div id="bubble-blue-analyzer" class="hidden absolute top-0 left-0 right-0 bg-[#00f0ff] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     SCANNING STACK
                   </div>
@@ -647,7 +647,7 @@
               <!-- Bot 2: SRE Commander -->
               <div id="card-blue-lead" class="flex flex-col items-center text-center p-1.5 border-2 border-[#00f0ff] bg-[#06141a] hover:shadow-lg transition cursor-pointer" onclick="triggerTriageProbe()">
                 <div id="wrap-blue-lead" class="relative w-full h-36 sm:h-44 anim-bot-idle flex items-center justify-center">
-                  <img src="assets/bot_blue_sre_commander.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_blue_sre_commander.png';}" alt="@SRE-BLUE Commander Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(0,240,255,0.45)]" />
+                  <img src="dashboard/assets/bot_blue_sre_commander.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='assets/bot_blue_sre_commander.png';}" alt="@SRE-BLUE Commander Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_15px_rgba(0,240,255,0.45)]" />
                   <div id="bubble-blue-lead" class="hidden absolute top-0 left-0 right-0 bg-[#00f0ff] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     AWAITING AUTH
                   </div>
@@ -659,7 +659,7 @@
               <!-- Bot 3: Auto Patcher -->
               <div id="card-blue-patcher" class="flex flex-col items-center text-center p-1.5 border border-[#102028] bg-[#061014] hover:border-[#00ff66] transition cursor-pointer" onclick="applyAutoHeal()">
                 <div id="wrap-blue-patcher" class="relative w-full h-32 sm:h-40 anim-bot-idle flex items-center justify-center">
-                  <img src="assets/bot_blue_auto_patcher.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='dashboard/assets/bot_blue_auto_patcher.png';}" alt="AUTO-PATCHER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,255,102,0.3)]" />
+                  <img src="dashboard/assets/bot_blue_auto_patcher.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='assets/bot_blue_auto_patcher.png';}" alt="AUTO-PATCHER Bot" class="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0_10px_rgba(0,255,102,0.3)]" />
                   <div id="bubble-blue-patcher" class="hidden absolute top-0 left-0 right-0 bg-[#00ff66] text-black text-[7px] font-black px-1 py-0.5 uppercase">
                     DEPLOYING FIX
                   </div>
