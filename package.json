@@ -2,6 +2,16 @@
   "name": "chaos-arena",
   "version": "1.0.0",
   "description": "Autonomous Red-Team vs. Blue-Team SRE Tactical War Room powered by Switch",
+  "author": "Aditya Reddy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buildbyaditya/chaos-arena.git"
+  },
+  "homepage": "https://github.com/buildbyaditya/chaos-arena#readme",
+  "bugs": {
+    "url": "https://github.com/buildbyaditya/chaos-arena/issues"
+  },
   "scripts": {
     "start": "node --watch target-service/src/server.js",
     "health": "bash ./scripts/check-health.sh",

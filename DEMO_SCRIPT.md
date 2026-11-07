@@ -80,7 +80,8 @@
 │ Focus switches to 'HOW SWITCH POWERS THIS         │ "Why is Switch the future of agentic workflows?   │
 │ GAMEDAY' panel and the live chat bridge.          │ Today, AI agents are isolated to code editors.    │
 │ Concludes with full-screen view of nominal        │ Switch bridges agents directly into collaborative │
-│ dashboard and GitHub repository URL.              │ team channels with selective addressing, blast-   │
+│ dashboard and GitHub repository URL               │ team channels with selective addressing, blast-   │
+│ (https://github.com/buildbyaditya/chaos-arena).   │ radius containment, and strict governance.        │
 │                                                   │ radius containment, and strict governance.        │
 │                                                   │                                                   │
 │                                                   │ ChaosArena powered by Switch: The future of       │
@@ -133,3 +134,12 @@ ChaosArena powered by Switch: The future of microservices isn't unmonitored; it'
    - Rather than hallucinating arbitrary shell commands, agents execute tested shell utilities (`chaos-inject.sh`, `check-health.sh`, `tail-logs.sh`, `verify-recovery.sh`).
 4. **Mandatory Human-in-the-Loop Governance**:
    - The SRE agent diagnoses and formulates the exact surgical diff, but execution is gated on explicit human confirmation (`@sre-blue heal`), satisfying enterprise compliance.
+
+---
+
+## 5. REPOSITORY & PROJECT REFERENCES
+
+* **GitHub Repository**: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)
+* **Switch Console Template**: `room.template.yaml`
+* **Technical Article & Architecture Post**: `blog.md`
+* **Agent System Prompts & Tool Directives**: `agent.md`

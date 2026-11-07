@@ -1,7 +1,8 @@
 # // CHAOS-ARENA
 
-> Autonomous Red-Team vs. Blue-Team Self-Healing GameDays inside [Switch](https://switchagents.ai)
-> Flip the Switch Hackathon // Track 01: Best Business Workflow ($2,000)
+> Autonomous Red-Team vs. Blue-Team Self-Healing GameDays inside [Switch](https://switchagents.ai)  
+> Flip the Switch Hackathon // Track 01: Best Business Workflow ($2,000)  
+> Official Repository: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)  
 
 ---
 
@@ -105,9 +106,11 @@ Historically, chaos gamedays were rare, scheduled events requiring dozens of eng
 
 ## [QUICK START] EXECUTION INSTRUCTIONS
 
-### 1. Install & Boot Microservice
+### 1. Clone & Boot Microservice
 
 ```bash
+git clone https://github.com/buildbyaditya/chaos-arena.git
+cd chaos-arena
 npm install
 npm start
 ```
@@ -206,4 +209,5 @@ chaos-arena/
 
 ---
 
-Built with Switch, Express.js, and Tailwind CSS for the WeMakeDevs Flip the Switch Hackathon.
+Built with Switch, Express.js, and Tailwind CSS for the WeMakeDevs Flip the Switch Hackathon.  
+GitHub Repository: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)

@@ -86,7 +86,7 @@ Switch transformed this into declarative YAML configuration:
 ## 6. REPRODUCING LOCALLY
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/chaos-arena
+git clone https://github.com/buildbyaditya/chaos-arena
 cd chaos-arena
 npm install
 npm start

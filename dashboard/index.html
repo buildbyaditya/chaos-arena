@@ -291,10 +291,17 @@
           <span id="sys-clock" class="text-white font-bold font-hud text-xs">00:00:00 UTC</span>
         </div>
 
+        <!-- GitHub Repository Link -->
+        <a href="https://github.com/buildbyaditya/chaos-arena" target="_blank" rel="noopener noreferrer" class="hidden xl:flex items-center gap-1.5 px-3.5 py-2 border-l-2 border-[#1c1c2a] text-[10px] font-mono text-zinc-400 hover:text-[#00f0ff] hover:bg-[#121220] transition">
+          <span class="text-zinc-600">//</span>
+          <span class="font-bold">GITHUB</span>
+          <span class="text-[9px] text-[#00f0ff]">&gt;&gt;</span>
+        </a>
+
         <!-- Trigger Gameday CTA Button -->
         <button onclick="triggerSimulatedBattle()" class="btn-acid px-5 py-3 text-xs tracking-wider flex items-center gap-2 border-l-2 border-[#1c1c2a] uppercase font-hud">
           <span>TRIGGER GAMEDAY</span>
-          <span class="text-sm font-black">↗</span>
+          <span class="text-sm font-black">&gt;&gt;</span>
         </button>
       </div>
     </header>
@@ -375,7 +382,7 @@
           <!-- Main Stage Control Actions -->
           <div class="flex items-center gap-2">
             <button onclick="triggerSimulatedBattle()" class="btn-acid text-[10px] px-3.5 py-1.5 uppercase font-hud">
-              RUN FULL CHOREOGRAPHED DUEL ↗
+              RUN FULL CHOREOGRAPHED DUEL &gt;&gt;
             </button>
             <button onclick="resetArena()" class="btn-wire text-[10px] px-2.5 py-1.5 uppercase font-hud">
               RESET BASELINE [ ]
@@ -478,13 +485,13 @@
             <span class="text-[8px] font-mono text-zinc-500 uppercase block mb-1.5 font-bold">// INJECT DETERMINISTIC PRODUCTION FAULT:</span>
             <div class="grid grid-cols-3 gap-1.5">
               <button onclick="injectChaosFault('null-crash')" class="bg-[#180009] hover:bg-[#ff003c] hover:text-black border border-[#ff003c] text-[#ff003c] py-2 text-[9px] font-hud uppercase font-bold transition">
-                NULL-CRASH ↗
+                NULL-CRASH &gt;&gt;
               </button>
               <button onclick="injectChaosFault('latency-bomb')" class="bg-[#180009] hover:bg-[#fcee0a] hover:text-black border border-[#fcee0a] text-[#fcee0a] py-2 text-[9px] font-hud uppercase font-bold transition">
-                LAT-BOMB ↗
+                LAT-BOMB &gt;&gt;
               </button>
               <button onclick="injectChaosFault('pool-exhaustion')" class="bg-[#180009] hover:bg-[#ff003c] hover:text-black border border-[#ff003c] text-[#ff003c] py-2 text-[9px] font-hud uppercase font-bold transition">
-                POOL-DRAIN ↗
+                POOL-DRAIN &gt;&gt;
               </button>
             </div>
           </div>
@@ -587,11 +594,11 @@
             <div class="relative z-10 mt-3 flex items-center gap-2">
               <button onclick="sendDirectProbe()" class="btn-wire text-[9px] font-hud px-2.5 py-1.5 uppercase flex items-center gap-1">
                 <span>PROBE CHECKOUT</span>
-                <span class="text-xs">↗</span>
+                <span class="text-xs">&gt;&gt;</span>
               </button>
               <button onclick="sendInventoryProbe()" class="btn-wire text-[9px] font-hud px-2.5 py-1.5 uppercase flex items-center gap-1">
                 <span>PROBE INVENTORY</span>
-                <span class="text-xs">↗</span>
+                <span class="text-xs">&gt;&gt;</span>
               </button>
             </div>
           </div>
@@ -680,13 +687,13 @@
             <span class="text-[8px] font-mono text-zinc-500 uppercase block mb-1.5 font-bold">// EXECUTE SENTINEL RUNBOOK:</span>
             <div class="grid grid-cols-3 gap-1.5">
               <button onclick="triggerTriageProbe()" class="bg-[#00141c] hover:bg-[#00f0ff] hover:text-black border border-[#00f0ff] text-[#00f0ff] py-2 text-[9px] font-hud uppercase font-bold transition">
-                TRIAGE SWEEP ↗
+                TRIAGE SWEEP &gt;&gt;
               </button>
               <button onclick="applyAutoHeal()" class="bg-[#00141c] hover:bg-[#00ff66] hover:text-black border border-[#00ff66] text-[#00ff66] py-2 text-[9px] font-hud uppercase font-bold transition">
-                HOTPATCH ↗
+                HOTPATCH &gt;&gt;
               </button>
               <button onclick="verifyRecoverySuite()" class="bg-[#00141c] hover:bg-[#fcee0a] hover:text-black border border-[#fcee0a] text-[#fcee0a] py-2 text-[9px] font-hud uppercase font-bold transition">
-                VERIFY[5] ↗
+                VERIFY[5] &gt;&gt;
               </button>
             </div>
           </div>
@@ -724,7 +731,7 @@
           <div class="mt-3 pt-2 border-t border-[#181824] flex items-center justify-between text-[9px] font-mono">
             <span class="text-zinc-500">ATTACK: null-crash</span>
             <button onclick="sendDirectProbe()" class="text-[#fcee0a] hover:underline font-bold">
-              SEND PROBE ↗
+              SEND PROBE &gt;&gt;
             </button>
           </div>
         </div>
@@ -744,7 +751,7 @@
           <div class="mt-3 pt-2 border-t border-[#181824] flex items-center justify-between text-[9px] font-mono">
             <span class="text-zinc-500">ATTACK: latency-bomb</span>
             <button onclick="sendInventoryProbe()" class="text-[#00f0ff] hover:underline font-bold">
-              PROBE INVENTORY ↗
+              PROBE INVENTORY &gt;&gt;
             </button>
           </div>
         </div>
@@ -764,7 +771,7 @@
           <div class="mt-3 pt-2 border-t border-[#181824] flex items-center justify-between text-[9px] font-mono">
             <span class="text-zinc-500">ATTACK: pool-exhaustion</span>
             <button onclick="injectChaosFault('pool-exhaustion')" class="text-[#ff003c] hover:underline font-bold">
-              DRAIN POOL ↗
+              DRAIN POOL &gt;&gt;
             </button>
           </div>
         </div>
@@ -783,7 +790,7 @@
         </div>
         <a href="https://www.switchagents.ai/" target="_blank" rel="noopener noreferrer" class="text-[#00f0ff] hover:underline font-bold text-[10px] flex items-center gap-1">
           <span>SWITCHAGENTS.AI</span>
-          <span>↗</span>
+          <span>&gt;&gt;</span>
         </a>
       </div>
 
@@ -844,7 +851,7 @@
         <div class="mt-3 pt-2 border-t border-[#1a1a28] flex items-center gap-2">
           <input type="text" id="custom-probe-input" placeholder="ENTER SKU (e.g. BLADE-HEX-01)" value="BLADE-HEX-01" class="bg-[#0a0a14] border border-[#202030] px-3 py-1.5 text-xs font-mono text-white flex-1 focus:outline-none focus:border-[#00f0ff]" />
           <button onclick="sendDirectProbe()" class="btn-acid px-3 py-1.5 text-xs font-hud uppercase">
-            PROBE ↗
+            PROBE &gt;&gt;
           </button>
         </div>
       </div>
@@ -881,8 +888,13 @@
         <div class="bg-[#fcee0a] text-black font-black px-2 py-0.5 text-xs font-hud">CHAOS_ARENA</div>
         <span class="text-zinc-400">FLIP THE SWITCH HACKATHON // TRACK 01: BEST BUSINESS WORKFLOW ($2,000)</span>
       </div>
-      <div class="text-zinc-500 text-[10px]">
-        STRICT ZERO EMOJIS // DETERMINISTIC EXECUTION
+      <div class="flex items-center gap-4 text-[10px]">
+        <a href="https://github.com/buildbyaditya/chaos-arena" target="_blank" rel="noopener noreferrer" class="text-[#00f0ff] hover:underline flex items-center gap-1 font-bold">
+          <span>GITHUB REPOSITORY</span>
+          <span>&gt;&gt;</span>
+        </a>
+        <span class="text-zinc-600">|</span>
+        <span class="text-zinc-500">STRICT ZERO EMOJIS // DETERMINISTIC EXECUTION</span>
       </div>
     </footer>
 
