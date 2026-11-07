@@ -1,7 +1,7 @@
-# // CHAOS-ARENA
+# CHAOS-ARENA
 
 > Autonomous Red-Team vs. Blue-Team Self-Healing GameDays inside [Switch](https://switchagents.ai)  
-> Flip the Switch Hackathon // Track 01: Best Business Workflow ($2,000)  
+> Flip the Switch Hackathon // Track 01: Best Business Workflow  
 > Official Repository: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)  
 
 ---
@@ -208,6 +208,8 @@ chaos-arena/
 6. **RECOVERY** - `@sre-blue` patches code, executes 5 verification probes, confirms 200 OK under 100ms, and dashboard returns to NOMINAL.
 
 ---
+
+Live Demo @ 
 
 Built with Switch, Express.js, and Tailwind CSS for the WeMakeDevs Flip the Switch Hackathon.  
 GitHub Repository: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)
