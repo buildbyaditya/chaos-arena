@@ -11,12 +11,13 @@ for i in $(seq 1 $TOTAL); do
   
   HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:4000/api/checkout \
     -H "Content-Type: application/json" \
-    -d '{"items":[{"sku":"BLADE-HEX-01","qty":1,"price":1250}]}' || echo "000")
+    -d '{"items":[{"sku":"BLADE-HEX-01","qty":1,"price":1250}]}' || true)
+  if [ -z "$HTTP_CODE" ]; then HTTP_CODE="000"; fi
   
   END=$(python3 -c "import time; print(int(time.time() * 1000))")
   LATENCY=$((END - START))
   
-  if [ "$HTTP_CODE" -eq 200 ] && [ "$LATENCY" -lt 250 ]; then
+  if [ "$HTTP_CODE" = "200" ] && [ "$LATENCY" -lt 250 ]; then
     echo "  [Probe $i/$TOTAL] PASS -> HTTP 200 in ${LATENCY}ms"
     PASSED=$((PASSED + 1))
   else

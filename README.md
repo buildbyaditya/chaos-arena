@@ -209,7 +209,11 @@ chaos-arena/
 
 ---
 
-Live Demo @ 
+## [LIVE DEMO & DEPLOYMENT]
 
-Built with Switch, Express.js, and Tailwind CSS for the WeMakeDevs Flip the Switch Hackathon.  
-GitHub Repository: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)
+* **Live Interactive War Room**: [https://buildbyaditya.github.io/chaos-arena/](https://buildbyaditya.github.io/chaos-arena/)
+* **Official Repository**: [https://github.com/buildbyaditya/chaos-arena](https://github.com/buildbyaditya/chaos-arena)
+
+---
+
+Built with Switch, Express.js, and Tailwind CSS for the WeMakeDevs Flip the Switch Hackathon.

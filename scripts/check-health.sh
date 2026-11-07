@@ -10,7 +10,8 @@ echo "=== ChaosArena SRE Diagnostic Probe [UNIT-02 // SRE-BLUE] ==="
 
 # 1. Probe Inventory Endpoint
 INV_START=$(python3 -c "import time; print(int(time.time() * 1000))")
-INV_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/api/inventory || echo "000")
+INV_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/api/inventory || true)
+if [ -z "$INV_STATUS" ]; then INV_STATUS="000"; fi
 INV_END=$(python3 -c "import time; print(int(time.time() * 1000))")
 INV_LATENCY=$((INV_END - INV_START))
 
@@ -23,6 +24,7 @@ CHECK_RESP=$(curl -s -w "\n%{http_code}" -X POST http://localhost:4000/api/check
   -d '{"items":[{"sku":"BLADE-HEX-01","qty":1,"price":1250}]}' || echo -e "\n000")
 CHECK_STATUS=$(echo "$CHECK_RESP" | tail -n 1)
 CHECK_BODY=$(echo "$CHECK_RESP" | sed '$d')
+if [ -z "$CHECK_STATUS" ]; then CHECK_STATUS="000"; fi
 CHECK_END=$(python3 -c "import time; print(int(time.time() * 1000))")
 CHECK_LATENCY=$((CHECK_END - CHECK_START))
 
@@ -30,7 +32,7 @@ echo "POST /api/checkout  -> HTTP $CHECK_STATUS (${CHECK_LATENCY}ms)"
 echo "Response Payload    -> $CHECK_BODY"
 
 echo "--------------------------------------------------------"
-if [ "$CHECK_STATUS" -eq 200 ] && [ "$INV_STATUS" -eq 200 ]; then
+if [ "$CHECK_STATUS" = "200" ] && [ "$INV_STATUS" = "200" ]; then
   echo "STATUS: [+] ALL ENDPOINTS HEALTHY // SLO WITHIN NOMINAL BOUNDS"
 else
   echo "STATUS: [!] ANOMALY DETECTED // HTTP $CHECK_STATUS FAILING ON /api/checkout"
